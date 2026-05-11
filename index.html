@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Staitment — your AI bestie for style, travel, fitness & life</title>
+<meta name="description" content="Staitment is the AI personal assistant built around how you actually live. Style, travel, fitness, and life — one chat away."/>
+<meta property="og:title" content="Staitment — your AI bestie"/>
+<meta property="og:description" content="She plans it. Styles it. Books it. Remembers it."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=EB+Garamond:ital,wght@1,400;1,500;1,600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Surfaces */
+    --bg:        #FAF8F4;
+    --bg-2:      #F2EFE8;
+    --bg-3:      #E8E4DA;
+    --card:      #FFFFFF;
+    --hair:      rgba(20,18,15,0.08);
+    --hair-2:    rgba(20,18,15,0.16);
+
+    /* Ink */
+    --ink:       #1A1815;
+    --ink-2:     #4A453E;
+    --ink-3:     #7C7670;
+    --muted:     #A39E97;
+
+    /* Brand */
+    --rose:      #C77F9F;
+    --rose-d:    #A56682;
+    --rose-soft: rgba(199,127,159,0.12);
+
+    /* Agent accents */
+    --style:     #C77F9F;
+    --travel:    #4A8FB3;
+    --fitness:   #4A9D7A;
+    --lifestyle: #B88934;
+
+    /* Type */
+    --display: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --body:    'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --serif:   'EB Garamond', 'Garamond', 'Times New Roman', serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--rose); color: var(--bg); }
+
+  /* ─────── primitives ─────── */
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+  .eyebrow {
+    font-family: var(--display); font-weight: 500;
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--rose);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--display); font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.05;
+    margin: 0; color: var(--ink);
+    text-wrap: balance;
+  }
+  p { color: var(--ink-2); margin: 0; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 26px; border-radius: 999px;
+    font-family: var(--display); font-weight: 600;
+    font-size: 15px; letter-spacing: -0.01em;
+    transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    cursor: pointer; border: 0;
+  }
+  .btn-primary {
+    background: var(--rose); color: var(--bg);
+    box-shadow: 0 8px 24px -8px rgba(199,127,159,0.4);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 34px -10px rgba(199,127,159,0.5);
+  }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--hair-2);
+  }
+  .btn-ghost:hover { background: var(--bg-2); border-color: var(--hair-2); }
+
+  /* Logo */
+  .logo {
+    display: inline-flex; align-items: baseline;
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: 30px; letter-spacing: -0.01em; line-height: 1;
+    color: var(--ink);
+  }
+  .logo .dot {
+    color: var(--rose);
+    margin-left: 1px;
+    display: inline-block;
+  }
+
+  /* ─────── nav ─────── */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(250,248,244,0.78);
+    border-bottom: 1px solid var(--hair);
+  }
+  nav.top .row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0;
+  }
+  nav.top .links {
+    display: flex; gap: 36px; align-items: center;
+  }
+  nav.top .links a {
+    font-size: 14px; color: var(--ink-2);
+    transition: color .15s;
+  }
+  nav.top .links a:hover { color: var(--ink); }
+  nav.top .btn {
+    padding: 11px 20px; font-size: 13px;
+  }
+
+  /* ─────── hero ─────── */
+  .hero { padding: 90px 0 110px; position: relative; }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(800px 500px at 80% 10%, rgba(199,127,159,0.18), transparent 60%),
+      radial-gradient(700px 400px at 10% 70%, rgba(74,143,179,0.10), transparent 60%);
+    pointer-events: none;
+  }
+  .hero .grid {
+    display: grid; grid-template-columns: 1.15fr 0.85fr;
+    gap: 60px; align-items: center;
+    position: relative; z-index: 1;
+  }
+  .hero h1 {
+    font-size: clamp(48px, 6.5vw, 92px);
+    line-height: 1.0;
+    margin: 20px 0 26px;
+  }
+  .hero h1 .accent {
+    color: var(--rose); font-style: normal;
+  }
+  .hero p.lede {
+    font-size: 19px; line-height: 1.55;
+    color: var(--ink-2); max-width: 520px;
+    margin-bottom: 36px;
+  }
+  .hero .ctas {
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .hero .trust {
+    display: flex; gap: 28px; flex-wrap: wrap;
+    font-size: 13px; color: var(--ink-3);
+  }
+  .hero .trust span b { color: var(--ink); font-weight: 600; }
+  .hero .trust span { display: flex; gap: 6px; align-items: center; }
+  .hero .trust .dot { color: var(--rose); font-size: 18px; line-height: 0; }
+
+  /* phone */
+  .phone-wrap { position: relative; display: flex; justify-content: center; }
+  .phone {
+    width: 320px; height: 660px;
+    border-radius: 48px;
+    background: linear-gradient(180deg, #2A2520, #161210);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.04),
+      0 30px 60px -20px rgba(40,28,32,0.25),
+      0 50px 100px -30px rgba(199,127,159,0.25);
+    padding: 14px;
+    position: relative;
+    transform: rotate(-3deg);
+  }
+  .phone::before {
+    /* Subtle rose-gold edge highlight */
+    content: '';
+    position: absolute; inset: 0; border-radius: 48px;
+    padding: 1px;
+    background: linear-gradient(180deg, rgba(199,127,159,0.35), transparent 30%, transparent 70%, rgba(199,127,159,0.2));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .phone .notch {
+    position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+    width: 96px; height: 26px; border-radius: 999px;
+    background: #000;
+    z-index: 2;
+  }
+  .phone-screen {
+    width: 100%; height: 100%; border-radius: 36px;
+    background: #0F0F1A;
+    overflow: hidden; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .ph-header {
+    padding: 42px 18px 14px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .ph-header .brand { display: flex; align-items: baseline; }
+  .ph-header .brand .name {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: 20px; letter-spacing: -0.01em; color: #F4F1EC; line-height: 1;
+  }
+  .ph-header .brand .namedot { color: var(--rose); }
+  .ph-header .brand .name b { color: var(--rose); }
+  .ph-header .agent-pill {
+    font-family: var(--display); font-size: 10px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 4px 9px; border-radius: 999px;
+    color: #E8A0BF; background: rgba(232,160,191,0.12);
+    border: 1px solid rgba(232,160,191,0.25);
+  }
+
+  .ph-body { flex: 1; padding: 18px; overflow: hidden; display: flex; flex-direction: column; gap: 10px; }
+  .ph-msg {
+    padding: 12px 14px; border-radius: 18px;
+    font-size: 13px; line-height: 1.4; max-width: 80%;
+  }
+  .ph-msg.me {
+    background: var(--rose); color: var(--bg); align-self: flex-end;
+    border-bottom-right-radius: 6px; font-weight: 500;
+  }
+  .ph-msg.them {
+    background: #1F1F2E; color: #F4F1EC;
+    align-self: flex-start; border-bottom-left-radius: 6px;
+  }
+  .ph-card-flight {
+    align-self: stretch;
+    background: #191926;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 13px 14px;
+    display: flex; flex-direction: column; gap: 8px;
+    font-size: 12px;
+  }
+  .ph-card-flight .row {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .ph-card-flight .tier {
+    font-family: var(--display); font-size: 9px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--travel);
+    padding: 3px 8px; border-radius: 999px;
+    background: rgba(126,200,227,0.12);
+    border: 1px solid rgba(126,200,227,0.25);
+  }
+  .ph-card-flight .price {
+    font-family: var(--display); font-weight: 700; font-size: 18px;
+    color: #F4F1EC; letter-spacing: -0.02em;
+  }
+  .ph-card-flight .leg { color: var(--ink-3); font-size: 11px; }
+  .ph-card-flight .leg b { color: #C5C2BE; font-weight: 500; }
+  .ph-input {
+    margin: 12px; padding: 11px 14px;
+    background: #161624; border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; color: var(--ink-3);
+  }
+  .ph-input .send {
+    margin-left: auto; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--rose); color: var(--bg);
+    display: grid; place-items: center; font-weight: 700;
+  }
+
+  /* Floating notes */
+  .float-note {
+    position: absolute; padding: 12px 16px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(20,18,15,0.10);
+    border-radius: 16px;
+    box-shadow: 0 12px 32px -8px rgba(40,28,32,0.15);
+    font-size: 12px; line-height: 1.45;
+    max-width: 220px; color: var(--ink-2);
+    z-index: 2;
+  }
+  .float-note .lbl {
+    font-family: var(--display); font-weight: 600;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 6px; color: var(--rose);
+  }
+  .fn-1 { top: 80px; left: -30px; transform: rotate(-2deg); }
+  .fn-1 .lbl { color: var(--travel); }
+  .fn-2 { bottom: 100px; right: -36px; transform: rotate(3deg); }
+  .fn-2 .lbl { color: var(--style); }
+
+  /* ─────── problem ─────── */
+  section.problem { padding: 100px 0; border-top: 1px solid var(--hair); }
+  .problem .grid {
+    display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: start;
+  }
+  .problem h2 {
+    font-size: clamp(36px, 4.5vw, 60px);
+  }
+  .problem h2 .accent { color: var(--rose); }
+  .problem-list { display: flex; flex-direction: column; gap: 22px; padding-top: 24px; }
+  .problem-item {
+    display: flex; gap: 18px; align-items: flex-start;
+    padding: 18px 0;
+    border-top: 1px solid var(--hair);
+  }
+  .problem-item:first-child { border-top: 0; padding-top: 0; }
+  .problem-item .x {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--bg-3); color: var(--rose);
+    display: grid; place-items: center;
+    font-size: 14px; font-weight: 600;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .problem-item h4 {
+    font-size: 17px; font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .problem-item p { font-size: 14px; color: var(--ink-3); line-height: 1.5; }
+
+  /* ─────── agents ─────── */
+  section.agent-section {
+    padding: 110px 0;
+    border-top: 1px solid var(--hair);
+    position: relative;
+  }
+  .agent-section .head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: end; margin-bottom: 56px;
+  }
+  .agent-section h2 {
+    font-size: clamp(40px, 5vw, 68px);
+    line-height: 1.0;
+  }
+  .agent-section .head .right p { font-size: 16px; max-width: 440px; }
+
+  .agent-section.style    { --c: var(--style); }
+  .agent-section.travel   { --c: var(--travel); }
+  .agent-section.fitness  { --c: var(--fitness); }
+  .agent-section.lifestyle{ --c: var(--lifestyle); }
+
+  .agent-section h2 em { font-style: normal; color: var(--c); }
+  .agent-section .eyebrow { color: var(--c); }
+  .agent-section::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--c) 50%, transparent);
+    opacity: 0.4;
+  }
+
+  .agent-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .agent-grid.flip { grid-template-columns: 1fr 1fr; direction: rtl; }
+  .agent-grid.flip > * { direction: ltr; }
+
+  .agent-side .examples {
+    display: flex; flex-direction: column; gap: 14px;
+    margin-top: 32px;
+  }
+  .agent-side .ex {
+    padding: 18px 20px; background: var(--card);
+    border: 1px solid var(--hair);
+    border-radius: 16px;
+    display: flex; gap: 14px; align-items: flex-start;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .agent-side .ex:hover { border-color: var(--c); transform: translateY(-1px); }
+  .agent-side .ex .num {
+    font-family: var(--display); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; color: var(--c);
+    width: 22px; flex-shrink: 0; margin-top: 2px;
+  }
+  .agent-side .ex .q {
+    font-size: 15px; color: var(--ink); margin-bottom: 4px; font-weight: 500;
+  }
+  .agent-side .ex .a { font-size: 13px; color: var(--ink-3); line-height: 1.45; }
+
+  .agent-visual {
+    background: #0F0F1A;
+    border: 1px solid rgba(20,18,15,0.10);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 20px 50px -20px rgba(40,28,32,0.18);
+    aspect-ratio: 4 / 5;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .agent-visual::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(400px 200px at 50% 0%, color-mix(in srgb, var(--c) 18%, transparent), transparent);
+    pointer-events: none;
+  }
+  .av-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; position: relative; z-index: 1;
+  }
+  .av-pill {
+    font-family: var(--display); font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--c);
+    padding: 5px 11px; border-radius: 999px;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+  }
+  .av-time { font-size: 11px; color: var(--ink-3); font-family: var(--display); }
+
+  .av-convo {
+    display: flex; flex-direction: column; gap: 10px;
+    position: relative; z-index: 1; flex: 1;
+  }
+  .av-bubble {
+    padding: 11px 14px; border-radius: 16px;
+    font-size: 13px; line-height: 1.45; max-width: 88%;
+  }
+  .av-bubble.me {
+    background: var(--c); color: var(--bg);
+    align-self: flex-end; font-weight: 500;
+    border-bottom-right-radius: 6px;
+  }
+  .av-bubble.them {
+    background: #1F1F2E; color: #F4F1EC;
+    align-self: flex-start; border-bottom-left-radius: 6px;
+  }
+
+  /* Color season swatches (Style) */
+  .av-swatches {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px;
+    margin: 10px 0;
+  }
+  .av-swatches .sw {
+    aspect-ratio: 1; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .av-season {
+    font-family: var(--display); font-weight: 700;
+    font-size: 28px; letter-spacing: -0.02em;
+    color: #F4F1EC; margin: 4px 0 2px;
+  }
+  .av-season span { color: var(--c); }
+
+  /* Flight card (Travel) */
+  .av-flight {
+    background: #161624;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .av-flight .leg {
+    font-family: var(--display); font-weight: 600;
+    font-size: 13px; color: #F4F1EC;
+  }
+  .av-flight .sub { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+  .av-flight .price {
+    font-family: var(--display); font-weight: 700;
+    font-size: 20px; color: var(--c); letter-spacing: -0.02em;
+  }
+
+  /* Class card (Fitness) */
+  .av-class {
+    background: #161624;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 14px;
+  }
+  .av-class .title {
+    font-family: var(--display); font-weight: 600;
+    font-size: 14px; color: #F4F1EC;
+    display: flex; justify-content: space-between;
+  }
+  .av-class .title .when { color: var(--c); }
+  .av-class .meta { font-size: 11px; color: var(--ink-3); margin-top: 4px; }
+  .av-class-row {
+    display: flex; justify-content: space-between;
+    padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px;
+  }
+  .av-class-row:first-of-type { border-top: 0; padding-top: 14px; }
+  .av-class-row .name { color: #F4F1EC; font-weight: 500; }
+  .av-class-row .time { color: var(--c); font-family: var(--display); font-weight: 600; }
+
+  /* Reminder card (Lifestyle) */
+  .av-reminder {
+    background: #161624;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .av-reminder .icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: color-mix(in srgb, var(--c) 18%, transparent);
+    color: var(--c);
+    display: grid; place-items: center;
+    flex-shrink: 0; font-size: 14px;
+  }
+  .av-reminder .text { font-size: 13px; color: #F4F1EC; }
+  .av-reminder .when { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+
+  /* ─────── how it works ─────── */
+  section.how { padding: 110px 0; border-top: 1px solid var(--hair); background: var(--bg-2); position: relative; }
+  .how-head { text-align: center; margin-bottom: 60px; }
+  .how-head h2 {
+    font-size: clamp(40px, 5vw, 64px);
+    max-width: 760px; margin: 16px auto 0;
+  }
+  .how-head h2 .accent { color: var(--rose); }
+  .how-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .step {
+    background: var(--card); border: 1px solid var(--hair);
+    border-radius: 20px; padding: 28px;
+    position: relative;
+  }
+  .step .n {
+    font-family: var(--display); font-weight: 800;
+    font-size: 48px; line-height: 1; color: var(--rose);
+    letter-spacing: -0.04em; margin-bottom: 18px;
+  }
+  .step h4 {
+    font-size: 22px; font-weight: 700; margin-bottom: 10px;
+  }
+  .step p { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+  .step .demo {
+    margin-top: 20px; padding: 14px;
+    background: var(--bg-2); border: 1px solid var(--hair);
+    border-radius: 14px;
+    font-family: var(--display); font-size: 13px; color: var(--ink-2);
+  }
+  .step .demo .q { color: var(--ink); margin-bottom: 6px; }
+  .step .demo .a { color: var(--rose); }
+
+  /* ─────── pull quote / proof ─────── */
+  section.proof {
+    padding: 120px 0;
+    border-top: 1px solid var(--hair);
+    text-align: center;
+    background:
+      radial-gradient(800px 400px at 50% 50%, rgba(199,127,159,0.10), transparent 60%);
+  }
+  section.proof blockquote {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(28px, 4vw, 52px); line-height: 1.15;
+    letter-spacing: -0.025em; margin: 0 auto;
+    max-width: 920px; color: var(--ink);
+    text-wrap: balance;
+  }
+  section.proof blockquote .hl { color: var(--rose); }
+  section.proof .attr {
+    margin-top: 36px;
+    font-family: var(--display); font-size: 13px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-3); font-weight: 500;
+  }
+  section.proof .stats {
+    margin-top: 80px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+    max-width: 800px; margin-left: auto; margin-right: auto;
+    border-top: 1px solid var(--hair);
+    padding-top: 48px;
+  }
+  .stat .num {
+    font-family: var(--display); font-weight: 700;
+    font-size: 48px; letter-spacing: -0.03em; color: var(--rose);
+    line-height: 1;
+  }
+  .stat .lbl {
+    font-size: 13px; color: var(--ink-3);
+    margin-top: 8px;
+  }
+
+  /* ─────── FAQ ─────── */
+  section.faq { padding: 110px 0; border-top: 1px solid var(--hair); }
+  .faq-head { text-align: center; margin-bottom: 56px; }
+  .faq-head h2 { font-size: clamp(36px, 4.5vw, 56px); }
+  .faq-head h2 .accent { color: var(--rose); }
+  .faq-list { max-width: 760px; margin: 0 auto; }
+  .faq-item {
+    border-bottom: 1px solid var(--hair);
+    padding: 24px 0;
+    cursor: pointer;
+  }
+  .faq-item summary {
+    list-style: none; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item h6 {
+    font-family: var(--display); font-weight: 600;
+    font-size: 18px; margin: 0; letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .faq-item .plus {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--bg-3); color: var(--rose);
+    display: grid; place-items: center;
+    font-size: 18px; font-weight: 300;
+    transition: transform .25s ease;
+    flex-shrink: 0;
+  }
+  .faq-item[open] .plus { transform: rotate(45deg); }
+  .faq-item p {
+    font-size: 15px; color: var(--ink-2); line-height: 1.6;
+    margin-top: 14px; padding-right: 52px;
+  }
+
+  /* ─────── final CTA ─────── */
+  section.final {
+    padding: 140px 0;
+    border-top: 1px solid var(--hair);
+    text-align: center;
+    position: relative;
+    background:
+      radial-gradient(900px 500px at 50% 100%, rgba(199,127,159,0.22), transparent 60%);
+  }
+  section.final h2 {
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 1;
+    max-width: 920px; margin: 24px auto 24px;
+  }
+  section.final h2 .accent { color: var(--rose); }
+  section.final p {
+    font-size: 18px; max-width: 540px; margin: 0 auto 40px;
+    color: var(--ink-2);
+  }
+  section.final .badges {
+    display: flex; gap: 14px; justify-content: center;
+    margin-top: 28px;
+  }
+  section.final .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px;
+    background: var(--bg-2); border: 1px solid var(--hair-2);
+    border-radius: 12px;
+    font-family: var(--display); font-size: 13px; color: var(--ink);
+  }
+  section.final .badge .icon {
+    font-size: 18px;
+  }
+  section.final .form {
+    display: flex; gap: 8px; max-width: 480px; margin: 0 auto;
+    background: var(--bg-2); border: 1px solid var(--hair-2);
+    border-radius: 999px; padding: 6px 6px 6px 22px; align-items: center;
+  }
+  section.final .form input {
+    flex: 1; background: transparent; border: 0; outline: 0;
+    font-family: var(--body); color: var(--ink);
+    font-size: 15px; padding: 12px 0;
+  }
+  section.final .form input::placeholder { color: var(--ink-3); }
+  section.final .form button {
+    background: var(--rose); color: var(--bg); border: 0;
+    border-radius: 999px; padding: 12px 22px; cursor: pointer;
+    font-family: var(--display); font-weight: 600;
+    font-size: 14px;
+  }
+
+  /* ─────── footer ─────── */
+  footer {
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--hair);
+    background: var(--bg);
+  }
+  .foot-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+    margin-bottom: 48px;
+  }
+  .foot-grid h6 {
+    font-family: var(--display); font-size: 12px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-3); margin: 0 0 14px; font-weight: 600;
+  }
+  .foot-grid a {
+    display: block; font-size: 14px; color: var(--ink-2);
+    padding: 5px 0;
+  }
+  .foot-grid a:hover { color: var(--rose); }
+  .foot-grid .brand .logo { margin-bottom: 14px; }
+  .foot-grid .brand p {
+    font-size: 13px; color: var(--ink-3);
+    max-width: 280px; line-height: 1.55;
+  }
+  .foot-bot {
+    border-top: 1px solid var(--hair);
+    padding-top: 24px;
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+    font-size: 12px; color: var(--ink-3);
+  }
+
+  /* ─────── responsive ─────── */
+  @media (max-width: 900px) {
+    .wrap { padding: 0 20px; }
+    nav.top .links a:not(.btn) { display: none; }
+
+    .hero { padding: 60px 0 80px; }
+    .hero .grid { grid-template-columns: 1fr; gap: 60px; }
+    .phone-wrap { order: 2; }
+    .phone { transform: rotate(-2deg) scale(0.95); }
+    .float-note { display: none; }
+
+    .problem .grid { grid-template-columns: 1fr; gap: 32px; }
+    .agent-section .head { grid-template-columns: 1fr; gap: 24px; }
+    .agent-grid, .agent-grid.flip { grid-template-columns: 1fr; gap: 24px; direction: ltr; }
+
+    .how-grid { grid-template-columns: 1fr; gap: 16px; }
+    section.proof .stats { grid-template-columns: 1fr; gap: 32px; }
+    .foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════ NAV ════════════ -->
+<nav class="top">
+  <div class="wrap row">
+    <a href="#" class="logo">staitment<span class="dot">.</span></a>
+    <div class="links">
+      <a href="#style">Style</a>
+      <a href="#travel">Travel</a>
+      <a href="#fitness">Fitness</a>
+      <a href="#lifestyle">Lifestyle</a>
+      <a href="#how">How it works</a>
+      <a href="#download" class="btn btn-primary">Get Staitment</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero">
+  <div class="wrap grid">
+    <div>
+      <div class="eyebrow">Your AI bestie · iOS · free to start</div>
+      <h1>
+        She plans it.<br/>
+        Styles it.<br/>
+        Books it.<br/>
+        <span class="accent">Remembers it.</span>
+      </h1>
+      <p class="lede">
+        Staitment is your AI personal assistant for style, travel, fitness, and
+        everything in between. One chat. Four experts. Zero tabs.
+      </p>
+      <div class="ctas">
+        <a href="#download" class="btn btn-primary">Get Staitment Free →</a>
+        <a href="#how" class="btn btn-ghost">See how it works</a>
+      </div>
+      <div class="trust">
+        <span><span class="dot">·</span> <b>iOS 17+</b></span>
+        <span><span class="dot">·</span> <b>Free</b> to start</span>
+        <span><span class="dot">·</span> <b>Private</b> by default</span>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="float-note fn-1">
+        <div class="lbl">Travel · 2 min ago</div>
+        Three options for Lisbon Fri–Sun. Budget at $312, balanced at $548. Bougie has a pool.
+      </div>
+      <div class="float-note fn-2">
+        <div class="lbl">Style · just now</div>
+        That blazer's a 9. Swap the heels for the loafers and it's a 10.
+      </div>
+
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="phone-screen">
+          <div class="ph-header">
+            <div class="brand">
+              <span class="name">staitment<span class="namedot">.</span></span>
+            </div>
+            <span class="agent-pill">Travel</span>
+          </div>
+          <div class="ph-body">
+            <div class="ph-msg me">Weekend in Lisbon, Fri–Sun. Under $400 round trip.</div>
+            <div class="ph-msg them">Got you. Pulling three tiers — budget, balanced, and bougie.</div>
+            <div class="ph-card-flight">
+              <div class="row">
+                <span class="tier">Budget</span>
+                <span class="price">$312</span>
+              </div>
+              <div class="leg"><b>JFK → LIS</b> · Fri 7:40 AM · 1 stop · TAP</div>
+            </div>
+            <div class="ph-card-flight">
+              <div class="row">
+                <span class="tier">Balanced</span>
+                <span class="price">$548</span>
+              </div>
+              <div class="leg"><b>JFK → LIS</b> · Fri 9:15 PM · nonstop · United</div>
+            </div>
+          </div>
+          <div class="ph-input">
+            Ask Staitment anything…
+            <span class="send">↑</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ PROBLEM ════════════ -->
+<section class="problem">
+  <div class="wrap grid">
+    <div>
+      <div class="eyebrow">The real problem</div>
+      <h2>You're not lazy.<br/>You're <span class="accent">overwhelmed.</span></h2>
+    </div>
+    <div class="problem-list">
+      <div class="problem-item">
+        <span class="x">×</span>
+        <div>
+          <h4>45 minutes comparing flights. Again.</h4>
+          <p>Six tabs open, three different sites, two browser windows. You still haven't booked.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="x">×</span>
+        <div>
+          <h4>Generic AI gives you Wikipedia.</h4>
+          <p>"What's a good restaurant?" gets you the same five tourist traps everyone else gets.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="x">×</span>
+        <div>
+          <h4>Every app wants to be one thing.</h4>
+          <p>One for flights. One for fitness. One for the outfit. None of them talk to each other.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="x">×</span>
+        <div>
+          <h4>You don't need a to-do list. You need someone who handles it.</h4>
+          <p>You're not short on apps. You're short on time. There's a difference.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ STYLE ════════════ -->
+<section class="agent-section style" id="style">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow">№ 01 · Style Agent</div>
+        <h2>Your style, <em>decoded.</em></h2>
+      </div>
+      <div class="right">
+        <p>Send a selfie. Get your color season in seconds — real color science, not a Buzzfeed quiz. Then she rates your outfits, suggests what works with what, and helps you build a wardrobe that actually makes sense. Honestly.</p>
+      </div>
+    </div>
+
+    <div class="agent-grid">
+      <div class="agent-side">
+        <div class="examples">
+          <div class="ex">
+            <span class="num">A</span>
+            <div>
+              <div class="q">"Rate this fit for the client dinner tonight."</div>
+              <div class="a">An honest 1–10, plus the one swap that takes it to a 10.</div>
+            </div>
+          </div>
+          <div class="ex">
+            <span class="num">B</span>
+            <div>
+              <div class="q">"What's my color season?"</div>
+              <div class="a">Selfie in, twelve-season analysis out. Plus the palette and the colors to skip.</div>
+            </div>
+          </div>
+          <div class="ex">
+            <span class="num">C</span>
+            <div>
+              <div class="q">"Pack me for Paris in May, four days, smart casual."</div>
+              <div class="a">A capsule that mixes and matches, sized to your suitcase.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-visual">
+        <div class="av-head">
+          <span class="av-pill">Style · Color Analysis</span>
+          <span class="av-time">just now</span>
+        </div>
+        <div class="av-convo">
+          <div class="av-bubble me">Send selfie 📸</div>
+          <div class="av-bubble them" style="padding-bottom: 14px;">
+            <div class="av-season">True <span>Autumn</span></div>
+            <div style="font-size: 11px; color: var(--ink-3); margin-bottom: 8px;">Warm, soft, earthy</div>
+            <div class="av-swatches">
+              <div class="sw" style="background:#a85a3a"></div>
+              <div class="sw" style="background:#7a4827"></div>
+              <div class="sw" style="background:#c89968"></div>
+              <div class="sw" style="background:#5d5237"></div>
+              <div class="sw" style="background:#8a6a4c"></div>
+              <div class="sw" style="background:#3a2e1f"></div>
+            </div>
+          </div>
+          <div class="av-bubble them">
+            Lean into rust, camel, terracotta. Avoid icy blue and pure black — they wash you out.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ TRAVEL ════════════ -->
+<section class="agent-section travel" id="travel">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow">№ 02 · Travel Agent</div>
+        <h2>Plan a whole trip<br/>before your <em>coffee gets cold.</em></h2>
+      </div>
+      <div class="right">
+        <p>Tell her where and when. She pulls flights in three tiers — budget, balanced, and bougie. Finds hotels that match your vibe. Builds the itinerary. Sets reminders so you actually book before prices jump.</p>
+      </div>
+    </div>
+
+    <div class="agent-grid flip">
+      <div class="agent-side">
+        <div class="examples">
+          <div class="ex">
+            <span class="num">A</span>
+            <div>
+              <div class="q">"Weekend in Lisbon, under $400 round trip."</div>
+              <div class="a">Three tiers, side by side, with the booking links pre-loaded.</div>
+            </div>
+          </div>
+          <div class="ex">
+            <span class="num">B</span>
+            <div>
+              <div class="q">"Where to eat in Mexico City, walking distance from Roma Norte."</div>
+              <div class="a">Hand-picked spots, not the top-of-Google list.</div>
+            </div>
+          </div>
+          <div class="ex">
+            <span class="num">C</span>
+            <div>
+              <div class="q">"Quiet hotel in Tokyo, near a metro, under $250."</div>
+              <div class="a">Vibe-matched. The ones you'd never find in a sea of TripAdvisor.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-visual">
+        <div class="av-head">
+          <span class="av-pill">Travel · Lisbon</span>
+          <span class="av-time">2 min ago</span>
+        </div>
+        <div class="av-convo">
+          <div class="av-bubble me">Lisbon, Fri–Sun. Under $400.</div>
+          <div class="av-flight">
+            <div>
+              <div class="leg">JFK → LIS</div>
+              <div class="sub">Fri 7:40 AM · 1 stop · TAP</div>
+            </div>
+            <div class="price">$312</div>
+          </div>
+          <div class="av-flight">
+            <div>
+              <div class="leg">Memmo Alfama</div>
+              <div class="sub">★ 4.7 · 2 nights · view room</div>
+            </div>
+            <div class="price">$418</div>
+          </div>
+          <div class="av-bubble them">Three tiers ready. Want me to send the balanced and bougie versions too?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FITNESS ════════════ -->
+<section class="agent-section fitness" id="fitness">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow">№ 03 · Fitness Agent</div>
+        <h2>She finds the class.<br/>You <em>just show up.</em></h2>
+      </div>
+      <div class="right">
+        <p>Hot yoga, pilates, HIIT, barre — whatever you're into. Staitment finds studios near you, checks schedules against yours, and lets you book without opening six different apps.</p>
+      </div>
+    </div>
+
+    <div class="agent-grid">
+      <div class="agent-side">
+        <div class="examples">
+          <div class="ex">
+            <span class="num">A</span>
+            <div>
+              <div class="q">"Reformer pilates near me, Saturday morning."</div>
+              <div class="a">Three studios within a mile, with open spots and one-tap booking.</div>
+            </div>
+          </div>
+          <div class="ex">
+            <span class="num">B</span>
+            <div>
+              <div class="q">"Beginner run club this week, somewhere chill."</div>
+              <div class="a">No 5 AM bro energy. Real groups, real paces, real people.</div>
+            </div>
+          </div>
+          <div class="ex">
+            <span class="num">C</span>
+            <div>
+              <div class="q">"45-minute full-body, hotel gym, no equipment."</div>
+              <div class="a">A workout that fits. No fluff, no influencer talk.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-visual">
+        <div class="av-head">
+          <span class="av-pill">Fitness · This Sat</span>
+          <span class="av-time">3 results</span>
+        </div>
+        <div class="av-convo">
+          <div class="av-bubble me">Reformer pilates Sat AM near me</div>
+          <div class="av-class">
+            <div class="av-class-row">
+              <div>
+                <div class="name">Form Pilates · Carroll Gardens</div>
+                <div class="meta" style="color: var(--ink-3); font-size: 11px; margin-top: 2px;">0.6 mi · ★ 4.9 · 6 spots</div>
+              </div>
+              <div class="time">8:30 AM</div>
+            </div>
+            <div class="av-class-row">
+              <div>
+                <div class="name">Slope Pilates · Park Slope</div>
+                <div class="meta" style="color: var(--ink-3); font-size: 11px; margin-top: 2px;">1.1 mi · ★ 4.8 · 3 spots</div>
+              </div>
+              <div class="time">9:00 AM</div>
+            </div>
+            <div class="av-class-row">
+              <div>
+                <div class="name">Lift Pilates · Brooklyn Hts</div>
+                <div class="meta" style="color: var(--ink-3); font-size: 11px; margin-top: 2px;">1.4 mi · ★ 4.7 · waitlist</div>
+              </div>
+              <div class="time">10:15 AM</div>
+            </div>
+          </div>
+          <div class="av-bubble them">Form is the move — closest, most spots. Book it?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ LIFESTYLE ════════════ -->
+<section class="agent-section lifestyle" id="lifestyle">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow">№ 04 · Lifestyle Agent</div>
+        <h2>The glue that holds <em>it all together.</em></h2>
+      </div>
+      <div class="right">
+        <p>Reminders that actually remind you. Schedule management that doesn't require a PhD. Wellness check-ins when you need them, not when an algorithm decides. She remembers so you don't have to.</p>
+      </div>
+    </div>
+
+    <div class="agent-grid flip">
+      <div class="agent-side">
+        <div class="examples">
+          <div class="ex">
+            <span class="num">A</span>
+            <div>
+              <div class="q">"Remind me to call mom Sunday before noon."</div>
+              <div class="a">Set. She'll nudge you at 11. Once. Not five times.</div>
+            </div>
+          </div>
+          <div class="ex">
+            <span class="num">B</span>
+            <div>
+              <div class="q">"Birthday gift for my sister — she likes ceramics and slow mornings."</div>
+              <div class="a">Three picks, three price points. With the links.</div>
+            </div>
+          </div>
+          <div class="ex">
+            <span class="num">C</span>
+            <div>
+              <div class="q">"Cozy dinner for two tonight, twenty minutes max."</div>
+              <div class="a">Recipe, grocery list, and a wine that goes with it.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-visual">
+        <div class="av-head">
+          <span class="av-pill">Lifestyle · This Week</span>
+          <span class="av-time">5 active</span>
+        </div>
+        <div class="av-convo">
+          <div class="av-reminder">
+            <span class="icon">✓</span>
+            <div>
+              <div class="text">Call mom</div>
+              <div class="when">Sun, 11:00 AM</div>
+            </div>
+          </div>
+          <div class="av-reminder">
+            <span class="icon">★</span>
+            <div>
+              <div class="text">Maya's birthday — gift idea: Notary ceramics mug + tea sampler</div>
+              <div class="when">Wed · in 4 days</div>
+            </div>
+          </div>
+          <div class="av-reminder">
+            <span class="icon">→</span>
+            <div>
+              <div class="text">Flight to Lisbon — TAP 207</div>
+              <div class="when">Fri, 7:40 AM · check in tonight</div>
+            </div>
+          </div>
+          <div class="av-bubble them">Want me to move the run club to Thursday? Friday will be tight with the flight.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ HOW IT WORKS ════════════ -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="how-head">
+      <div class="eyebrow">How it works</div>
+      <h2>Less app. <span class="accent">More friend.</span></h2>
+    </div>
+    <div class="how-grid">
+      <div class="step">
+        <div class="n">01</div>
+        <h4>Open the chat.</h4>
+        <p>Clean, dark, no clutter. No feed begging for your attention. Just a place to type.</p>
+        <div class="demo">
+          <div class="q">› What do you need?</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h4>Tell her what you need.</h4>
+        <p>Plain language. Text her like you'd text your sharpest friend. Photos, locations, voice notes — all welcome.</p>
+        <div class="demo">
+          <div class="q">› "Find me a flight to Lisbon Friday"</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h4>She handles it.</h4>
+        <p>Real options. Real answers. Ready to act on. No more tabs. No more rabbit holes. No more "I'll do it tomorrow."</p>
+        <div class="demo">
+          <div class="a">→ 3 flights · 2 hotels · 1 itinerary</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ PROOF ════════════ -->
+<section class="proof">
+  <div class="wrap">
+    <blockquote>
+      "It's like having a friend who's <span class="hl">a stylist, a travel agent, and a personal trainer</span> — all in one chat, all the time."
+    </blockquote>
+    <div class="attr">— Early beta tester · Brooklyn</div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="num">4</div>
+        <div class="lbl">Expert agents, one chat</div>
+      </div>
+      <div class="stat">
+        <div class="num">30s</div>
+        <div class="lbl">From selfie to color season</div>
+      </div>
+      <div class="stat">
+        <div class="num">0</div>
+        <div class="lbl">Tabs needed to plan a trip</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FAQ ════════════ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="faq-head">
+      <div class="eyebrow">Common questions</div>
+      <h2>Quick <span class="accent">answers.</span></h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>
+          <h6>What does Staitment actually do?</h6>
+          <span class="plus">+</span>
+        </summary>
+        <p>She's an AI personal assistant — but instead of one general chatbot, you get four expert agents. Style picks your outfits and analyzes your color season. Travel plans your trips with real flights and hotels. Fitness finds classes near you. Lifestyle handles reminders, gift ideas, and the small stuff. All in one chat.</p>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <h6>Is it free?</h6>
+          <span class="plus">+</span>
+        </summary>
+        <p>Free to download. Free to chat with any agent up to a generous monthly limit. A small subscription unlocks unlimited conversations, photo analyses, and saved calendars. Cancel anytime.</p>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <h6>How is this different from ChatGPT?</h6>
+          <span class="plus">+</span>
+        </summary>
+        <p>ChatGPT gives you the same answer it gives everyone. Staitment knows you — your style, your city, your schedule. And she's built specifically for the things you actually deal with: outfits, trips, classes, life. Plus she returns rich answers (real flight options, real color palettes, real class bookings), not walls of text.</p>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <h6>How private is private?</h6>
+          <span class="plus">+</span>
+        </summary>
+        <p>Conversations, photos, and saved items are encrypted at rest. We never sell data. We never use your chats to train models. Export or delete everything in one tap.</p>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <h6>Who's it for?</h6>
+          <span class="plus">+</span>
+        </summary>
+        <p>Women who are busy, ambitious, and juggling a lot. Marketing managers, freelancers, grad students, new moms. If you already use AI casually but want something that knows *you* and handles the stuff your other apps can't — you're the one.</p>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <h6>When does Android come?</h6>
+          <span class="plus">+</span>
+        </summary>
+        <p>After we get the iPhone version right. Sign up below and we'll text you the day it lands.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FINAL CTA ════════════ -->
+<section class="final" id="download">
+  <div class="wrap">
+    <div class="eyebrow">Not another chatbot</div>
+    <h2>Try her.<br/>She'll <span class="accent">prove it.</span></h2>
+    <p>Download for iPhone. Or drop your email and we'll text you the link.</p>
+
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;">
+      <a href="#" class="btn btn-primary">Get Staitment Free →</a>
+    </div>
+
+    <form class="form" onsubmit="event.preventDefault(); const b=this.querySelector('button'); b.textContent='Sent ✓'; this.querySelector('input').value='';">
+      <input type="email" placeholder="your@email.com" required/>
+      <button type="submit">Notify me</button>
+    </form>
+
+    <div class="badges">
+      <span class="badge"><span class="icon">★</span> iOS 17+</span>
+      <span class="badge"><span class="icon">●</span> Free to start</span>
+      <span class="badge"><span class="icon">◇</span> Private by default</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="brand">
+        <a href="#" class="logo">staitment<span class="dot">.</span></a>
+        <p>Your AI bestie for style, travel, fitness, and life. Made with love and a lot of coffee.</p>
+      </div>
+      <div>
+        <h6>Product</h6>
+        <a href="#style">Style</a>
+        <a href="#travel">Travel</a>
+        <a href="#fitness">Fitness</a>
+        <a href="#lifestyle">Lifestyle</a>
+      </div>
+      <div>
+        <h6>Company</h6>
+        <a href="#">About</a>
+        <a href="#">Press</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+      <div>
+        <h6>Legal</h6>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Data export</a>
+        <a href="#">Delete account</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 Staitment, Inc.</span>
+      <span>staitmint.io</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
