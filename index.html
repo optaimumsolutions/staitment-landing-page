@@ -24,7 +24,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=EB+Garamond:ital,wght@1,400;1,500;1,600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=EB+Garamond:ital,wght@1,400;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -40,7 +40,7 @@
       "name": "Staitment",
       "operatingSystem": "iOS 17+, Android",
       "applicationCategory": "LifestyleApplication",
-      "description": "Staitment is an AI personal assistant app that combines style advice, travel planning, fitness discovery, and daily life management into a single chat interface. Four specialized AI agents learn your preferences, connect to Spotify and Google Calendar, and return actionable results — real flight options from Amadeus, outfit analysis from your wardrobe, workout playlists matched to your BPM, and class bookings near you.",
+      "description": "Staitment is an AI personal assistant app that combines style advice, travel planning, fitness discovery, and daily life management into a single chat interface. Four specialized AI agents learn your preferences, connect to Spotify and Google Calendar, and return actionable results — real flight options from Amadeus, outfit analysis from your wardrobe, workout playlists matched to your BPM, and class bookings near you via ClassPass and Mindbody. Your preferences are remembered across every conversation.",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -114,38 +114,32 @@
 </script>
 <style>
   :root {
-    /* Surfaces (matches app: #f7f6f2 paper palette) */
     --bg:        #f7f6f2;
     --bg-2:      #f1efe9;
     --bg-3:      #e8e6e0;
     --card:      #FFFFFF;
+    --card-2:    #fbfaf6;
     --hair:      rgba(13,13,12,0.07);
     --hair-2:    rgba(13,13,12,0.13);
-
-    /* Ink (matches app: #0d0d0c) */
     --ink:       #0d0d0c;
     --ink-2:     #3d3c3a;
     --ink-3:     #6a6864;
     --muted:     #8c8a86;
-
-    /* Brand */
+    --muted-2:   #b5b2ac;
     --rose:      #9d4063;
     --rose-d:    #7e3350;
     --rose-soft: rgba(157,64,99,0.12);
-
-    /* Agent accents (matches app theme) */
     --style:     #9d4063;
     --travel:    #345f7a;
     --fitness:   #3f6a4c;
     --lifestyle: #9a6a1f;
-
-    /* Primary CTA (matches app) */
+    --calendar:  #5a4880;
     --primary:   #5a5cf1;
-
-    /* Type */
+    --danger:    #c84545;
     --display: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --body:    'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --body:    'Inter', 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --serif:   'EB Garamond', 'Garamond', 'Times New Roman', serif;
+    --mono:    'JetBrains Mono', ui-monospace, monospace;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
@@ -160,8 +154,6 @@
   a { color: inherit; text-decoration: none; }
   img { display: block; max-width: 100%; }
   ::selection { background: var(--rose); color: var(--bg); }
-
-  /* primitives */
   .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
   .eyebrow {
     font-family: var(--display); font-weight: 500;
@@ -176,7 +168,6 @@
   }
   p { color: var(--ink-2); margin: 0; }
 
-  /* Buttons */
   .btn {
     display: inline-flex; align-items: center; gap: 10px;
     padding: 16px 26px; border-radius: 999px;
@@ -189,718 +180,403 @@
     background: var(--ink); color: var(--bg);
     box-shadow: 0 8px 24px -8px rgba(13,13,12,0.3);
   }
-  .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 14px 34px -10px rgba(13,13,12,0.4);
-  }
-  .btn-ghost {
-    background: transparent; color: var(--ink);
-    border: 1px solid var(--hair-2);
-  }
-  .btn-ghost:hover { background: var(--bg-2); border-color: var(--hair-2); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 34px -10px rgba(13,13,12,0.4); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--hair-2); }
+  .btn-ghost:hover { background: var(--bg-2); }
 
-  /* Logo */
   .logo {
     display: inline-flex; align-items: baseline;
     font-family: var(--serif); font-style: italic; font-weight: 500;
-    font-size: 30px; letter-spacing: -0.01em; line-height: 1;
-    color: var(--ink);
+    font-size: 30px; letter-spacing: -0.01em; line-height: 1; color: var(--ink);
   }
-  .logo .dot {
-    color: var(--rose);
-    margin-left: 1px;
-    display: inline-block;
-  }
+  .logo .dot { color: var(--rose); margin-left: 1px; }
 
-  /* nav */
+  /* ── Nav ── */
   nav.top {
     position: sticky; top: 0; z-index: 50;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     background: rgba(247,246,242,0.78);
     border-bottom: 1px solid var(--hair);
   }
-  nav.top .row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 0;
-  }
-  nav.top .links {
-    display: flex; gap: 36px; align-items: center;
-  }
-  nav.top .links a {
-    font-size: 14px; color: var(--ink-2);
-    transition: color .15s;
-  }
+  nav.top .row { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  nav.top .links { display: flex; gap: 36px; align-items: center; }
+  nav.top .links a { font-size: 14px; color: var(--ink-2); transition: color .15s; }
   nav.top .links a:hover { color: var(--ink); }
-  nav.top .btn {
-    padding: 11px 20px; font-size: 13px;
-  }
+  nav.top .btn { padding: 11px 20px; font-size: 13px; }
 
-  /* hero */
+  /* ── Hero ── */
   .hero { padding: 90px 0 110px; position: relative; }
   .hero::before {
-    content: '';
-    position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0;
     background:
       radial-gradient(800px 500px at 80% 10%, rgba(157,64,99,0.12), transparent 60%),
       radial-gradient(700px 400px at 10% 70%, rgba(52,95,122,0.08), transparent 60%);
     pointer-events: none;
   }
-  .hero .grid {
-    display: grid; grid-template-columns: 1.15fr 0.85fr;
-    gap: 60px; align-items: center;
-    position: relative; z-index: 1;
-  }
-  .hero h1 {
-    font-size: clamp(48px, 6.5vw, 92px);
-    line-height: 1.0;
-    margin: 20px 0 26px;
-  }
-  .hero h1 .accent {
-    color: var(--rose); font-style: normal;
-  }
-  .hero p.lede {
-    font-size: 19px; line-height: 1.55;
-    color: var(--ink-2); max-width: 520px;
-    margin-bottom: 36px;
-  }
-  .hero .ctas {
-    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
-    margin-bottom: 40px;
-  }
-  .hero .trust {
-    display: flex; gap: 28px; flex-wrap: wrap;
-    font-size: 13px; color: var(--ink-3);
-  }
+  .hero .grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+  .hero h1 { font-size: clamp(48px, 6.5vw, 92px); line-height: 1.0; margin: 20px 0 26px; }
+  .hero h1 .accent { color: var(--rose); }
+  .hero p.lede { font-size: 19px; line-height: 1.55; color: var(--ink-2); max-width: 520px; margin-bottom: 36px; }
+  .hero .ctas { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 40px; }
+  .hero .trust { display: flex; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--ink-3); }
   .hero .trust span b { color: var(--ink); font-weight: 600; }
   .hero .trust span { display: flex; gap: 6px; align-items: center; }
   .hero .trust .dot { color: var(--rose); font-size: 18px; line-height: 0; }
 
-  /* phone mockup — light paper theme matching the app */
+  /* ── App screen frame (shared by hero phone + agent visuals) ── */
+  .app-frame {
+    background: var(--bg); border-radius: 14px; overflow: hidden;
+    display: flex; flex-direction: column; font-family: var(--body);
+    color: var(--ink); position: relative;
+  }
+  .app-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px 10px; border-bottom: 1px solid var(--hair);
+  }
+  .app-header .wm {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: 16px; letter-spacing: -0.01em; color: var(--ink);
+  }
+  .app-header .wm-dot { color: var(--rose); }
+  .app-header .lm {
+    width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--ink);
+    display: inline-grid; place-items: center; font-family: var(--serif);
+    font-style: italic; font-weight: 600; font-size: 11px; color: var(--ink);
+    margin-right: 5px; line-height: 1;
+  }
+  .app-header .agent-tag {
+    font-family: var(--mono); font-size: 8px; font-weight: 600;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    padding: 3px 7px; border-radius: 4px;
+  }
+  .app-body { flex: 1; padding: 12px; overflow: hidden; display: flex; flex-direction: column; gap: 8px; }
+  .app-tab-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 10px; margin: 0 8px 8px;
+    background: rgba(255,255,255,0.85); backdrop-filter: blur(20px);
+    border: 1px solid var(--hair-2); border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+  }
+  .app-tab { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 6px; border-radius: 8px; flex: 1; }
+  .app-tab.on { background: rgba(90,92,241,0.08); }
+  .app-tab .tab-label {
+    font-family: var(--body); font-size: 8px; font-weight: 500; color: var(--muted); letter-spacing: 0.02em;
+  }
+  .app-tab.on .tab-label { font-weight: 600; }
+  .app-tab .tab-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); }
+  .app-tab.on .tab-dot { background: var(--primary); }
+
+  /* Chat elements inside app frames */
+  .chat-date {
+    text-align: center; font-family: var(--mono); font-size: 8px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+    margin: 4px 0;
+  }
+  .chat-kicker {
+    font-family: var(--mono); font-size: 7.5px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    margin-bottom: 4px; padding-left: 2px;
+  }
+  .bubble-user {
+    align-self: flex-end; max-width: 82%;
+    background: var(--primary); color: #fff;
+    padding: 8px 12px; font-size: 12px; line-height: 1.4;
+    border-radius: 14px 14px 3px 14px; font-weight: 500;
+  }
+  .bubble-user .ts {
+    font-family: var(--mono); font-size: 7px; color: rgba(255,255,255,0.5);
+    text-align: right; margin-top: 3px; letter-spacing: 0.12em;
+  }
+  .bubble-bot {
+    align-self: flex-start; max-width: 92%; width: 100%;
+  }
+  /* Card inside app screen */
+  .app-card {
+    background: var(--card); border: 1px solid var(--hair); border-radius: 12px;
+    overflow: hidden;
+  }
+  .app-card.raised { background: linear-gradient(180deg, #ffffff 0%, #fbfaf6 100%); }
+  .app-card.accent-left { border-left: 2.5px solid var(--c, var(--primary)); }
+
+  /* Chat input bar */
+  .app-input {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--card); border: 1px solid var(--hair);
+    border-radius: 14px; padding: 6px 6px 6px 10px; margin: 4px 8px 0;
+  }
+  .app-input .placeholder { flex: 1; color: var(--muted); font-size: 10px; display: flex; gap: 3px; align-items: center; }
+  .app-input .placeholder .wm { font-family: var(--serif); font-style: italic; font-size: 10px; color: var(--ink-3); }
+  .app-input .send-btn {
+    width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+    color: #fff; font-size: 10px; font-weight: 700;
+  }
+  .app-input .dots { color: var(--muted); font-size: 10px; display: flex; gap: 3px; }
+
+  /* Suggestion chips */
+  .chip-row { display: flex; gap: 5px; overflow: hidden; margin: 2px 8px; flex-wrap: nowrap; }
+  .chip {
+    padding: 5px 9px; background: var(--card); border: 1px solid var(--hair);
+    border-radius: 999px; font-family: var(--body); font-size: 9px; font-weight: 500;
+    color: var(--ink-2); white-space: nowrap;
+  }
+
+  /* ── Phone wrap (hero) ── */
   .phone-wrap { position: relative; display: flex; justify-content: center; }
   .phone {
-    width: 320px; height: 660px;
-    border-radius: 48px;
+    width: 300px; height: 640px; border-radius: 44px;
     background: linear-gradient(180deg, #e8e6e0, #d4d2cc);
-    box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,0.6),
-      0 30px 60px -20px rgba(13,13,12,0.15),
-      0 50px 100px -30px rgba(157,64,99,0.15);
-    padding: 14px;
-    position: relative;
-    transform: rotate(-3deg);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 30px 60px -20px rgba(13,13,12,0.15), 0 50px 100px -30px rgba(157,64,99,0.15);
+    padding: 12px; position: relative; transform: rotate(-3deg);
   }
   .phone::before {
-    content: '';
-    position: absolute; inset: 0; border-radius: 48px;
-    padding: 1px;
+    content: ''; position: absolute; inset: 0; border-radius: 44px; padding: 1px;
     background: linear-gradient(180deg, rgba(255,255,255,0.8), transparent 30%, transparent 70%, rgba(255,255,255,0.4));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
   }
   .phone .notch {
-    position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
-    width: 96px; height: 26px; border-radius: 999px;
-    background: #0d0d0c;
-    z-index: 2;
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 90px; height: 24px; border-radius: 999px; background: #0d0d0c; z-index: 2;
   }
-  .phone-screen {
-    width: 100%; height: 100%; border-radius: 36px;
-    background: var(--bg);
-    overflow: hidden; position: relative;
-    display: flex; flex-direction: column;
-  }
-  .ph-header {
-    padding: 42px 18px 14px;
-    display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 1px solid var(--hair);
-  }
-  .ph-header .brand { display: flex; align-items: baseline; }
-  .ph-header .brand .name {
-    font-family: var(--serif); font-style: italic; font-weight: 500;
-    font-size: 20px; letter-spacing: -0.01em; color: var(--ink); line-height: 1;
-  }
-  .ph-header .brand .namedot { color: var(--rose); }
-  .ph-header .agent-pill {
-    font-family: var(--display); font-size: 10px; font-weight: 500;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 4px 9px; border-radius: 999px;
-    color: var(--travel); background: rgba(52,95,122,0.08);
-    border: 1px solid rgba(52,95,122,0.20);
-  }
+  .phone .app-frame { width: 100%; height: 100%; border-radius: 34px; }
+  .phone .app-header { padding-top: 38px; }
 
-  .ph-body { flex: 1; padding: 18px; overflow: hidden; display: flex; flex-direction: column; gap: 10px; }
-  .ph-msg {
-    padding: 12px 14px; border-radius: 18px;
-    font-size: 13px; line-height: 1.4; max-width: 80%;
-  }
-  .ph-msg.me {
-    background: var(--ink); color: var(--bg); align-self: flex-end;
-    border-bottom-right-radius: 6px; font-weight: 500;
-  }
-  .ph-msg.them {
-    background: var(--card); color: var(--ink);
-    border: 1px solid var(--hair);
-    align-self: flex-start; border-bottom-left-radius: 6px;
-  }
-  .ph-card-flight {
-    align-self: stretch;
-    background: var(--card);
-    border: 1px solid var(--hair);
-    border-radius: 18px;
-    padding: 13px 14px;
-    display: flex; flex-direction: column; gap: 8px;
-    font-size: 12px;
-    box-shadow: 0 2px 8px -2px rgba(13,13,12,0.06);
-  }
-  .ph-card-flight .row {
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .ph-card-flight .tier {
-    font-family: var(--display); font-size: 9px; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--travel);
-    padding: 3px 8px; border-radius: 999px;
-    background: rgba(52,95,122,0.08);
-    border: 1px solid rgba(52,95,122,0.20);
-  }
-  .ph-card-flight .price {
-    font-family: var(--display); font-weight: 700; font-size: 18px;
-    color: var(--ink); letter-spacing: -0.02em;
-  }
-  .ph-card-flight .leg { color: var(--ink-3); font-size: 11px; }
-  .ph-card-flight .leg b { color: var(--ink-2); font-weight: 500; }
-  .ph-card-flight .booking-links {
-    display: flex; gap: 6px; margin-top: 2px;
-  }
-  .ph-card-flight .booking-links span {
-    font-size: 9px; color: var(--travel);
-    padding: 2px 6px; border-radius: 4px;
-    background: rgba(52,95,122,0.06);
-    font-family: var(--display); font-weight: 500;
-  }
-  .ph-input {
-    margin: 12px; padding: 11px 14px;
-    background: var(--card); border: 1px solid var(--hair);
-    border-radius: 999px;
-    display: flex; align-items: center; gap: 10px;
-    font-size: 12px; color: var(--muted);
-  }
-  .ph-input .send {
-    margin-left: auto; width: 28px; height: 28px; border-radius: 50%;
-    background: var(--ink); color: var(--bg);
-    display: grid; place-items: center; font-weight: 700;
-  }
-
-  /* Floating notes */
   .float-note {
-    position: absolute; padding: 12px 16px;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid var(--hair);
-    border-radius: 16px;
+    position: absolute; padding: 12px 16px; background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px); border: 1px solid var(--hair); border-radius: 16px;
     box-shadow: 0 12px 32px -8px rgba(13,13,12,0.10);
-    font-size: 12px; line-height: 1.45;
-    max-width: 220px; color: var(--ink-2);
-    z-index: 2;
+    font-size: 12px; line-height: 1.45; max-width: 220px; color: var(--ink-2); z-index: 2;
   }
   .float-note .lbl {
-    font-family: var(--display); font-weight: 600;
-    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-    margin-bottom: 6px; color: var(--rose);
+    font-family: var(--display); font-weight: 600; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px;
   }
   .fn-1 { top: 80px; left: -30px; transform: rotate(-2deg); }
-  .fn-1 .lbl { color: var(--travel); }
   .fn-2 { bottom: 100px; right: -36px; transform: rotate(3deg); }
-  .fn-2 .lbl { color: var(--fitness); }
 
-  /* problem */
+  /* ── Problem ── */
   section.problem { padding: 100px 0; border-top: 1px solid var(--hair); }
-  .problem .grid {
-    display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: start;
-  }
-  .problem h2 {
-    font-size: clamp(36px, 4.5vw, 60px);
-  }
+  .problem .grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: start; }
+  .problem h2 { font-size: clamp(36px, 4.5vw, 60px); }
   .problem h2 .accent { color: var(--rose); }
   .problem-list { display: flex; flex-direction: column; gap: 22px; padding-top: 24px; }
-  .problem-item {
-    display: flex; gap: 18px; align-items: flex-start;
-    padding: 18px 0;
-    border-top: 1px solid var(--hair);
-  }
+  .problem-item { display: flex; gap: 18px; align-items: flex-start; padding: 18px 0; border-top: 1px solid var(--hair); }
   .problem-item:first-child { border-top: 0; padding-top: 0; }
   .problem-item .x {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--bg-3); color: var(--rose);
-    display: grid; place-items: center;
-    font-size: 14px; font-weight: 600;
-    flex-shrink: 0; margin-top: 1px;
+    width: 28px; height: 28px; border-radius: 50%; background: var(--bg-3); color: var(--rose);
+    display: grid; place-items: center; font-size: 14px; font-weight: 600; flex-shrink: 0;
   }
-  .problem-item h4 {
-    font-size: 17px; font-weight: 600;
-    margin: 0 0 4px;
-  }
+  .problem-item h4 { font-size: 17px; font-weight: 600; margin: 0 0 4px; }
   .problem-item p { font-size: 14px; color: var(--ink-3); line-height: 1.5; }
 
-  /* agents */
-  section.agent-section {
-    padding: 110px 0;
-    border-top: 1px solid var(--hair);
-    position: relative;
-  }
-  .agent-section .head {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-    align-items: end; margin-bottom: 56px;
-  }
-  .agent-section h2 {
-    font-size: clamp(40px, 5vw, 68px);
-    line-height: 1.0;
-  }
+  /* ── Agent sections ── */
+  section.agent-section { padding: 110px 0; border-top: 1px solid var(--hair); position: relative; }
+  .agent-section .head { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 56px; }
+  .agent-section h2 { font-size: clamp(40px, 5vw, 68px); line-height: 1.0; }
   .agent-section .head .right p { font-size: 16px; max-width: 440px; }
-
   .agent-section.style    { --c: var(--style); }
   .agent-section.travel   { --c: var(--travel); }
   .agent-section.fitness  { --c: var(--fitness); }
   .agent-section.lifestyle{ --c: var(--lifestyle); }
-
   .agent-section h2 em { font-style: normal; color: var(--c); }
   .agent-section .eyebrow { color: var(--c); }
   .agent-section::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--c) 50%, transparent);
-    opacity: 0.4;
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--c) 50%, transparent); opacity: 0.4;
   }
-
-  .agent-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-  }
-  .agent-grid.flip { grid-template-columns: 1fr 1fr; direction: rtl; }
+  .agent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .agent-grid.flip { direction: rtl; }
   .agent-grid.flip > * { direction: ltr; }
 
-  .agent-side .examples {
-    display: flex; flex-direction: column; gap: 14px;
-    margin-top: 32px;
-  }
+  .agent-side .examples { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
   .agent-side .ex {
-    padding: 18px 20px; background: var(--card);
-    border: 1px solid var(--hair);
-    border-radius: 16px;
-    display: flex; gap: 14px; align-items: flex-start;
+    padding: 18px 20px; background: var(--card); border: 1px solid var(--hair);
+    border-radius: 16px; display: flex; gap: 14px; align-items: flex-start;
     transition: border-color .2s ease, transform .2s ease;
   }
   .agent-side .ex:hover { border-color: var(--c); transform: translateY(-1px); }
-  .agent-side .ex .num {
-    font-family: var(--display); font-size: 11px; font-weight: 600;
-    letter-spacing: 0.1em; color: var(--c);
-    width: 22px; flex-shrink: 0; margin-top: 2px;
-  }
-  .agent-side .ex .q {
-    font-size: 15px; color: var(--ink); margin-bottom: 4px; font-weight: 500;
-  }
+  .agent-side .ex .num { font-family: var(--display); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--c); width: 22px; flex-shrink: 0; }
+  .agent-side .ex .q { font-size: 15px; color: var(--ink); margin-bottom: 4px; font-weight: 500; }
   .agent-side .ex .a { font-size: 13px; color: var(--ink-3); line-height: 1.45; }
 
-  /* Agent visual — light theme matching app */
-  .agent-visual {
-    background: var(--bg);
-    border: 1px solid var(--hair);
-    border-radius: 24px;
-    padding: 24px;
+  /* Agent screen (matches actual app) */
+  .agent-screen {
+    border: 1px solid var(--hair); border-radius: 20px; overflow: hidden;
     box-shadow: 0 20px 50px -20px rgba(13,13,12,0.10);
-    aspect-ratio: 4 / 5;
-    display: flex; flex-direction: column;
-    position: relative; overflow: hidden;
+    aspect-ratio: 9 / 16; display: flex; flex-direction: column;
+    background: var(--bg); position: relative;
   }
-  .agent-visual::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(400px 200px at 50% 0%, color-mix(in srgb, var(--c) 8%, transparent), transparent);
-    pointer-events: none;
+  .agent-screen .app-header .agent-tag {
+    color: var(--c); background: color-mix(in srgb, var(--c) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 25%, transparent);
   }
-  .av-head {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px; position: relative; z-index: 1;
-  }
-  .av-pill {
-    font-family: var(--display); font-size: 10px; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--c);
-    padding: 5px 11px; border-radius: 999px;
-    background: color-mix(in srgb, var(--c) 8%, transparent);
-    border: 1px solid color-mix(in srgb, var(--c) 20%, transparent);
-  }
-  .av-time { font-size: 11px; color: var(--muted); font-family: var(--display); }
+  .agent-screen .app-body { flex: 1; padding: 10px 12px; overflow: hidden; display: flex; flex-direction: column; gap: 8px; }
+  .agent-screen .chat-kicker { color: var(--c); }
+  .agent-screen .app-input .send-btn { background: var(--c); }
+  .agent-screen .app-tab.agent-on { background: color-mix(in srgb, var(--c) 10%, transparent); }
+  .agent-screen .app-tab.agent-on .tab-label { color: var(--c); }
+  .agent-screen .app-tab.agent-on .tab-dot { background: var(--c); }
 
-  .av-convo {
-    display: flex; flex-direction: column; gap: 10px;
-    position: relative; z-index: 1; flex: 1;
+  /* Flight card in-screen */
+  .sc-flight {
+    padding: 10px; display: flex; flex-direction: column; gap: 8px;
   }
-  .av-bubble {
-    padding: 11px 14px; border-radius: 16px;
-    font-size: 13px; line-height: 1.45; max-width: 88%;
+  .sc-flight .fl-header { display: flex; justify-content: space-between; align-items: center; }
+  .sc-flight .fl-airline { font-family: var(--mono); font-size: 8px; letter-spacing: 0.16em; color: var(--ink-3); text-transform: uppercase; }
+  .sc-flight .fl-tier {
+    font-family: var(--mono); font-size: 7px; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 3px;
   }
-  .av-bubble.me {
-    background: var(--ink); color: var(--bg);
-    align-self: flex-end; font-weight: 500;
-    border-bottom-right-radius: 6px;
+  .sc-flight .fl-tier.rec { background: var(--travel); color: #fff; }
+  .sc-flight .fl-tier.def { background: rgba(52,95,122,0.08); color: var(--travel); border: 1px solid rgba(52,95,122,0.25); }
+  .sc-flight .fl-route { display: flex; align-items: center; gap: 6px; }
+  .sc-flight .fl-code { font-family: var(--display); font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+  .sc-flight .fl-city { font-family: var(--mono); font-size: 8px; color: var(--muted); letter-spacing: 0.14em; margin-top: 1px; }
+  .sc-flight .fl-line { flex: 1; height: 1px; background: var(--hair-2); position: relative; }
+  .sc-flight .fl-dur {
+    position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
+    background: var(--bg); padding: 0 4px;
+    font-family: var(--mono); font-size: 7px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
   }
-  .av-bubble.them {
-    background: var(--card); color: var(--ink);
+  .sc-flight .fl-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--hair); }
+  .sc-flight .fl-price { font-family: var(--display); font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  .sc-flight .fl-btn {
+    padding: 6px 12px; border-radius: 8px; border: none;
+    font-family: var(--body); font-size: 9px; font-weight: 600; cursor: pointer;
+  }
+  .sc-flight .fl-btn.rec { background: var(--travel); color: #fff; }
+  .sc-flight .fl-btn.def { background: transparent; color: var(--ink); border: 1px solid var(--hair-2); }
+
+  /* Class card in-screen */
+  .sc-class { padding: 10px; display: flex; gap: 8px; align-items: center; }
+  .sc-class .cl-img {
+    width: 42px; height: 48px; flex-shrink: 0; border-radius: 8px;
+    background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg-3) 100%);
     border: 1px solid var(--hair);
-    align-self: flex-start; border-bottom-left-radius: 6px;
+  }
+  .sc-class .cl-type { font-size: 12px; font-weight: 600; letter-spacing: -0.01em; }
+  .sc-class .cl-studio { font-size: 10px; color: var(--ink-3); margin-top: 2px; }
+  .sc-class .cl-meta { font-family: var(--mono); font-size: 8px; color: var(--fitness); margin-top: 3px; letter-spacing: 0.14em; }
+  .sc-class .cl-book {
+    padding: 5px 10px; border-radius: 8px; background: var(--fitness); color: #fff;
+    border: none; font-family: var(--body); font-size: 9px; font-weight: 600; flex-shrink: 0;
   }
 
-  /* Color season swatches (Style) */
-  .av-swatches {
-    display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px;
-    margin: 10px 0;
-  }
-  .av-swatches .sw {
-    aspect-ratio: 1; border-radius: 8px;
-    border: 1px solid var(--hair);
-  }
-  .av-season {
-    font-family: var(--display); font-weight: 700;
-    font-size: 28px; letter-spacing: -0.02em;
-    color: var(--ink); margin: 4px 0 2px;
-  }
-  .av-season span { color: var(--c); }
+  /* Reminder card in-screen */
+  .sc-reminder { padding: 10px; display: flex; gap: 8px; align-items: center; }
+  .sc-reminder .rm-bar { width: 2.5px; align-self: stretch; border-radius: 2px; }
+  .sc-reminder .rm-time { font-family: var(--mono); font-size: 9px; color: var(--ink-2); width: 36px; letter-spacing: 0.08em; font-weight: 600; flex-shrink: 0; }
+  .sc-reminder .rm-title { font-size: 11px; font-weight: 600; letter-spacing: -0.01em; }
+  .sc-reminder .rm-src { font-family: var(--mono); font-size: 7px; letter-spacing: 0.2em; margin-top: 2px; }
 
-  /* Flight card (Travel) */
-  .av-flight {
-    background: var(--card);
-    border: 1px solid var(--hair);
-    border-radius: 14px;
-    padding: 12px 14px;
-    display: flex; justify-content: space-between; align-items: center;
-    box-shadow: 0 2px 8px -2px rgba(13,13,12,0.06);
+  /* Calendar in-screen */
+  .sc-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .sc-cal-grid .day-hdr { text-align: center; font-family: var(--mono); font-size: 7.5px; color: var(--muted); letter-spacing: 0.14em; padding: 3px 0; }
+  .sc-cal-grid .day-cell { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 2px 1px; }
+  .sc-cal-grid .day-num {
+    width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 10px; font-weight: 500; color: var(--ink-2);
   }
-  .av-flight .leg {
-    font-family: var(--display); font-weight: 600;
-    font-size: 13px; color: var(--ink);
-  }
-  .av-flight .sub { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
-  .av-flight .price {
-    font-family: var(--display); font-weight: 700;
-    font-size: 20px; color: var(--c); letter-spacing: -0.02em;
-  }
-  .av-flight .links {
-    display: flex; gap: 4px; margin-top: 4px;
-  }
-  .av-flight .links span {
-    font-size: 9px; color: var(--c); opacity: 0.7;
-    font-family: var(--display); font-weight: 500;
-  }
+  .sc-cal-grid .day-num.today { background: var(--primary); color: #fff; font-weight: 700; }
+  .sc-cal-grid .day-num.sel { background: rgba(90,72,128,0.12); color: var(--calendar); border: 1px solid rgba(90,72,128,0.35); }
+  .sc-cal-grid .day-num.out { opacity: 0.25; }
+  .sc-cal-grid .day-dots { display: flex; gap: 1.5px; margin-top: 1.5px; height: 3px; }
+  .sc-cal-grid .day-dots span { width: 3px; height: 3px; border-radius: 50%; }
 
-  /* Class card (Fitness) */
-  .av-class {
-    background: var(--card);
-    border: 1px solid var(--hair);
-    border-radius: 14px;
-    padding: 14px;
-    box-shadow: 0 2px 8px -2px rgba(13,13,12,0.06);
+  /* Spotify mini card in-screen */
+  .sc-spotify { padding: 10px; display: flex; gap: 8px; align-items: center; }
+  .sc-spotify .sp-icon {
+    width: 28px; height: 28px; border-radius: 7px; background: #1DB954; color: #fff;
+    display: grid; place-items: center; font-size: 12px; font-weight: 700; flex-shrink: 0;
   }
-  .av-class .title {
-    font-family: var(--display); font-weight: 600;
-    font-size: 14px; color: var(--ink);
-    display: flex; justify-content: space-between;
-  }
-  .av-class .title .when { color: var(--c); }
-  .av-class .meta { font-size: 11px; color: var(--ink-3); margin-top: 4px; }
-  .av-class-row {
-    display: flex; justify-content: space-between;
-    padding: 10px 0; border-top: 1px solid var(--hair);
-    font-size: 12px;
-  }
-  .av-class-row:first-of-type { border-top: 0; padding-top: 14px; }
-  .av-class-row .name { color: var(--ink); font-weight: 500; }
-  .av-class-row .time { color: var(--c); font-family: var(--display); font-weight: 600; }
+  .sc-spotify .sp-name { font-size: 11px; font-weight: 600; color: var(--ink); }
+  .sc-spotify .sp-meta { font-size: 9px; color: var(--ink-3); margin-top: 1px; }
 
-  /* Reminder card (Lifestyle) */
-  .av-reminder {
-    background: var(--card);
-    border: 1px solid var(--hair);
-    border-radius: 14px;
-    padding: 12px 14px;
-    display: flex; gap: 12px; align-items: center;
-    box-shadow: 0 2px 8px -2px rgba(13,13,12,0.06);
-  }
-  .av-reminder .icon {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: color-mix(in srgb, var(--c) 10%, transparent);
-    color: var(--c);
-    display: grid; place-items: center;
-    flex-shrink: 0; font-size: 14px;
-  }
-  .av-reminder .text { font-size: 13px; color: var(--ink); }
-  .av-reminder .when { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
-
-  /* Spotify mini-card */
-  .av-spotify {
-    background: var(--card);
-    border: 1px solid var(--hair);
-    border-radius: 14px;
-    padding: 12px 14px;
-    display: flex; gap: 12px; align-items: center;
-    box-shadow: 0 2px 8px -2px rgba(13,13,12,0.06);
-  }
-  .av-spotify .icon {
-    width: 32px; height: 32px; border-radius: 8px;
-    background: #1DB954;
-    color: #fff;
-    display: grid; place-items: center;
-    flex-shrink: 0; font-size: 16px; font-weight: 700;
-  }
-  .av-spotify .text { font-size: 13px; color: var(--ink); font-weight: 500; }
-  .av-spotify .sub { font-size: 11px; color: var(--ink-3); margin-top: 1px; }
-
-  /* how it works */
-  section.how { padding: 110px 0; border-top: 1px solid var(--hair); background: var(--bg-2); position: relative; }
+  /* ── How it works ── */
+  section.how { padding: 110px 0; border-top: 1px solid var(--hair); background: var(--bg-2); }
   .how-head { text-align: center; margin-bottom: 60px; }
-  .how-head h2 {
-    font-size: clamp(40px, 5vw, 64px);
-    max-width: 760px; margin: 16px auto 0;
-  }
+  .how-head h2 { font-size: clamp(40px, 5vw, 64px); max-width: 760px; margin: 16px auto 0; }
   .how-head h2 .accent { color: var(--rose); }
-  .how-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
-  }
-  .step {
-    background: var(--card); border: 1px solid var(--hair);
-    border-radius: 20px; padding: 28px;
-    position: relative;
-  }
-  .step .n {
-    font-family: var(--display); font-weight: 800;
-    font-size: 48px; line-height: 1; color: var(--rose);
-    letter-spacing: -0.04em; margin-bottom: 18px;
-  }
-  .step h4 {
-    font-size: 22px; font-weight: 700; margin-bottom: 10px;
-  }
+  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .step { background: var(--card); border: 1px solid var(--hair); border-radius: 20px; padding: 28px; }
+  .step .n { font-family: var(--display); font-weight: 800; font-size: 48px; line-height: 1; color: var(--rose); letter-spacing: -0.04em; margin-bottom: 18px; }
+  .step h4 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
   .step p { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
-  .step .demo {
-    margin-top: 20px; padding: 14px;
-    background: var(--bg-2); border: 1px solid var(--hair);
-    border-radius: 14px;
-    font-family: var(--display); font-size: 13px; color: var(--ink-2);
-  }
+  .step .demo { margin-top: 20px; padding: 14px; background: var(--bg-2); border: 1px solid var(--hair); border-radius: 14px; font-family: var(--display); font-size: 13px; color: var(--ink-2); }
   .step .demo .q { color: var(--ink); margin-bottom: 6px; }
   .step .demo .a { color: var(--rose); }
 
-  /* integrations */
-  section.integrations {
-    padding: 110px 0;
-    border-top: 1px solid var(--hair);
-  }
+  /* ── Integrations ── */
+  section.integrations { padding: 110px 0; border-top: 1px solid var(--hair); }
   .integrations .head { text-align: center; margin-bottom: 60px; }
-  .integrations .head h2 {
-    font-size: clamp(40px, 5vw, 64px);
-    max-width: 760px; margin: 16px auto 0;
-  }
+  .integrations .head h2 { font-size: clamp(40px, 5vw, 64px); max-width: 760px; margin: 16px auto 0; }
   .integrations .head h2 .accent { color: var(--rose); }
-  .int-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
-  }
-  .int-card {
-    background: var(--card); border: 1px solid var(--hair);
-    border-radius: 20px; padding: 32px 28px;
-    transition: border-color .2s ease, transform .2s ease;
-  }
+  .int-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .int-card { background: var(--card); border: 1px solid var(--hair); border-radius: 20px; padding: 32px 28px; transition: border-color .2s ease, transform .2s ease; }
   .int-card:hover { transform: translateY(-2px); border-color: var(--hair-2); }
-  .int-card .int-icon {
-    width: 48px; height: 48px; border-radius: 14px;
-    display: grid; place-items: center;
-    font-size: 22px; font-weight: 700;
-    margin-bottom: 20px;
-  }
+  .int-card .int-icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; font-size: 22px; font-weight: 700; margin-bottom: 20px; }
   .int-card h4 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
   .int-card p { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
   .int-card .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
-  .int-card .tag {
-    font-family: var(--display); font-size: 11px; font-weight: 500;
-    padding: 4px 10px; border-radius: 999px;
-    background: var(--bg-2); color: var(--ink-3);
-    border: 1px solid var(--hair);
-  }
+  .int-card .tag { font-family: var(--display); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 999px; background: var(--bg-2); color: var(--ink-3); border: 1px solid var(--hair); }
 
-  /* pull quote / proof */
-  section.proof {
-    padding: 120px 0;
-    border-top: 1px solid var(--hair);
-    text-align: center;
-    background:
-      radial-gradient(800px 400px at 50% 50%, rgba(157,64,99,0.08), transparent 60%);
-  }
-  section.proof blockquote {
-    font-family: var(--display); font-weight: 600;
-    font-size: clamp(28px, 4vw, 52px); line-height: 1.15;
-    letter-spacing: -0.025em; margin: 0 auto;
-    max-width: 920px; color: var(--ink);
-    text-wrap: balance;
-  }
+  /* ── Proof ── */
+  section.proof { padding: 120px 0; border-top: 1px solid var(--hair); text-align: center; background: radial-gradient(800px 400px at 50% 50%, rgba(157,64,99,0.08), transparent 60%); }
+  section.proof blockquote { font-family: var(--display); font-weight: 600; font-size: clamp(28px, 4vw, 52px); line-height: 1.15; letter-spacing: -0.025em; margin: 0 auto; max-width: 920px; color: var(--ink); text-wrap: balance; }
   section.proof blockquote .hl { color: var(--rose); }
-  section.proof .attr {
-    margin-top: 36px;
-    font-family: var(--display); font-size: 13px; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--ink-3); font-weight: 500;
-  }
-  section.proof .stats {
-    margin-top: 80px;
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
-    max-width: 900px; margin-left: auto; margin-right: auto;
-    border-top: 1px solid var(--hair);
-    padding-top: 48px;
-  }
-  .stat .num {
-    font-family: var(--display); font-weight: 700;
-    font-size: 48px; letter-spacing: -0.03em; color: var(--rose);
-    line-height: 1;
-  }
-  .stat .lbl {
-    font-size: 13px; color: var(--ink-3);
-    margin-top: 8px;
-  }
+  section.proof .attr { margin-top: 36px; font-family: var(--display); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; }
+  section.proof .stats { margin-top: 80px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 900px; margin-left: auto; margin-right: auto; border-top: 1px solid var(--hair); padding-top: 48px; }
+  .stat .num { font-family: var(--display); font-weight: 700; font-size: 48px; letter-spacing: -0.03em; color: var(--rose); line-height: 1; }
+  .stat .lbl { font-size: 13px; color: var(--ink-3); margin-top: 8px; }
 
-  /* FAQ */
+  /* ── FAQ ── */
   section.faq { padding: 110px 0; border-top: 1px solid var(--hair); }
   .faq-head { text-align: center; margin-bottom: 56px; }
   .faq-head h2 { font-size: clamp(36px, 4.5vw, 56px); }
   .faq-head h2 .accent { color: var(--rose); }
   .faq-list { max-width: 760px; margin: 0 auto; }
-  .faq-item {
-    border-bottom: 1px solid var(--hair);
-    padding: 24px 0;
-    cursor: pointer;
-  }
-  .faq-item summary {
-    list-style: none; cursor: pointer;
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 24px;
-  }
+  .faq-item { border-bottom: 1px solid var(--hair); padding: 24px 0; cursor: pointer; }
+  .faq-item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
   .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item h6 {
-    font-family: var(--display); font-weight: 600;
-    font-size: 18px; margin: 0; letter-spacing: -0.01em;
-    color: var(--ink);
-  }
-  .faq-item .plus {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--bg-3); color: var(--rose);
-    display: grid; place-items: center;
-    font-size: 18px; font-weight: 300;
-    transition: transform .25s ease;
-    flex-shrink: 0;
-  }
+  .faq-item h6 { font-family: var(--display); font-weight: 600; font-size: 18px; margin: 0; letter-spacing: -0.01em; color: var(--ink); }
+  .faq-item .plus { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-3); color: var(--rose); display: grid; place-items: center; font-size: 18px; font-weight: 300; transition: transform .25s ease; flex-shrink: 0; }
   .faq-item[open] .plus { transform: rotate(45deg); }
-  .faq-item p {
-    font-size: 15px; color: var(--ink-2); line-height: 1.6;
-    margin-top: 14px; padding-right: 52px;
-  }
+  .faq-item p { font-size: 15px; color: var(--ink-2); line-height: 1.6; margin-top: 14px; padding-right: 52px; }
 
-  /* final CTA */
-  section.final {
-    padding: 140px 0;
-    border-top: 1px solid var(--hair);
-    text-align: center;
-    position: relative;
-    background:
-      radial-gradient(900px 500px at 50% 100%, rgba(157,64,99,0.14), transparent 60%);
-  }
-  section.final h2 {
-    font-size: clamp(48px, 7vw, 96px);
-    line-height: 1;
-    max-width: 920px; margin: 24px auto 24px;
-  }
+  /* ── Final CTA ── */
+  section.final { padding: 140px 0; border-top: 1px solid var(--hair); text-align: center; position: relative; background: radial-gradient(900px 500px at 50% 100%, rgba(157,64,99,0.14), transparent 60%); }
+  section.final h2 { font-size: clamp(48px, 7vw, 96px); line-height: 1; max-width: 920px; margin: 24px auto 24px; }
   section.final h2 .accent { color: var(--rose); }
-  section.final p {
-    font-size: 18px; max-width: 540px; margin: 0 auto 40px;
-    color: var(--ink-2);
-  }
-  section.final .badges {
-    display: flex; gap: 14px; justify-content: center;
-    margin-top: 28px;
-  }
-  section.final .badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 11px 18px;
-    background: var(--bg-2); border: 1px solid var(--hair-2);
-    border-radius: 12px;
-    font-family: var(--display); font-size: 13px; color: var(--ink);
-  }
-  section.final .badge .icon {
-    font-size: 18px;
-  }
-  section.final .form {
-    display: flex; gap: 8px; max-width: 480px; margin: 0 auto;
-    background: var(--card); border: 1px solid var(--hair-2);
-    border-radius: 999px; padding: 6px 6px 6px 22px; align-items: center;
-  }
-  section.final .form input {
-    flex: 1; background: transparent; border: 0; outline: 0;
-    font-family: var(--body); color: var(--ink);
-    font-size: 15px; padding: 12px 0;
-  }
+  section.final p { font-size: 18px; max-width: 540px; margin: 0 auto 40px; color: var(--ink-2); }
+  section.final .badges { display: flex; gap: 14px; justify-content: center; margin-top: 28px; }
+  section.final .badge { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; background: var(--bg-2); border: 1px solid var(--hair-2); border-radius: 12px; font-family: var(--display); font-size: 13px; color: var(--ink); }
+  section.final .form { display: flex; gap: 8px; max-width: 480px; margin: 0 auto; background: var(--card); border: 1px solid var(--hair-2); border-radius: 999px; padding: 6px 6px 6px 22px; align-items: center; }
+  section.final .form input { flex: 1; background: transparent; border: 0; outline: 0; font-family: var(--body); color: var(--ink); font-size: 15px; padding: 12px 0; }
   section.final .form input::placeholder { color: var(--muted); }
-  section.final .form button {
-    background: var(--ink); color: var(--bg); border: 0;
-    border-radius: 999px; padding: 12px 22px; cursor: pointer;
-    font-family: var(--display); font-weight: 600;
-    font-size: 14px;
-  }
+  section.final .form button { background: var(--ink); color: var(--bg); border: 0; border-radius: 999px; padding: 12px 22px; cursor: pointer; font-family: var(--display); font-weight: 600; font-size: 14px; }
 
-  /* footer */
-  footer {
-    padding: 60px 0 40px;
-    border-top: 1px solid var(--hair);
-    background: var(--bg);
-  }
-  .foot-grid {
-    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
-    margin-bottom: 48px;
-  }
-  .foot-grid h6 {
-    font-family: var(--display); font-size: 12px;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--ink-3); margin: 0 0 14px; font-weight: 600;
-  }
-  .foot-grid a {
-    display: block; font-size: 14px; color: var(--ink-2);
-    padding: 5px 0;
-  }
+  /* ── Footer ── */
+  footer { padding: 60px 0 40px; border-top: 1px solid var(--hair); }
+  .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+  .foot-grid h6 { font-family: var(--display); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 14px; font-weight: 600; }
+  .foot-grid a { display: block; font-size: 14px; color: var(--ink-2); padding: 5px 0; }
   .foot-grid a:hover { color: var(--rose); }
   .foot-grid .brand .logo { margin-bottom: 14px; }
-  .foot-grid .brand p {
-    font-size: 13px; color: var(--ink-3);
-    max-width: 280px; line-height: 1.55;
-  }
-  .foot-bot {
-    border-top: 1px solid var(--hair);
-    padding-top: 24px;
-    display: flex; justify-content: space-between;
-    flex-wrap: wrap; gap: 16px;
-    font-size: 12px; color: var(--ink-3);
-  }
+  .foot-grid .brand p { font-size: 13px; color: var(--ink-3); max-width: 280px; line-height: 1.55; }
+  .foot-bot { border-top: 1px solid var(--hair); padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--ink-3); }
 
-  /* responsive */
+  /* ── Responsive ── */
   @media (max-width: 900px) {
     .wrap { padding: 0 20px; }
     nav.top .links a:not(.btn) { display: none; }
-
     .hero { padding: 60px 0 80px; }
     .hero .grid { grid-template-columns: 1fr; gap: 60px; }
     .phone-wrap { order: 2; }
     .phone { transform: rotate(-2deg) scale(0.95); }
     .float-note { display: none; }
-
     .problem .grid { grid-template-columns: 1fr; gap: 32px; }
     .agent-section .head { grid-template-columns: 1fr; gap: 24px; }
     .agent-grid, .agent-grid.flip { grid-template-columns: 1fr; gap: 24px; direction: ltr; }
-
     .how-grid { grid-template-columns: 1fr; gap: 16px; }
     .int-grid { grid-template-columns: 1fr; gap: 16px; }
     section.proof .stats { grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -930,17 +606,8 @@
   <div class="wrap grid">
     <div>
       <div class="eyebrow">Four expert agents. One chat. Real results.</div>
-      <h1>
-        Ask once.<br/>
-        Get flights.<br/>
-        Get playlists.<br/>
-        <span class="accent">Get it done.</span>
-      </h1>
-      <p class="lede">
-        Staitment is the AI personal assistant that actually connects to your life.
-        Style, travel, fitness, and everything in between &mdash; powered by Spotify,
-        Google Calendar, Amadeus, and more.
-      </p>
+      <h1>Ask once.<br/>Get flights.<br/>Get playlists.<br/><span class="accent">Get it done.</span></h1>
+      <p class="lede">Staitment is the AI personal assistant that actually connects to your life. Style, travel, fitness, and everything in between &mdash; powered by Spotify, Google Calendar, Amadeus, and more.</p>
       <div class="ctas">
         <a href="#download" class="btn btn-primary">Get Staitment Free</a>
         <a href="#how" class="btn btn-ghost">See how it works</a>
@@ -954,53 +621,80 @@
 
     <div class="phone-wrap">
       <div class="float-note fn-1">
-        <div class="lbl">Travel</div>
-        Three flights to Lisbon. Budget at $312. Balanced at $548. Booking links ready.
+        <div class="lbl" style="color:var(--travel)">Travel</div>
+        Three flights to Lisbon. Budget at $412. Balanced nonstop at $589. Booking links ready.
       </div>
       <div class="float-note fn-2">
-        <div class="lbl">Fitness</div>
+        <div class="lbl" style="color:var(--fitness)">Fitness</div>
         HIIT playlist created on Spotify. 140 BPM. 12 tracks. Open in app?
       </div>
 
+      <!-- Hero phone: Travel chat screen (matches ScreenTravelChatD) -->
       <div class="phone">
         <div class="notch"></div>
-        <div class="phone-screen">
-          <div class="ph-header">
-            <div class="brand">
-              <span class="name">staitment<span class="namedot">.</span></span>
+        <div class="app-frame">
+          <div class="app-header">
+            <div style="font-size:14px;color:var(--ink-3);">&larr;</div>
+            <div style="display:flex;align-items:center;gap:5px;">
+              <span class="lm">S</span>
+              <span class="wm">staitment<span class="wm-dot">.</span></span>
+              <span class="agent-tag" style="color:var(--travel);background:rgba(52,95,122,0.08);border:1px solid rgba(52,95,122,0.25);">TRAVEL</span>
             </div>
-            <span class="agent-pill">Travel</span>
+            <div style="font-size:10px;color:var(--muted);">&#x2026;</div>
           </div>
-          <div class="ph-body">
-            <div class="ph-msg me">Weekend in Lisbon, Fri to Sun. Under $400 round trip.</div>
-            <div class="ph-msg them">Found three options. Here's the best value.</div>
-            <div class="ph-card-flight">
-              <div class="row">
-                <span class="tier">Best value</span>
-                <span class="price">$312</span>
-              </div>
-              <div class="leg"><b>JFK &rarr; LIS</b> &middot; Fri 7:40 AM &middot; 1 stop &middot; TAP</div>
-              <div class="booking-links">
-                <span>Google Flights</span>
-                <span>Kayak</span>
-                <span>Skyscanner</span>
+          <div class="app-body">
+            <div class="chat-date">&mdash; 15 / 05 / 26 &mdash;</div>
+            <div class="bubble-user">Find me flights MIA &rarr; LIS in May<div class="ts">9:41</div></div>
+            <div class="chat-kicker" style="color:var(--travel);">TRAVEL &middot; 03 RESULTS</div>
+            <!-- Flight 1: Budget -->
+            <div class="app-card" style="margin-bottom:6px;">
+              <div class="sc-flight">
+                <div class="fl-header">
+                  <span class="fl-airline">TAP TP218</span>
+                  <span class="fl-tier def">BUDGET</span>
+                </div>
+                <div class="fl-route">
+                  <div><div class="fl-code">14:35</div><div class="fl-city">MIA</div></div>
+                  <div class="fl-line"><div class="fl-dur">9h 20m &middot; 1 stop</div></div>
+                  <div style="text-align:right;"><div class="fl-code">06:55</div><div class="fl-city">LIS</div></div>
+                </div>
+                <div class="fl-bottom">
+                  <div class="fl-price">$412</div>
+                  <button class="fl-btn def">Select &rarr;</button>
+                </div>
               </div>
             </div>
-            <div class="ph-card-flight">
-              <div class="row">
-                <span class="tier">Nonstop</span>
-                <span class="price">$548</span>
-              </div>
-              <div class="leg"><b>JFK &rarr; LIS</b> &middot; Fri 9:15 PM &middot; nonstop &middot; United</div>
-              <div class="booking-links">
-                <span>Google Flights</span>
-                <span>Momondo</span>
+            <!-- Flight 2: Balanced (recommended) -->
+            <div class="app-card accent-left" style="--c:var(--travel);margin-bottom:6px;">
+              <div class="sc-flight">
+                <div class="fl-header">
+                  <span class="fl-airline">AA 236</span>
+                  <span class="fl-tier rec">BALANCED</span>
+                </div>
+                <div class="fl-route">
+                  <div><div class="fl-code">18:10</div><div class="fl-city">MIA</div></div>
+                  <div class="fl-line"><div class="fl-dur">8h 20m &middot; Nonstop</div></div>
+                  <div style="text-align:right;"><div class="fl-code">08:30</div><div class="fl-city">LIS</div></div>
+                </div>
+                <div class="fl-bottom">
+                  <div class="fl-price">$589</div>
+                  <button class="fl-btn rec">Select &rarr;</button>
+                </div>
               </div>
             </div>
           </div>
-          <div class="ph-input">
-            Ask Staitment anything&hellip;
-            <span class="send">&uarr;</span>
+          <div class="chip-row"><span class="chip">Save flight</span><span class="chip">Hotels</span><span class="chip">Itinerary</span></div>
+          <div class="app-input">
+            <span class="dots">&#x25CB; &#x1F4F7;</span>
+            <span class="placeholder">Ask <span class="wm">staitment</span>...</span>
+            <span class="send-btn" style="background:var(--travel);">&uarr;</span>
+          </div>
+          <div class="app-tab-bar">
+            <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Index</span></div>
+            <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Style</span></div>
+            <div class="app-tab agent-on" style="background:rgba(52,95,122,0.10);"><span class="tab-dot" style="background:var(--travel);"></span><span class="tab-label" style="color:var(--travel);font-weight:600;">Travel</span></div>
+            <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Fitness</span></div>
+            <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Cal</span></div>
           </div>
         </div>
       </div>
@@ -1008,11 +702,11 @@
   </div>
 </section>
 
-<!-- GEO-optimized definition -->
+<!-- GEO blurb -->
 <section style="padding:0 0 20px;border:0;">
   <div class="wrap">
     <p style="font-size:15px;line-height:1.7;color:var(--ink-2);max-width:800px;margin:0 auto;text-align:center;">
-      <strong>Staitment</strong> is an AI personal assistant app that combines style advice, travel planning, fitness discovery, and daily life management into a single chat interface. Four specialized AI agents learn your preferences, connect to Spotify and Google Calendar, and return actionable results &mdash; real flight and hotel options from Amadeus, 12-season color analysis from a selfie, BPM-matched workout playlists, and class bookings near you via ClassPass and Mindbody. Your preferences are remembered across every conversation.
+      <strong>Staitment</strong> is an AI personal assistant app that combines style advice, travel planning, fitness discovery, and daily life management into a single chat interface. Four specialized AI agents learn your preferences, connect to Spotify and Google Calendar, and return actionable results &mdash; real flight and hotel options from Amadeus, 12-season color analysis from a selfie, BPM-matched workout playlists, and class bookings near you via ClassPass and Mindbody.
     </p>
   </div>
 </section>
@@ -1025,321 +719,352 @@
       <h2>You don't need<br/>another <span class="accent">app.</span></h2>
     </div>
     <div class="problem-list">
-      <div class="problem-item">
-        <span class="x">&times;</span>
-        <div>
-          <h4>Six tabs to book one flight.</h4>
-          <p>Kayak. Google Flights. Skyscanner. You're comparison-shopping across three sites and still haven't booked anything.</p>
-        </div>
-      </div>
-      <div class="problem-item">
-        <span class="x">&times;</span>
-        <div>
-          <h4>Generic AI gives you generic answers.</h4>
-          <p>Ask ChatGPT for a restaurant and get the same tourist list everyone else gets. No awareness of your location, your calendar, or your taste.</p>
-        </div>
-      </div>
-      <div class="problem-item">
-        <span class="x">&times;</span>
-        <div>
-          <h4>Your apps don't talk to each other.</h4>
-          <p>Spotify doesn't know you're training for a half marathon. Your calendar doesn't know about the pilates class you just found. Nothing connects.</p>
-        </div>
-      </div>
-      <div class="problem-item">
-        <span class="x">&times;</span>
-        <div>
-          <h4>Nobody remembers what you told them last week.</h4>
-          <p>You've described your style three times. Your budget twice. Your dietary restrictions again. Start from zero every conversation.</p>
-        </div>
-      </div>
+      <div class="problem-item"><span class="x">&times;</span><div><h4>Six tabs to book one flight.</h4><p>Kayak. Google Flights. Skyscanner. You're comparison-shopping across three sites and still haven't booked anything.</p></div></div>
+      <div class="problem-item"><span class="x">&times;</span><div><h4>Generic AI gives you generic answers.</h4><p>Ask ChatGPT for a restaurant and get the same tourist list everyone else gets. No awareness of your location, your calendar, or your taste.</p></div></div>
+      <div class="problem-item"><span class="x">&times;</span><div><h4>Your apps don't talk to each other.</h4><p>Spotify doesn't know you're training for a half marathon. Your calendar doesn't know about the pilates class you just found. Nothing connects.</p></div></div>
+      <div class="problem-item"><span class="x">&times;</span><div><h4>Nobody remembers what you told them last week.</h4><p>You've described your style three times. Your budget twice. Your dietary restrictions again. Start from zero every conversation.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- STYLE -->
+<!-- STYLE AGENT — Color Season screen -->
 <section class="agent-section style" id="style">
   <div class="wrap">
     <div class="head">
-      <div>
-        <div class="eyebrow">01 &middot; Style Agent</div>
-        <h2>Your style, <em>decoded.</em></h2>
-      </div>
-      <div class="right">
-        <p>Send a selfie, get your 12-season color analysis in seconds &mdash; real color science, not a quiz. Rate outfits with honest scores and specific feedback. Build a digital wardrobe from photos. Save pieces you love to a virtual closet with links to shop later.</p>
-      </div>
+      <div><div class="eyebrow">01 &middot; Style Agent</div><h2>Your style, <em>decoded.</em></h2></div>
+      <div class="right"><p>Send a selfie, get your 12-season color analysis in seconds &mdash; real color science, not a quiz. Rate outfits with honest scores. Build a digital wardrobe from photos. Save pieces you love to a virtual closet.</p></div>
     </div>
-
     <div class="agent-grid">
       <div class="agent-side">
         <div class="examples">
-          <div class="ex">
-            <span class="num">A</span>
-            <div>
-              <div class="q">"What's my color season?"</div>
-              <div class="a">Selfie in, 12-season analysis out. Your best palette, metals, and the colors to avoid &mdash; all in a visual card.</div>
-            </div>
-          </div>
-          <div class="ex">
-            <span class="num">B</span>
-            <div>
-              <div class="q">"Rate this outfit for my interview."</div>
-              <div class="a">Honest 1&ndash;10 score. Key strengths, one specific swap to make it better. No fluff.</div>
-            </div>
-          </div>
-          <div class="ex">
-            <span class="num">C</span>
-            <div>
-              <div class="q">"Add this blazer to my wardrobe."</div>
-              <div class="a">Photo analyzed automatically &mdash; category, color, season, occasion. Your closet, organized.</div>
-            </div>
-          </div>
+          <div class="ex"><span class="num">A</span><div><div class="q">"What's my color season?"</div><div class="a">Selfie in, 12-season analysis out. Your best palette, metals, and the colors to avoid &mdash; all in a visual card.</div></div></div>
+          <div class="ex"><span class="num">B</span><div><div class="q">"Rate this outfit for my interview."</div><div class="a">Honest 1&ndash;10 score. Key strengths, one specific swap to make it better.</div></div></div>
+          <div class="ex"><span class="num">C</span><div><div class="q">"Add this blazer to my wardrobe."</div><div class="a">Photo analyzed automatically &mdash; category, color, season, occasion. Your closet, organized.</div></div></div>
         </div>
       </div>
-
-      <div class="agent-visual">
-        <div class="av-head">
-          <span class="av-pill">Style &middot; Color Analysis</span>
-          <span class="av-time">just now</span>
+      <!-- Screen: ScreenStyleChatD (color season result) -->
+      <div class="agent-screen" style="--c:var(--style);">
+        <div class="app-header">
+          <div style="font-size:14px;color:var(--ink-3);">&larr;</div>
+          <div style="display:flex;align-items:center;gap:5px;">
+            <span class="lm">S</span>
+            <span class="wm">staitment<span class="wm-dot">.</span></span>
+            <span class="agent-tag">STYLE</span>
+          </div>
+          <div style="font-size:10px;color:var(--muted);">&#x2026;</div>
         </div>
-        <div class="av-convo">
-          <div class="av-bubble me">Analyze my color season</div>
-          <div class="av-bubble them" style="padding-bottom: 14px;">
-            <div class="av-season">True <span>Autumn</span></div>
-            <div style="font-size: 11px; color: var(--ink-3); margin-bottom: 8px;">Warm, soft, earthy &middot; Best metals: gold, copper, bronze</div>
-            <div class="av-swatches">
-              <div class="sw" style="background:#a85a3a"></div>
-              <div class="sw" style="background:#7a4827"></div>
-              <div class="sw" style="background:#c89968"></div>
-              <div class="sw" style="background:#5d5237"></div>
-              <div class="sw" style="background:#8a6a4c"></div>
-              <div class="sw" style="background:#3a2e1f"></div>
+        <div class="app-body">
+          <div class="chat-date">&mdash; 25 / 02 / 26 &mdash;</div>
+          <div class="bubble-user">What's my color season?<div class="ts">9:41</div></div>
+          <div class="bubble-bot">
+            <div class="chat-kicker">STYLE &middot; RESULT</div>
+            <div class="app-card raised accent-left" style="--c:var(--style);padding:14px;">
+              <div style="font-family:var(--display);font-size:22px;font-weight:800;letter-spacing:-0.025em;color:var(--ink);">True Autumn.</div>
+              <div style="font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:0.18em;margin-top:4px;">SEASON 04 OF 12</div>
+              <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--hair);">
+                <div style="font-family:var(--mono);font-size:7.5px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:6px;">BEST COLORS &middot; 06</div>
+                <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;">
+                  <div style="aspect-ratio:1;background:#8B4513;border-radius:6px;"></div>
+                  <div style="aspect-ratio:1;background:#A0522D;border-radius:6px;"></div>
+                  <div style="aspect-ratio:1;background:#CD853F;border-radius:6px;"></div>
+                  <div style="aspect-ratio:1;background:#DAA520;border-radius:6px;"></div>
+                  <div style="aspect-ratio:1;background:#556B2F;border-radius:6px;"></div>
+                  <div style="aspect-ratio:1;background:#6B5C36;border-radius:6px;"></div>
+                </div>
+              </div>
+              <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--hair);display:flex;justify-content:space-between;">
+                <span style="font-family:var(--mono);font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);">METALS</span>
+                <span style="font-family:var(--mono);font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-2);">GOLD &middot; COPPER</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:5px;margin-top:6px;">
+              <span style="flex:1;padding:7px;border-radius:8px;background:var(--card);border:1px solid var(--hair);color:var(--ink-2);font-size:9.5px;font-weight:600;text-align:center;">Makeup tips &rarr;</span>
+              <span style="flex:1;padding:7px;border-radius:8px;background:var(--card);border:1px solid var(--hair);color:var(--ink-2);font-size:9.5px;font-weight:600;text-align:center;">Outfit colors &rarr;</span>
             </div>
           </div>
-          <div class="av-bubble them">
-            Lean into rust, camel, and terracotta. Avoid icy blue and pure black &mdash; they wash you out. Want makeup tips for your season?
-          </div>
+        </div>
+        <div class="chip-row"><span class="chip">Analyze colors</span><span class="chip">Rate outfit</span><span class="chip">Wardrobe</span></div>
+        <div class="app-input">
+          <span class="dots">&#x25CB; &#x1F4F7;</span>
+          <span class="placeholder">Ask <span class="wm">staitment</span>...</span>
+          <span class="send-btn" style="background:var(--style);">&uarr;</span>
+        </div>
+        <div class="app-tab-bar">
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Index</span></div>
+          <div class="app-tab agent-on" style="background:rgba(157,64,99,0.10);"><span class="tab-dot" style="background:var(--style);"></span><span class="tab-label" style="color:var(--style);font-weight:600;">Style</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Travel</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Fitness</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Cal</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TRAVEL -->
+<!-- TRAVEL AGENT — Flight results screen -->
 <section class="agent-section travel" id="travel">
   <div class="wrap">
     <div class="head">
-      <div>
-        <div class="eyebrow">02 &middot; Travel Agent</div>
-        <h2>Real flights.<br/> Real hotels. <em>Real links.</em></h2>
-      </div>
-      <div class="right">
-        <p>Tell it where and when. It searches Amadeus for live flights and hotels, finds restaurants and attractions via Google Places, and gives you booking links to Google Flights, Kayak, Skyscanner, Booking.com, and more. Checks your calendar so you don't double-book.</p>
-      </div>
+      <div><div class="eyebrow">02 &middot; Travel Agent</div><h2>Real flights.<br/>Real hotels. <em>Real links.</em></h2></div>
+      <div class="right"><p>Tell it where and when. It searches Amadeus for live flights and hotels, finds restaurants via Google Places, and gives you booking links to Google Flights, Kayak, Skyscanner, Booking.com, and more.</p></div>
     </div>
-
     <div class="agent-grid flip">
       <div class="agent-side">
         <div class="examples">
-          <div class="ex">
-            <span class="num">A</span>
-            <div>
-              <div class="q">"Weekend in Lisbon, under $400 round trip."</div>
-              <div class="a">Live Amadeus results. Price, airline, stops, duration. Tap to book on Google Flights, Kayak, or Skyscanner.</div>
-            </div>
-          </div>
-          <div class="ex">
-            <span class="num">B</span>
-            <div>
-              <div class="q">"Best restaurants in Roma Norte, Mexico City."</div>
-              <div class="a">Real places from Google with ratings, price levels, and reservation links for Resy and OpenTable.</div>
-            </div>
-          </div>
-          <div class="ex">
-            <span class="num">C</span>
-            <div>
-              <div class="q">"Quiet hotel in Tokyo near a metro, under $250."</div>
-              <div class="a">Amadeus hotel results with star ratings, addresses, and links to Booking.com, Hotels.com, and Airbnb.</div>
-            </div>
-          </div>
+          <div class="ex"><span class="num">A</span><div><div class="q">"Weekend in Lisbon, under $400 round trip."</div><div class="a">Live Amadeus results. Price, airline, stops, duration. Tap to book on Google Flights, Kayak, or Skyscanner.</div></div></div>
+          <div class="ex"><span class="num">B</span><div><div class="q">"Best restaurants in Roma Norte, Mexico City."</div><div class="a">Real places from Google with ratings, price levels, and reservation links.</div></div></div>
+          <div class="ex"><span class="num">C</span><div><div class="q">"Quiet hotel in Tokyo near a metro, under $250."</div><div class="a">Amadeus hotel results with star ratings, addresses, and links to Booking.com and Hotels.com.</div></div></div>
         </div>
       </div>
-
-      <div class="agent-visual">
-        <div class="av-head">
-          <span class="av-pill">Travel &middot; Lisbon</span>
-          <span class="av-time">live results</span>
+      <!-- Screen: ScreenTravelChatD (flight results) -->
+      <div class="agent-screen" style="--c:var(--travel);">
+        <div class="app-header">
+          <div style="font-size:14px;color:var(--ink-3);">&larr;</div>
+          <div style="display:flex;align-items:center;gap:5px;"><span class="lm">S</span><span class="wm">staitment<span class="wm-dot">.</span></span><span class="agent-tag">TRAVEL</span></div>
+          <div style="font-size:10px;color:var(--muted);">&#x2026;</div>
         </div>
-        <div class="av-convo">
-          <div class="av-bubble me">Lisbon, Fri to Sun. Under $400.</div>
-          <div class="av-flight">
-            <div>
-              <div class="leg">JFK &rarr; LIS</div>
-              <div class="sub">Fri 7:40 AM &middot; 1 stop &middot; TAP Air Portugal</div>
-              <div class="links"><span>Google Flights</span> <span>&middot;</span> <span>Kayak</span> <span>&middot;</span> <span>Skyscanner</span></div>
+        <div class="app-body">
+          <div class="bubble-user">Weekend in Lisbon, under $400 RT<div class="ts">9:41</div></div>
+          <div class="chat-kicker">TRAVEL &middot; 03 RESULTS</div>
+          <div style="font-family:var(--display);font-size:18px;font-weight:800;letter-spacing:-0.025em;margin-bottom:4px;">Three options.</div>
+          <div style="font-size:10px;color:var(--ink-3);margin-bottom:6px;">Sorted by tier. Prices include taxes.</div>
+          <!-- Budget -->
+          <div class="app-card" style="margin-bottom:5px;">
+            <div class="sc-flight">
+              <div class="fl-header"><span class="fl-airline">TAP TP218</span><span class="fl-tier def">BUDGET</span></div>
+              <div class="fl-route">
+                <div><div class="fl-code">14:35</div><div class="fl-city">MIA</div></div>
+                <div class="fl-line"><div class="fl-dur">9h 20m &middot; 1 stop</div></div>
+                <div style="text-align:right;"><div class="fl-code">06:55</div><div class="fl-city">LIS</div></div>
+              </div>
+              <div class="fl-bottom"><div class="fl-price">$412</div><button class="fl-btn def">Select &rarr;</button></div>
             </div>
-            <div class="price">$312</div>
           </div>
-          <div class="av-flight">
-            <div>
-              <div class="leg">Memmo Alfama</div>
-              <div class="sub">4.7 &middot; 2 nights &middot; river view</div>
-              <div class="links"><span>Booking.com</span> <span>&middot;</span> <span>Hotels.com</span></div>
+          <!-- Balanced -->
+          <div class="app-card accent-left" style="--c:var(--travel);margin-bottom:5px;">
+            <div class="sc-flight">
+              <div class="fl-header"><span class="fl-airline">AA 236</span><span class="fl-tier rec">BALANCED</span></div>
+              <div class="fl-route">
+                <div><div class="fl-code">18:10</div><div class="fl-city">MIA</div></div>
+                <div class="fl-line"><div class="fl-dur">8h 20m &middot; Nonstop</div></div>
+                <div style="text-align:right;"><div class="fl-code">08:30</div><div class="fl-city">LIS</div></div>
+              </div>
+              <div class="fl-bottom"><div class="fl-price">$589</div><button class="fl-btn rec">Select &rarr;</button></div>
             </div>
-            <div class="price">$418</div>
           </div>
-          <div class="av-bubble them">Want me to search for restaurants in Alfama and build a day-by-day itinerary?</div>
+          <!-- Premium -->
+          <div class="app-card" style="margin-bottom:5px;">
+            <div class="sc-flight">
+              <div class="fl-header"><span class="fl-airline">LH 473</span><span class="fl-tier def">PREMIUM</span></div>
+              <div class="fl-route">
+                <div><div class="fl-code">21:25</div><div class="fl-city">MIA</div></div>
+                <div class="fl-line"><div class="fl-dur">7h 40m &middot; Nonstop</div></div>
+                <div style="text-align:right;"><div class="fl-code">11:05</div><div class="fl-city">LIS</div></div>
+              </div>
+              <div class="fl-bottom"><div class="fl-price">$1,240</div><button class="fl-btn def">Select &rarr;</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="app-tab-bar">
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Index</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Style</span></div>
+          <div class="app-tab agent-on" style="background:rgba(52,95,122,0.10);"><span class="tab-dot" style="background:var(--travel);"></span><span class="tab-label" style="color:var(--travel);font-weight:600;">Travel</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Fitness</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Cal</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FITNESS -->
+<!-- FITNESS AGENT — Class search + Spotify screen -->
 <section class="agent-section fitness" id="fitness">
   <div class="wrap">
     <div class="head">
-      <div>
-        <div class="eyebrow">03 &middot; Fitness Agent</div>
-        <h2>Find the class.<br/> Build the playlist. <em>Show up.</em></h2>
-      </div>
-      <div class="right">
-        <p>Yoga, pilates, HIIT, barre, boxing &mdash; whatever you're into. It finds real studios near you with ClassPass and Mindbody links. Creates BPM-matched workout playlists on your Spotify. Builds structured workout plans for any experience level.</p>
-      </div>
+      <div><div class="eyebrow">03 &middot; Fitness Agent</div><h2>Find the class.<br/>Build the playlist. <em>Show up.</em></h2></div>
+      <div class="right"><p>Yoga, pilates, HIIT, barre, boxing &mdash; whatever you're into. It finds real studios near you with ClassPass and Mindbody links. Creates BPM-matched workout playlists on your Spotify.</p></div>
     </div>
-
     <div class="agent-grid">
       <div class="agent-side">
         <div class="examples">
-          <div class="ex">
-            <span class="num">A</span>
-            <div>
-              <div class="q">"Reformer pilates near me, Saturday morning."</div>
-              <div class="a">Real studios with ratings, distance, and deep links to ClassPass and Mindbody to book.</div>
-            </div>
-          </div>
-          <div class="ex">
-            <span class="num">B</span>
-            <div>
-              <div class="q">"Make me a HIIT playlist, 45 minutes, high energy."</div>
-              <div class="a">Created on your Spotify. 140 BPM. 13 tracks. Tap to open in the Spotify app.</div>
-            </div>
-          </div>
-          <div class="ex">
-            <span class="num">C</span>
-            <div>
-              <div class="q">"Beginner strength plan, 3 days a week."</div>
-              <div class="a">Sets, reps, rest times. Progressive overload built in. No gym-bro energy.</div>
-            </div>
-          </div>
+          <div class="ex"><span class="num">A</span><div><div class="q">"Reformer pilates near me, Saturday morning."</div><div class="a">Real studios with ratings, distance, and deep links to ClassPass and Mindbody.</div></div></div>
+          <div class="ex"><span class="num">B</span><div><div class="q">"Make me a HIIT playlist, 45 minutes, high energy."</div><div class="a">Created on your Spotify. 140 BPM. 13 tracks. Tap to open in the Spotify app.</div></div></div>
+          <div class="ex"><span class="num">C</span><div><div class="q">"Beginner strength plan, 3 days a week."</div><div class="a">Sets, reps, rest times. Progressive overload built in. No gym-bro energy.</div></div></div>
         </div>
       </div>
-
-      <div class="agent-visual">
-        <div class="av-head">
-          <span class="av-pill">Fitness &middot; Saturday</span>
-          <span class="av-time">3 studios found</span>
+      <!-- Screen: ScreenFitnessChatD (class search + Spotify playlist) -->
+      <div class="agent-screen" style="--c:var(--fitness);">
+        <div class="app-header">
+          <div style="font-size:14px;color:var(--ink-3);">&larr;</div>
+          <div style="display:flex;align-items:center;gap:5px;"><span class="lm">S</span><span class="wm">staitment<span class="wm-dot">.</span></span><span class="agent-tag">FITNESS</span></div>
+          <div style="font-size:10px;color:var(--muted);">&#x2026;</div>
         </div>
-        <div class="av-convo">
-          <div class="av-bubble me">Reformer pilates Sat AM near me</div>
-          <div class="av-class">
-            <div class="av-class-row">
-              <div>
-                <div class="name">Form Pilates &middot; Carroll Gardens</div>
-                <div class="meta" style="color: var(--ink-3); font-size: 11px; margin-top: 2px;">0.6 mi &middot; 4.9 &middot; ClassPass</div>
+        <div class="app-body">
+          <div class="bubble-user">Find yoga near me<div class="ts">9:41</div></div>
+          <div class="chat-kicker">FITNESS &middot; WITHIN 1 MI</div>
+          <div style="font-family:var(--display);font-size:18px;font-weight:800;letter-spacing:-0.025em;margin-bottom:6px;">Three studios.</div>
+          <!-- Studio 1 -->
+          <div class="app-card" style="margin-bottom:5px;">
+            <div class="sc-class">
+              <div class="cl-img"></div>
+              <div style="flex:1;min-width:0;">
+                <div class="cl-type">Vinyasa Flow</div>
+                <div class="cl-studio">Modo Yoga</div>
+                <div class="cl-meta">6:30 PM &middot; 0.4 mi</div>
               </div>
-              <div class="time">8:30 AM</div>
-            </div>
-            <div class="av-class-row">
-              <div>
-                <div class="name">Slope Pilates &middot; Park Slope</div>
-                <div class="meta" style="color: var(--ink-3); font-size: 11px; margin-top: 2px;">1.1 mi &middot; 4.8 &middot; Mindbody</div>
-              </div>
-              <div class="time">9:00 AM</div>
+              <button class="cl-book">Book</button>
             </div>
           </div>
-          <div class="av-spotify">
-            <span class="icon">S</span>
-            <div>
-              <div class="text">Saturday HIIT &middot; 140 BPM</div>
-              <div class="sub">13 tracks &middot; 47 min &middot; Open in Spotify</div>
+          <!-- Studio 2 -->
+          <div class="app-card" style="margin-bottom:5px;">
+            <div class="sc-class">
+              <div class="cl-img"></div>
+              <div style="flex:1;min-width:0;">
+                <div class="cl-type">Hot Slow Flow</div>
+                <div class="cl-studio">Y7 Studio</div>
+                <div class="cl-meta">7:00 PM &middot; 0.7 mi</div>
+              </div>
+              <button class="cl-book">Book</button>
             </div>
           </div>
-          <div class="av-bubble them">Form has the best reviews and it's closest. Want me to create a warm-up playlist too?</div>
+          <!-- Studio 3 -->
+          <div class="app-card" style="margin-bottom:5px;">
+            <div class="sc-class">
+              <div class="cl-img"></div>
+              <div style="flex:1;min-width:0;">
+                <div class="cl-type">Yin &amp; Sound Bath</div>
+                <div class="cl-studio">Sky Ting</div>
+                <div class="cl-meta">8:15 PM &middot; 0.9 mi</div>
+              </div>
+              <button class="cl-book">Book</button>
+            </div>
+          </div>
+          <!-- Spotify playlist card -->
+          <div class="app-card" style="margin-top:4px;">
+            <div class="sc-spotify">
+              <div class="sp-icon">S</div>
+              <div style="flex:1;">
+                <div class="sp-name">Yoga Flow &middot; 80 BPM</div>
+                <div class="sp-meta">18 tracks &middot; 62 min &middot; Open in Spotify</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-tab-bar">
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Index</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Style</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Travel</span></div>
+          <div class="app-tab agent-on" style="background:rgba(63,106,76,0.10);"><span class="tab-dot" style="background:var(--fitness);"></span><span class="tab-label" style="color:var(--fitness);font-weight:600;">Fitness</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Cal</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LIFESTYLE -->
+<!-- LIFESTYLE AGENT — Calendar + Reminders screen -->
 <section class="agent-section lifestyle" id="lifestyle">
   <div class="wrap">
     <div class="head">
-      <div>
-        <div class="eyebrow">04 &middot; Lifestyle Agent</div>
-        <h2>The glue that <em>holds it together.</em></h2>
-      </div>
-      <div class="right">
-        <p>Syncs with your Google Calendar to see what's coming. Sets reminders that actually fire. Finds restaurants and cafes near you. Creates focus playlists on Spotify. Remembers your preferences across every conversation so you never repeat yourself.</p>
-      </div>
+      <div><div class="eyebrow">04 &middot; Lifestyle Agent</div><h2>The glue that <em>holds it together.</em></h2></div>
+      <div class="right"><p>Syncs with your Google Calendar to see what's coming. Sets reminders that actually fire. Finds restaurants near you. Creates focus playlists on Spotify. Remembers your preferences across every conversation.</p></div>
     </div>
-
     <div class="agent-grid flip">
       <div class="agent-side">
         <div class="examples">
-          <div class="ex">
-            <span class="num">A</span>
-            <div>
-              <div class="q">"What's on my calendar this week?"</div>
-              <div class="a">Pulls your Google Calendar. Spots conflicts. Suggests when to schedule that workout.</div>
-            </div>
-          </div>
-          <div class="ex">
-            <span class="num">B</span>
-            <div>
-              <div class="q">"Remind me to book the Lisbon flight by Thursday."</div>
-              <div class="a">Set. Persistent reminder. It fires on Thursday morning. Once, not five times.</div>
-            </div>
-          </div>
-          <div class="ex">
-            <span class="num">C</span>
-            <div>
-              <div class="q">"Make me a focus playlist for deep work."</div>
-              <div class="a">Created on your Spotify. Lo-fi, ambient, instrumental. 90 minutes of no distractions.</div>
-            </div>
-          </div>
+          <div class="ex"><span class="num">A</span><div><div class="q">"What's on my calendar this week?"</div><div class="a">Pulls your Google Calendar. Spots conflicts. Suggests when to schedule that workout.</div></div></div>
+          <div class="ex"><span class="num">B</span><div><div class="q">"Remind me to book the Lisbon flight by Thursday."</div><div class="a">Set. Persistent reminder. It fires on Thursday morning. Once, not five times.</div></div></div>
+          <div class="ex"><span class="num">C</span><div><div class="q">"Make me a focus playlist for deep work."</div><div class="a">Created on your Spotify. Lo-fi, ambient, instrumental. 90 minutes of no distractions.</div></div></div>
         </div>
       </div>
-
-      <div class="agent-visual">
-        <div class="av-head">
-          <span class="av-pill">Lifestyle &middot; This Week</span>
-          <span class="av-time">synced</span>
+      <!-- Screen: ScreenCalendarD (calendar + events) -->
+      <div class="agent-screen" style="--c:var(--lifestyle);">
+        <div class="app-header">
+          <div style="font-size:14px;color:var(--ink-3);">&larr;</div>
+          <div style="display:flex;align-items:center;gap:5px;"><span class="lm">S</span><span class="wm">staitment<span class="wm-dot">.</span></span><span class="agent-tag" style="color:var(--calendar);background:rgba(90,72,128,0.08);border:1px solid rgba(90,72,128,0.25);">CALENDAR</span></div>
+          <div style="font-size:10px;color:var(--muted);">&#x2026;</div>
         </div>
-        <div class="av-convo">
-          <div class="av-reminder">
-            <span class="icon">&#x2713;</span>
+        <div class="app-body">
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px;">
             <div>
-              <div class="text">Book Lisbon flight</div>
-              <div class="when">Thu, 9:00 AM &middot; reminder set</div>
+              <div style="font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:0.22em;">2026 &middot; 04</div>
+              <div style="font-family:var(--display);font-size:28px;font-weight:800;letter-spacing:-0.03em;line-height:1;margin-top:3px;">April.</div>
+            </div>
+            <div style="display:flex;gap:4px;">
+              <div style="width:26px;height:26px;border-radius:8px;background:var(--card);border:1px solid var(--hair);display:grid;place-items:center;font-size:10px;color:var(--ink-3);">&lsaquo;</div>
+              <div style="width:26px;height:26px;border-radius:8px;background:var(--card);border:1px solid var(--hair);display:grid;place-items:center;font-size:10px;color:var(--ink-3);">&rsaquo;</div>
             </div>
           </div>
-          <div class="av-reminder">
-            <span class="icon">&#x25CB;</span>
-            <div>
-              <div class="text">Team standup &middot; Google Calendar</div>
-              <div class="when">Mon&ndash;Fri, 10:00 AM</div>
+          <!-- Calendar grid -->
+          <div class="app-card" style="padding:8px 6px;">
+            <div class="sc-cal-grid">
+              <div class="day-hdr">S</div><div class="day-hdr">M</div><div class="day-hdr">T</div><div class="day-hdr">W</div><div class="day-hdr">T</div><div class="day-hdr">F</div><div class="day-hdr">S</div>
+              <div class="day-cell"><span class="day-num out"></span></div>
+              <div class="day-cell"><span class="day-num out"></span></div>
+              <div class="day-cell"><span class="day-num">1</span></div>
+              <div class="day-cell"><span class="day-num">2</span></div>
+              <div class="day-cell"><span class="day-num">3</span></div>
+              <div class="day-cell"><span class="day-num">4</span></div>
+              <div class="day-cell"><span class="day-num">5</span></div>
+              <div class="day-cell"><span class="day-num">6</span></div>
+              <div class="day-cell"><span class="day-num">7</span><div class="day-dots"><span style="background:var(--travel);"></span></div></div>
+              <div class="day-cell"><span class="day-num">8</span></div>
+              <div class="day-cell"><span class="day-num">9</span></div>
+              <div class="day-cell"><span class="day-num">10</span></div>
+              <div class="day-cell"><span class="day-num">11</span></div>
+              <div class="day-cell"><span class="day-num">12</span><div class="day-dots"><span style="background:var(--fitness);"></span></div></div>
+              <div class="day-cell"><span class="day-num">13</span></div>
+              <div class="day-cell"><span class="day-num sel">14</span><div class="day-dots"><span style="background:var(--calendar);"></span><span style="background:var(--travel);"></span></div></div>
+              <div class="day-cell"><span class="day-num">15</span></div>
+              <div class="day-cell"><span class="day-num">16</span></div>
+              <div class="day-cell"><span class="day-num">17</span></div>
+              <div class="day-cell"><span class="day-num">18</span><div class="day-dots"><span style="background:var(--style);"></span></div></div>
+              <div class="day-cell"><span class="day-num">19</span></div>
+              <div class="day-cell"><span class="day-num">20</span></div>
+              <div class="day-cell"><span class="day-num">21</span></div>
+              <div class="day-cell"><span class="day-num">22</span><div class="day-dots"><span style="background:var(--lifestyle);"></span></div></div>
+              <div class="day-cell"><span class="day-num">23</span></div>
+              <div class="day-cell"><span class="day-num">24</span></div>
+              <div class="day-cell"><span class="day-num">25</span></div>
+              <div class="day-cell"><span class="day-num">26</span></div>
+              <div class="day-cell"><span class="day-num">27</span><div class="day-dots"><span style="background:var(--calendar);"></span></div></div>
+              <div class="day-cell"><span class="day-num today">28</span></div>
+              <div class="day-cell"><span class="day-num">29</span></div>
+              <div class="day-cell"><span class="day-num">30</span></div>
             </div>
           </div>
-          <div class="av-spotify">
-            <span class="icon">S</span>
-            <div>
-              <div class="text">Deep Focus &middot; Lo-fi</div>
-              <div class="sub">26 tracks &middot; 94 min &middot; Open in Spotify</div>
+          <!-- Events for selected day (14th) -->
+          <div style="margin-top:10px;">
+            <div style="font-family:var(--mono);font-size:8px;color:var(--muted);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:6px;">14 &middot; 04 &middot; MON</div>
+            <div class="app-card" style="padding:8px 10px;margin-bottom:5px;display:flex;gap:8px;align-items:center;">
+              <div class="sc-reminder">
+                <div class="rm-bar" style="background:var(--lifestyle);"></div>
+                <div class="rm-time">09:30</div>
+                <div><div class="rm-title">Mercedes service appt</div><div class="rm-src" style="color:var(--lifestyle);">&middot; LIFESTYLE</div></div>
+              </div>
+            </div>
+            <div class="app-card" style="padding:8px 10px;margin-bottom:5px;display:flex;gap:8px;align-items:center;">
+              <div class="sc-reminder">
+                <div class="rm-bar" style="background:var(--fitness);"></div>
+                <div class="rm-time">18:00</div>
+                <div><div class="rm-title">Vinyasa flow &mdash; Modo</div><div class="rm-src" style="color:var(--fitness);">&middot; FITNESS</div></div>
+              </div>
+            </div>
+            <div class="app-card" style="padding:8px 10px;display:flex;gap:8px;align-items:center;">
+              <div class="sc-reminder">
+                <div class="rm-bar" style="background:var(--travel);"></div>
+                <div class="rm-time">21:00</div>
+                <div><div class="rm-title">Flight MIA &rarr; LIS</div><div class="rm-src" style="color:var(--travel);">&middot; TRAVEL</div></div>
+              </div>
             </div>
           </div>
-          <div class="av-bubble them">Friday looks tight with the Lisbon flight at 7:40 AM. Want me to move your pilates class to Thursday?</div>
+        </div>
+        <div class="app-tab-bar">
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Index</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Style</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Travel</span></div>
+          <div class="app-tab"><span class="tab-dot"></span><span class="tab-label">Fitness</span></div>
+          <div class="app-tab agent-on" style="background:rgba(90,72,128,0.10);"><span class="tab-dot" style="background:var(--calendar);"></span><span class="tab-label" style="color:var(--calendar);font-weight:600;">Cal</span></div>
         </div>
       </div>
     </div>
@@ -1355,36 +1080,22 @@
     </div>
     <div class="int-grid">
       <div class="int-card">
-        <div class="int-icon" style="background: #1DB95420; color: #1DB954;">S</div>
+        <div class="int-icon" style="background:#1DB95420;color:#1DB954;">S</div>
         <h4>Spotify</h4>
-        <p>Create playlists matched to your workout BPM, travel destination, or morning routine. Search tracks, see your top artists, and react to what you're listening to right now.</p>
-        <div class="tag-row">
-          <span class="tag">Playlists</span>
-          <span class="tag">Music search</span>
-          <span class="tag">Now playing</span>
-          <span class="tag">Top tracks</span>
-        </div>
+        <p>Create playlists matched to your workout BPM, travel destination, or morning routine. Search tracks, see your top artists, and react to what you're listening to.</p>
+        <div class="tag-row"><span class="tag">Playlists</span><span class="tag">Music search</span><span class="tag">Now playing</span><span class="tag">Top tracks</span></div>
       </div>
       <div class="int-card">
-        <div class="int-icon" style="background: #4285F420; color: #4285F4;">G</div>
+        <div class="int-icon" style="background:#4285F420;color:#4285F4;">G</div>
         <h4>Google Calendar</h4>
-        <p>See your upcoming week at a glance. Staitment checks your schedule before suggesting workout times, travel dates, or dinner plans &mdash; so nothing conflicts.</p>
-        <div class="tag-row">
-          <span class="tag">Schedule sync</span>
-          <span class="tag">Conflict detection</span>
-          <span class="tag">Event awareness</span>
-        </div>
+        <p>See your upcoming week at a glance. Staitment checks your schedule before suggesting workout times, travel dates, or dinner plans.</p>
+        <div class="tag-row"><span class="tag">Schedule sync</span><span class="tag">Conflict detection</span><span class="tag">Event awareness</span></div>
       </div>
       <div class="int-card">
-        <div class="int-icon" style="background: rgba(157,64,99,0.1); color: var(--rose);">K</div>
+        <div class="int-icon" style="background:rgba(157,64,99,0.1);color:var(--rose);">K</div>
         <h4>Knowledge Graph</h4>
-        <p>Staitment learns your preferences from every conversation. Your color season, travel budget, fitness goals, dietary needs &mdash; all remembered and used across every agent.</p>
-        <div class="tag-row">
-          <span class="tag">Auto-learned</span>
-          <span class="tag">Cross-agent</span>
-          <span class="tag">Editable</span>
-          <span class="tag">Deletable</span>
-        </div>
+        <p>Staitment learns your preferences from every conversation. Your color season, travel budget, fitness goals &mdash; all remembered across every agent.</p>
+        <div class="tag-row"><span class="tag">Auto-learned</span><span class="tag">Cross-agent</span><span class="tag">Editable</span><span class="tag">Deletable</span></div>
       </div>
     </div>
   </div>
@@ -1393,35 +1104,22 @@
 <!-- HOW IT WORKS -->
 <section class="how" id="how">
   <div class="wrap">
-    <div class="how-head">
-      <div class="eyebrow">How it works</div>
-      <h2>One chat. <span class="accent">Four experts.</span></h2>
-    </div>
+    <div class="how-head"><div class="eyebrow">How it works</div><h2>One chat. <span class="accent">Four experts.</span></h2></div>
     <div class="how-grid">
       <div class="step">
-        <div class="n">01</div>
-        <h4>Ask anything.</h4>
+        <div class="n">01</div><h4>Ask anything.</h4>
         <p>Type naturally. Staitment's classifier routes your message to the right specialist &mdash; style, travel, fitness, or lifestyle. You don't have to pick.</p>
-        <div class="demo">
-          <div class="q">"Find me a flight to Lisbon Friday"</div>
-          <div class="a">&rarr; Routed to Travel Agent</div>
-        </div>
+        <div class="demo"><div class="q">"Find me a flight to Lisbon Friday"</div><div class="a">&rarr; Routed to Travel Agent</div></div>
       </div>
       <div class="step">
-        <div class="n">02</div>
-        <h4>Get real results.</h4>
+        <div class="n">02</div><h4>Get real results.</h4>
         <p>Not paragraphs of text. Rich cards with live data &mdash; flight prices, studio ratings, color palettes, playlist links. Tap to book, save, or open.</p>
-        <div class="demo">
-          <div class="a">&rarr; 3 flights &middot; 2 hotels &middot; booking links</div>
-        </div>
+        <div class="demo"><div class="a">&rarr; 3 flights &middot; 2 hotels &middot; booking links</div></div>
       </div>
       <div class="step">
-        <div class="n">03</div>
-        <h4>It remembers you.</h4>
+        <div class="n">03</div><h4>It remembers you.</h4>
         <p>Connect Spotify and Google Calendar. Your preferences, budget, style, and schedule carry across every conversation. No repeating yourself.</p>
-        <div class="demo">
-          <div class="a">&rarr; "You prefer nonstop flights under $500"</div>
-        </div>
+        <div class="demo"><div class="a">&rarr; "You prefer nonstop flights under $500"</div></div>
       </div>
     </div>
   </div>
@@ -1430,28 +1128,13 @@
 <!-- PROOF -->
 <section class="proof">
   <div class="wrap">
-    <blockquote>
-      "It's like having <span class="hl">a stylist, a travel agent, a trainer, and a personal assistant</span> &mdash; all in one chat that actually knows you."
-    </blockquote>
+    <blockquote>"It's like having <span class="hl">a stylist, a travel agent, a trainer, and a personal assistant</span> &mdash; all in one chat that actually knows you."</blockquote>
     <div class="attr">&mdash; Early beta tester</div>
-
     <div class="stats">
-      <div class="stat">
-        <div class="num">4</div>
-        <div class="lbl">Expert agents, one chat</div>
-      </div>
-      <div class="stat">
-        <div class="num">12</div>
-        <div class="lbl">Color seasons analyzed</div>
-      </div>
-      <div class="stat">
-        <div class="num">0</div>
-        <div class="lbl">Tabs to plan a trip</div>
-      </div>
-      <div class="stat">
-        <div class="num">6+</div>
-        <div class="lbl">Services connected</div>
-      </div>
+      <div class="stat"><div class="num">4</div><div class="lbl">Expert agents, one chat</div></div>
+      <div class="stat"><div class="num">12</div><div class="lbl">Color seasons analyzed</div></div>
+      <div class="stat"><div class="num">0</div><div class="lbl">Tabs to plan a trip</div></div>
+      <div class="stat"><div class="num">6+</div><div class="lbl">Services connected</div></div>
     </div>
   </div>
 </section>
@@ -1459,60 +1142,15 @@
 <!-- FAQ -->
 <section class="faq" id="faq">
   <div class="wrap">
-    <div class="faq-head">
-      <div class="eyebrow">Common questions</div>
-      <h2>Quick <span class="accent">answers.</span></h2>
-    </div>
+    <div class="faq-head"><div class="eyebrow">Common questions</div><h2>Quick <span class="accent">answers.</span></h2></div>
     <div class="faq-list">
-      <details class="faq-item" open>
-        <summary>
-          <h6>What does Staitment actually do?</h6>
-          <span class="plus">+</span>
-        </summary>
-        <p>It's an AI personal assistant with four expert agents. Style analyzes your color season, rates outfits, and manages your digital wardrobe. Travel searches real flights and hotels via Amadeus with instant booking links. Fitness finds studios near you with ClassPass and Mindbody links, and creates BPM-matched playlists on your Spotify. Lifestyle syncs your Google Calendar, sets reminders, and remembers your preferences across every conversation.</p>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <h6>Is it free?</h6>
-          <span class="plus">+</span>
-        </summary>
-        <p>Free to download. Free to chat with any agent up to a generous monthly limit. A small subscription unlocks unlimited conversations, photo analyses, and connected services. Cancel anytime.</p>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <h6>How is this different from ChatGPT?</h6>
-          <span class="plus">+</span>
-        </summary>
-        <p>ChatGPT gives you the same answer it gives everyone. Staitment learns you &mdash; your color season, your travel budget, your fitness level, your schedule. And it's connected to real services: Spotify for playlists, Amadeus for flights, Google Places for restaurants, your calendar for availability. Four specialized agents with strict expertise means better answers, not generic ones.</p>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <h6>What does Staitment connect to?</h6>
-          <span class="plus">+</span>
-        </summary>
-        <p>Spotify for playlists, music search, and now playing. Google Calendar for schedule awareness and conflict detection. Amadeus for live flight and hotel pricing. Google Places for real restaurants, gyms, and attractions. ClassPass and Mindbody for studio booking links. All connections use secure OAuth. Disconnect anytime.</p>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <h6>How private is private?</h6>
-          <span class="plus">+</span>
-        </summary>
-        <p>Conversations, photos, and saved items are encrypted at rest. We never sell data. We never use your chats to train models. Connected services use standard OAuth &mdash; we never see your passwords. Delete your account and all data anytime.</p>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <h6>What does the knowledge graph do?</h6>
-          <span class="plus">+</span>
-        </summary>
-        <p>Staitment automatically learns your preferences from conversations &mdash; your style, budget, dietary needs, travel habits, fitness goals. These facts are shared across all four agents so you never repeat yourself. You can view, edit, or delete any fact from your "About You" screen at any time.</p>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <h6>Who is Staitment for?</h6>
-          <span class="plus">+</span>
-        </summary>
-        <p>Anyone who's busy and wants an AI that actually does things instead of just talking about them. If you use Spotify, manage a calendar, care about your style, and want one app that ties it all together &mdash; Staitment is built for you.</p>
-      </details>
+      <details class="faq-item" open><summary><h6>What does Staitment actually do?</h6><span class="plus">+</span></summary><p>It's an AI personal assistant with four expert agents. Style analyzes your color season, rates outfits, and manages your digital wardrobe. Travel searches real flights and hotels via Amadeus with instant booking links. Fitness finds studios near you with ClassPass and Mindbody links, and creates BPM-matched playlists on your Spotify. Lifestyle syncs your Google Calendar, sets reminders, and remembers your preferences across every conversation.</p></details>
+      <details class="faq-item"><summary><h6>Is it free?</h6><span class="plus">+</span></summary><p>Free to download. Free to chat with any agent up to a generous monthly limit. A small subscription unlocks unlimited conversations, photo analyses, and connected services. Cancel anytime.</p></details>
+      <details class="faq-item"><summary><h6>How is this different from ChatGPT?</h6><span class="plus">+</span></summary><p>ChatGPT gives you the same answer it gives everyone. Staitment learns you &mdash; your color season, your travel budget, your fitness level, your schedule. And it's connected to real services: Spotify for playlists, Amadeus for flights, Google Places for restaurants, your calendar for availability. Four specialized agents with strict expertise means better answers, not generic ones.</p></details>
+      <details class="faq-item"><summary><h6>What does Staitment connect to?</h6><span class="plus">+</span></summary><p>Spotify for playlists, music search, and now playing. Google Calendar for schedule awareness and conflict detection. Amadeus for live flight and hotel pricing. Google Places for real restaurants, gyms, and attractions. ClassPass and Mindbody for studio booking links. All connections use secure OAuth. Disconnect anytime.</p></details>
+      <details class="faq-item"><summary><h6>How private is private?</h6><span class="plus">+</span></summary><p>Conversations, photos, and saved items are encrypted at rest. We never sell data. We never use your chats to train models. Connected services use standard OAuth &mdash; we never see your passwords. Delete your account and all data anytime.</p></details>
+      <details class="faq-item"><summary><h6>What does the knowledge graph do?</h6><span class="plus">+</span></summary><p>Staitment automatically learns your preferences from conversations &mdash; your style, budget, dietary needs, travel habits, fitness goals. These facts are shared across all four agents so you never repeat yourself. View, edit, or delete any fact from your "About You" screen at any time.</p></details>
+      <details class="faq-item"><summary><h6>Who is Staitment for?</h6><span class="plus">+</span></summary><p>Anyone who's busy and wants an AI that actually does things instead of just talking about them. If you use Spotify, manage a calendar, care about your style, and want one app that ties it all together &mdash; Staitment is built for you.</p></details>
     </div>
   </div>
 </section>
@@ -1523,20 +1161,17 @@
     <div class="eyebrow">Not another chatbot</div>
     <h2>One chat.<br/>Four experts.<br/><span class="accent">Real results.</span></h2>
     <p>Download Staitment. Connect your Spotify and Calendar. Ask it anything.</p>
-
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;">
       <a href="#" class="btn btn-primary">Get Staitment Free</a>
     </div>
-
-    <form class="form" onsubmit="event.preventDefault(); const b=this.querySelector('button'); b.textContent='Sent'; this.querySelector('input').value='';">
+    <form class="form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Sent';this.querySelector('input').value='';">
       <input type="email" placeholder="your@email.com" required/>
       <button type="submit">Notify me</button>
     </form>
-
     <div class="badges">
-      <span class="badge"><span class="icon">S</span> Spotify connected</span>
-      <span class="badge"><span class="icon">G</span> Calendar synced</span>
-      <span class="badge"><span class="icon">K</span> Learns your preferences</span>
+      <span class="badge"><span class="icon" style="color:#1DB954;">S</span> Spotify connected</span>
+      <span class="badge"><span class="icon" style="color:#4285F4;">G</span> Calendar synced</span>
+      <span class="badge"><span class="icon" style="color:var(--rose);">K</span> Learns your preferences</span>
     </div>
   </div>
 </section>
@@ -1549,31 +1184,11 @@
         <a href="#" class="logo">staitment<span class="dot">.</span></a>
         <p>AI personal assistant for style, travel, fitness, and life. Connected to Spotify, Google Calendar, and more.</p>
       </div>
-      <div>
-        <h6>Agents</h6>
-        <a href="#style">Style</a>
-        <a href="#travel">Travel</a>
-        <a href="#fitness">Fitness</a>
-        <a href="#lifestyle">Lifestyle</a>
-      </div>
-      <div>
-        <h6>Integrations</h6>
-        <a href="#integrations">Spotify</a>
-        <a href="#integrations">Google Calendar</a>
-        <a href="#integrations">Knowledge Graph</a>
-      </div>
-      <div>
-        <h6>Legal</h6>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Data export</a>
-        <a href="#">Delete account</a>
-      </div>
+      <div><h6>Agents</h6><a href="#style">Style</a><a href="#travel">Travel</a><a href="#fitness">Fitness</a><a href="#lifestyle">Lifestyle</a></div>
+      <div><h6>Integrations</h6><a href="#integrations">Spotify</a><a href="#integrations">Google Calendar</a><a href="#integrations">Knowledge Graph</a></div>
+      <div><h6>Legal</h6><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Data export</a><a href="#">Delete account</a></div>
     </div>
-    <div class="foot-bot">
-      <span>&copy; 2026 Staitment, Inc.</span>
-      <span>staitmint.io</span>
-    </div>
+    <div class="foot-bot"><span>&copy; 2026 Staitment, Inc.</span><span>staitmint.io</span></div>
   </div>
 </footer>
 
