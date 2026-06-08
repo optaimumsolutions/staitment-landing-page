@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Privacy Policy — Staitment</title>
+<meta name="description" content="How Staitment collects, uses, stores, and protects your data. Your conversations, photos, and connected accounts — handled with care."/>
+<meta name="robots" content="index, follow"/>
+<meta property="og:title" content="Privacy Policy — Staitment"/>
+<meta property="og:description" content="How Staitment collects, uses, and protects your data."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://staitmint.io/privacy.html"/>
+<meta property="og:site_name" content="Staitment"/>
+<meta property="og:image" content="https://staitmint.io/og-image.png"/>
+<link rel="canonical" href="https://staitmint.io/privacy.html"/>
+<meta name="theme-color" content="#f7f6f2"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=EB+Garamond:ital,wght@1,400;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #f7f6f2;
+    --bg-2:      #f1efe9;
+    --bg-3:      #e8e6e0;
+    --card:      #FFFFFF;
+    --card-2:    #fbfaf6;
+    --hair:      rgba(13,13,12,0.07);
+    --hair-2:    rgba(13,13,12,0.13);
+    --ink:       #0d0d0c;
+    --ink-2:     #3d3c3a;
+    --ink-3:     #6a6864;
+    --muted:     #8c8a86;
+    --muted-2:   #b5b2ac;
+    --rose:      #9d4063;
+    --rose-d:    #7e3350;
+    --rose-soft: rgba(157,64,99,0.12);
+    --style:     #9d4063;
+    --travel:    #345f7a;
+    --fitness:   #3f6a4c;
+    --lifestyle: #9a6a1f;
+    --calendar:  #5a4880;
+    --primary:   #5a5cf1;
+    --danger:    #c84545;
+    --display: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --body:    'Inter', 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --serif:   'EB Garamond', 'Garamond', 'Times New Roman', serif;
+    --mono:    'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--rose); color: var(--bg); }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+  .eyebrow {
+    font-family: var(--display); font-weight: 500;
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--rose);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--display); font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.05;
+    margin: 0; color: var(--ink);
+    text-wrap: balance;
+  }
+  p { color: var(--ink-2); margin: 0; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 26px; border-radius: 999px;
+    font-family: var(--display); font-weight: 600;
+    font-size: 15px; letter-spacing: -0.01em;
+    transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    cursor: pointer; border: 0;
+  }
+  .btn-primary {
+    background: var(--ink); color: var(--bg);
+    box-shadow: 0 8px 24px -8px rgba(13,13,12,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 34px -10px rgba(13,13,12,0.4); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--hair-2); }
+  .btn-ghost:hover { background: var(--bg-2); }
+
+  .logo {
+    display: inline-flex; align-items: baseline;
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: 30px; letter-spacing: -0.01em; line-height: 1; color: var(--ink);
+  }
+  .logo .dot { color: var(--rose); margin-left: 1px; }
+
+  /* ── Nav ── */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    background: rgba(247,246,242,0.78);
+    border-bottom: 1px solid var(--hair);
+  }
+  nav.top .row { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  nav.top .links { display: flex; gap: 36px; align-items: center; }
+  nav.top .links a { font-size: 14px; color: var(--ink-2); transition: color .15s; }
+  nav.top .links a:hover { color: var(--ink); }
+  nav.top .btn { padding: 11px 20px; font-size: 13px; }
+
+  /* ── Page Hero ── */
+  .page-hero { padding: 80px 0 60px; position: relative; text-align: center; }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(800px 400px at 50% 0%, rgba(157,64,99,0.10), transparent 60%);
+    pointer-events: none;
+  }
+  .page-hero > .wrap { position: relative; z-index: 1; }
+  .page-hero h1 { font-size: clamp(44px, 6vw, 76px); line-height: 1.0; margin: 18px 0 22px; }
+  .page-hero h1 .accent { color: var(--rose); }
+  .page-hero p.lede { font-size: 18px; line-height: 1.55; color: var(--ink-2); max-width: 620px; margin: 0 auto; }
+  .page-hero .stamp {
+    margin-top: 32px;
+    display: inline-flex; gap: 14px; align-items: center;
+    padding: 10px 18px;
+    background: var(--card);
+    border: 1px solid var(--hair-2);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .page-hero .stamp b { color: var(--ink); font-weight: 600; }
+  .page-hero .stamp .pulse {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--rose);
+    box-shadow: 0 0 0 4px rgba(157,64,99,0.18);
+  }
+
+  /* ── Content layout ── */
+  section.content { padding: 40px 0 80px; }
+  .content .grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  /* TOC */
+  .toc {
+    position: sticky; top: 90px;
+    background: var(--card);
+    border: 1px solid var(--hair);
+    border-radius: 18px;
+    padding: 22px 22px 18px;
+  }
+  .toc .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .toc a {
+    display: block;
+    font-family: var(--display);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-2);
+    padding: 7px 0;
+    border-left: 2px solid transparent;
+    padding-left: 12px;
+    margin-left: -12px;
+    transition: color .15s, border-color .15s;
+  }
+  .toc a:hover { color: var(--rose); border-left-color: var(--rose-soft); }
+  .toc a .num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-right: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Article */
+  .article {
+    background: var(--card);
+    border: 1px solid var(--hair);
+    border-radius: 24px;
+    padding: 56px clamp(28px, 5vw, 72px);
+  }
+  .article .intro {
+    padding-bottom: 30px;
+    margin-bottom: 36px;
+    border-bottom: 1px solid var(--hair);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-2);
+  }
+  .article .intro strong { color: var(--ink); font-weight: 600; }
+  .article section.policy-section { padding: 22px 0 30px; border-bottom: 1px solid var(--hair); scroll-margin-top: 96px; }
+  .article section.policy-section:last-child { border-bottom: 0; }
+  .article h2 {
+    font-size: 28px;
+    letter-spacing: -0.025em;
+    margin: 0 0 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .article h2 .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--rose);
+    letter-spacing: 0.18em;
+  }
+  .article h2 .accent { color: var(--rose); }
+  .article h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 22px 0 8px;
+  }
+  .article p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-2);
+    margin: 12px 0;
+  }
+  .article p strong { color: var(--ink); font-weight: 600; }
+  .article ul {
+    margin: 12px 0;
+    padding: 0;
+    list-style: none;
+  }
+  .article ul li {
+    position: relative;
+    padding: 8px 0 8px 26px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+  .article ul li::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 17px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--rose);
+  }
+  .article ul li strong { color: var(--ink); font-weight: 600; }
+  .article a.inline { color: var(--rose); border-bottom: 1px solid var(--rose-soft); }
+  .article a.inline:hover { border-bottom-color: var(--rose); }
+
+  /* Callout */
+  .callout {
+    background: var(--bg-2);
+    border: 1px solid var(--hair);
+    border-left: 3px solid var(--rose);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin: 22px 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+  .callout .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rose);
+    padding-bottom: 6px;
+  }
+  .callout strong { color: var(--ink); }
+
+  /* Data table card */
+  .data-grid {
+    margin: 20px 0;
+    display: grid;
+    gap: 10px;
+  }
+  .data-row {
+    background: var(--card-2);
+    border: 1px solid var(--hair);
+    border-radius: 12px;
+    padding: 16px 18px;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+  .data-row .key {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .data-row .key .micro {
+    display: block;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .data-row .val {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  /* Service chips (third parties) */
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 18px 0 8px;
+  }
+  .svc {
+    background: var(--card-2);
+    border: 1px solid var(--hair);
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .svc-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .svc-ico {
+    width: 32px; height: 32px; border-radius: 10px;
+    display: grid; place-items: center;
+    font-family: var(--display); font-weight: 700; font-size: 14px;
+  }
+  .svc-name {
+    font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--ink);
+  }
+  .svc p { font-size: 13px; color: var(--ink-3); line-height: 1.55; margin: 0; }
+
+  /* Rights cards */
+  .rights {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 18px 0;
+  }
+  .right-card {
+    background: var(--card-2);
+    border: 1px solid var(--hair);
+    border-radius: 14px;
+    padding: 18px;
+  }
+  .right-card h4 {
+    font-family: var(--display); font-weight: 700; font-size: 15px;
+    margin: 0 0 6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .right-card h4 .ico {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: var(--rose-soft); color: var(--rose);
+    display: grid; place-items: center;
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+  }
+  .right-card p { font-size: 13px; color: var(--ink-3); line-height: 1.55; margin: 0; }
+
+  /* Contact strip */
+  .contact-card {
+    margin-top: 24px;
+    background: linear-gradient(180deg, var(--card) 0%, var(--card-2) 100%);
+    border: 1px solid var(--hair-2);
+    border-radius: 18px;
+    padding: 28px;
+    display: flex; gap: 24px; align-items: center; justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .contact-card h4 { font-size: 20px; margin: 0 0 4px; letter-spacing: -0.02em; }
+  .contact-card p { font-size: 14px; color: var(--ink-3); margin: 0; }
+  .contact-card .email {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--rose); font-weight: 500;
+  }
+
+  /* Footer */
+  footer { padding: 60px 0 40px; border-top: 1px solid var(--hair); }
+  .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+  .foot-grid h6 { font-family: var(--display); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 14px; font-weight: 600; }
+  .foot-grid a { display: block; font-size: 14px; color: var(--ink-2); padding: 5px 0; }
+  .foot-grid a:hover { color: var(--rose); }
+  .foot-grid .brand .logo { margin-bottom: 14px; }
+  .foot-grid .brand p { font-size: 13px; color: var(--ink-3); max-width: 280px; line-height: 1.55; }
+  .foot-bot { border-top: 1px solid var(--hair); padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--ink-3); }
+
+  /* Responsive */
+  @media (max-width: 980px) {
+    .content .grid { grid-template-columns: 1fr; gap: 24px; }
+    .toc { position: static; }
+    .article { padding: 36px 24px; }
+    .data-row { grid-template-columns: 1fr; gap: 6px; }
+    .svc-grid, .rights { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 900px) {
+    .wrap { padding: 0 20px; }
+    nav.top .links a:not(.btn) { display: none; }
+    .page-hero { padding: 56px 0 40px; }
+    .foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="wrap row">
+    <a href="/" class="logo">staitment<span class="dot">.</span></a>
+    <div class="links">
+      <a href="/#style">Style</a>
+      <a href="/#travel">Travel</a>
+      <a href="/#fitness">Fitness</a>
+      <a href="/#lifestyle">Lifestyle</a>
+      <a href="/#integrations">Integrations</a>
+      <a href="/#download" class="btn btn-primary">Get Staitment</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Legal &middot; Privacy</div>
+    <h1>Your data, <span class="accent">in your file.</span></h1>
+    <p class="lede">She remembers your color season and your travel budget — not so we can sell it. Here's exactly what Staitment collects, how it's used, who sees it, and how to take it all back.</p>
+    <div class="stamp">
+      <span class="pulse"></span>
+      <span>Effective <b>May&nbsp;20,&nbsp;2026</b></span>
+      <span>&middot;</span>
+      <span>Version <b>1.0</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="content">
+  <div class="wrap">
+    <div class="grid">
+      <!-- TOC -->
+      <aside class="toc">
+        <div class="label">On this page</div>
+        <a href="#overview"><span class="num">01</span>Overview</a>
+        <a href="#information-we-collect"><span class="num">02</span>Information we collect</a>
+        <a href="#how-we-use"><span class="num">03</span>How we use it</a>
+        <a href="#legal-basis"><span class="num">04</span>Legal basis</a>
+        <a href="#third-parties"><span class="num">05</span>Third&#8209;party services</a>
+        <a href="#sharing"><span class="num">06</span>Sharing &amp; disclosure</a>
+        <a href="#ai-training"><span class="num">07</span>AI &amp; model training</a>
+        <a href="#retention"><span class="num">08</span>Data retention</a>
+        <a href="#security"><span class="num">09</span>Security</a>
+        <a href="#your-rights"><span class="num">10</span>Your rights</a>
+        <a href="#children"><span class="num">11</span>Children</a>
+        <a href="#international"><span class="num">12</span>International transfers</a>
+        <a href="#changes"><span class="num">13</span>Changes to this policy</a>
+        <a href="#contact"><span class="num">14</span>Contact us</a>
+      </aside>
+
+      <!-- ARTICLE -->
+      <article class="article">
+        <div class="intro">
+          <p>Staitment is an AI personal assistant built around four agents — <strong>Style, Travel, Fitness, and Lifestyle</strong> — that learn your preferences and connect to services like Spotify, Google Calendar, Amadeus, and Google Places to return real, actionable results. This Privacy Policy explains what personal information <strong>Staitment, Inc.</strong> ("Staitment," "we," "us," or "our") collects when you use the Staitment mobile app or visit staitmint.io, how we use it, and the choices you have. It is designed to satisfy applicable privacy laws including the EU General Data Protection Regulation (GDPR), the UK GDPR, the California Consumer Privacy Act (CCPA/CPRA), and the Apple App Store privacy guidelines.</p>
+        </div>
+
+        <!-- 01 OVERVIEW -->
+        <section id="overview" class="policy-section">
+          <h2><span class="num">01</span>Overview &mdash; <span class="accent">the short version.</span></h2>
+          <p>Real talk, no dark patterns:</p>
+          <ul>
+            <li><strong>We don't sell your personal information.</strong> Ever. Not to advertisers, not to data brokers, not to anyone.</li>
+            <li><strong>We don't use your chats, photos, or saved items to train AI models.</strong> Your conversations are yours.</li>
+            <li><strong>Connected services use standard OAuth.</strong> We never see your Spotify, Google, or other passwords.</li>
+            <li><strong>Conversations, photos, and saved facts are encrypted at rest</strong> and transmitted over TLS.</li>
+            <li><strong>You can delete your account and all associated data in one tap</strong> from inside the app.</li>
+          </ul>
+        </section>
+
+        <!-- 02 INFORMATION WE COLLECT -->
+        <section id="information-we-collect" class="policy-section">
+          <h2><span class="num">02</span>Information we collect.</h2>
+          <p>We collect only what we need to make the four agents useful for you. The categories below describe what is collected, how it's collected, and why.</p>
+
+          <div class="data-grid">
+            <div class="data-row">
+              <div class="key">Account information<span class="micro">Provided by you</span></div>
+              <div class="val">Email address, display name, password hash (we never store your plaintext password), and any profile preferences (color season, sizes, dietary notes) you choose to add. Required to create and operate your account.</div>
+            </div>
+            <div class="data-row">
+              <div class="key">Conversation content<span class="micro">Provided by you</span></div>
+              <div class="val">Messages you send to any of the four agents, plus the agent's replies. This includes any text, voice transcripts, or commands. Stored encrypted at rest and tied to your account so the assistant has context across sessions.</div>
+            </div>
+            <div class="data-row">
+              <div class="key">User photos &amp; uploads<span class="micro">Provided by you</span></div>
+              <div class="val">Photos you submit for color analysis, outfit rating, or wardrobe building. Other files you choose to upload. Photos are processed for the requested feature and stored encrypted in your private library; you can delete any item at any time.</div>
+            </div>
+            <div class="data-row">
+              <div class="key">Connected&#8209;service data<span class="micro">Provided by you (OAuth)</span></div>
+              <div class="val">When you connect Spotify, Google Calendar, or other services, we receive scoped tokens and the specific data those services return (e.g., your top tracks, your upcoming events). We never see your passwords. You can disconnect any service at any time.</div>
+            </div>
+            <div class="data-row">
+              <div class="key">Approximate location<span class="micro">With your permission</span></div>
+              <div class="val">If you ask for nearby studios, restaurants, or local recommendations, we use the device location you provide or your typed city. Precise location is requested only when needed and only for the duration of that task. You may deny or revoke this permission anytime in your device settings.</div>
+            </div>
+            <div class="data-row">
+              <div class="key">Device &amp; usage data<span class="micro">Collected automatically</span></div>
+              <div class="val">Device type, operating system version, app version, language, time zone, crash logs, performance metrics, and feature usage (e.g., which agent you opened). Used to keep the app stable and improve the experience. Identifiers are pseudonymous.</div>
+            </div>
+            <div class="data-row">
+              <div class="key">Diagnostics &amp; logs<span class="micro">Collected automatically</span></div>
+              <div class="val">Error reports, latency measurements, and API call metadata. Used solely to diagnose problems and improve reliability. We do not collect IDFA for advertising.</div>
+            </div>
+            <div class="data-row">
+              <div class="key">Payment information<span class="micro">If you subscribe</span></div>
+              <div class="val">Subscriptions are processed by Apple (App Store) or Google (Play Store). Staitment receives a subscription receipt and status — we never receive or store full card details.</div>
+            </div>
+            <div class="data-row">
+              <div class="key">Support communications<span class="micro">If you contact us</span></div>
+              <div class="val">If you email or message us, we keep your messages and our replies so we can help and improve our service.</div>
+            </div>
+          </div>
+
+          <div class="callout">
+            <div class="tag">Sensitive data</div>
+            <strong>Health, biometric, financial, or precise location data</strong> is not requested or used beyond what is strictly necessary to deliver a feature you've asked for (e.g., a fitness studio near you). We do not infer race, religion, sexual orientation, political opinions, or health conditions from your inputs, and we do not process biometric identifiers.
+          </div>
+        </section>
+
+        <!-- 03 HOW WE USE IT -->
+        <section id="how-we-use" class="policy-section">
+          <h2><span class="num">03</span>How we use it.</h2>
+          <p>We use the information described above only for these purposes:</p>
+          <ul>
+            <li><strong>Deliver the product.</strong> Run the four agents, route your messages, fetch live flights and hotels, surface studios near you, generate playlists, and remember your preferences across conversations.</li>
+            <li><strong>Personalize results.</strong> Use the facts you've shared (your color season, your travel budget, your dietary notes) so answers actually fit you. You can view and edit every fact on your "About You" screen.</li>
+            <li><strong>Operate connected services.</strong> Use scoped OAuth tokens to read or write to services you've connected — e.g., to create a Spotify playlist or check your Google Calendar availability.</li>
+            <li><strong>Keep the app secure and reliable.</strong> Detect abuse, prevent fraud, debug crashes, and improve performance.</li>
+            <li><strong>Communicate with you.</strong> Send transactional messages (sign-in, billing, security), respond to support, and — only with your consent — send product updates.</li>
+            <li><strong>Comply with the law.</strong> Meet our legal, regulatory, and tax obligations.</li>
+          </ul>
+        </section>
+
+        <!-- 04 LEGAL BASIS -->
+        <section id="legal-basis" class="policy-section">
+          <h2><span class="num">04</span>Legal basis (EU / UK users).</h2>
+          <p>If you are in the European Economic Area, the United Kingdom, or Switzerland, we process your personal data under the following lawful bases:</p>
+          <ul>
+            <li><strong>Performance of a contract</strong> — to provide the Staitment service you've signed up for.</li>
+            <li><strong>Your consent</strong> — for optional features such as connecting third&#8209;party services, processing photos, or receiving marketing email. You may withdraw consent at any time.</li>
+            <li><strong>Legitimate interests</strong> — to keep the service secure, prevent abuse, and improve performance, balanced against your rights.</li>
+            <li><strong>Legal obligation</strong> — to comply with applicable laws and lawful requests.</li>
+          </ul>
+        </section>
+
+        <!-- 05 THIRD-PARTY SERVICES -->
+        <section id="third-parties" class="policy-section">
+          <h2><span class="num">05</span>Third&#8209;party services.</h2>
+          <p>To return real results — actual flights, actual playlists, actual studios — Staitment integrates with the services below. Each is governed by its own privacy policy. We share with each provider only the minimum data needed to deliver the feature you've requested.</p>
+          <div class="svc-grid">
+            <div class="svc">
+              <div class="svc-head">
+                <span class="svc-ico" style="background:#1DB95420;color:#1DB954;">S</span>
+                <span class="svc-name">Spotify</span>
+              </div>
+              <p>Playlist creation, music search, top tracks. OAuth scopes you approve.</p>
+            </div>
+            <div class="svc">
+              <div class="svc-head">
+                <span class="svc-ico" style="background:#4285F420;color:#4285F4;">G</span>
+                <span class="svc-name">Google Calendar &amp; Places</span>
+              </div>
+              <p>Calendar sync, conflict detection, restaurant and studio search.</p>
+            </div>
+            <div class="svc">
+              <div class="svc-head">
+                <span class="svc-ico" style="background:rgba(52,95,122,0.10);color:var(--travel);">A</span>
+                <span class="svc-name">Amadeus</span>
+              </div>
+              <p>Live flight and hotel pricing, availability, and booking links.</p>
+            </div>
+            <div class="svc">
+              <div class="svc-head">
+                <span class="svc-ico" style="background:rgba(63,106,76,0.10);color:var(--fitness);">C</span>
+                <span class="svc-name">ClassPass &amp; Mindbody</span>
+              </div>
+              <p>Studio discovery and deep links to class booking.</p>
+            </div>
+            <div class="svc">
+              <div class="svc-head">
+                <span class="svc-ico" style="background:rgba(157,64,99,0.10);color:var(--rose);">AI</span>
+                <span class="svc-name">AI model providers</span>
+              </div>
+              <p>We use enterprise AI APIs (e.g., OpenAI, Anthropic) under zero&#8209;data&#8209;retention or short&#8209;retention agreements. Providers are contractually prohibited from training on your inputs.</p>
+            </div>
+            <div class="svc">
+              <div class="svc-head">
+                <span class="svc-ico" style="background:rgba(13,13,12,0.06);color:var(--ink);">C</span>
+                <span class="svc-name">Cloud infrastructure</span>
+              </div>
+              <p>AWS / Google Cloud for hosting, storage, and database. Data encrypted at rest and in transit.</p>
+            </div>
+            <div class="svc">
+              <div class="svc-head">
+                <span class="svc-ico" style="background:rgba(90,72,128,0.10);color:var(--calendar);">P</span>
+                <span class="svc-name">Apple &amp; Google (payments)</span>
+              </div>
+              <p>App Store and Play Store handle subscription billing. We receive subscription status, never card details.</p>
+            </div>
+            <div class="svc">
+              <div class="svc-head">
+                <span class="svc-ico" style="background:rgba(154,106,31,0.10);color:var(--lifestyle);">D</span>
+                <span class="svc-name">Diagnostics</span>
+              </div>
+              <p>Crash and performance monitoring (e.g., Sentry). Pseudonymous device and error data only.</p>
+            </div>
+          </div>
+          <p>You can disconnect any third&#8209;party service from <strong>Settings &rarr; Connections</strong> at any time. Disconnecting revokes our access and removes related cached data.</p>
+        </section>
+
+        <!-- 06 SHARING -->
+        <section id="sharing" class="policy-section">
+          <h2><span class="num">06</span>Sharing &amp; disclosure.</h2>
+          <p>We share personal information only in these specific cases:</p>
+          <ul>
+            <li><strong>With service providers</strong> who help us operate Staitment, under written data&#8209;protection agreements that prohibit using your data for any other purpose.</li>
+            <li><strong>With services you've connected</strong>, but only as needed to fulfill the action you've asked for (e.g., creating a playlist in your Spotify account).</li>
+            <li><strong>For legal reasons</strong> — to comply with applicable law, valid legal process, or enforceable government request, and to protect the rights, property, or safety of Staitment, our users, or the public.</li>
+            <li><strong>In a business transfer</strong> — if Staitment is involved in a merger, acquisition, or asset sale, your data may be transferred subject to the protections in this policy. We will notify you of any change in ownership or material change in how your data is handled.</li>
+          </ul>
+          <div class="callout">
+            <div class="tag">We do not sell your data</div>
+            We do not sell or "share" personal information as those terms are defined under California, Virginia, Colorado, Connecticut, or other U.S. state privacy laws. We do not engage in cross&#8209;context behavioral advertising.
+          </div>
+        </section>
+
+        <!-- 07 AI & MODEL TRAINING -->
+        <section id="ai-training" class="policy-section">
+          <h2><span class="num">07</span>AI &amp; <span class="accent">model training.</span></h2>
+          <p>Staitment uses large language models and vision models to power the four agents. Here's how that works in plain language:</p>
+          <ul>
+            <li><strong>Your conversations and photos are not used to train our models or any third&#8209;party model.</strong> We contractually require our AI providers not to retain or train on your inputs.</li>
+            <li><strong>Personalization is not training.</strong> The facts the assistant remembers about you (your color season, your travel preferences) are stored in your account so future answers fit you. They are not used to modify any model.</li>
+            <li><strong>Aggregate, anonymized analytics</strong> (e.g., "what percent of users open the Travel agent in a session") may be used to improve the product. These cannot identify you.</li>
+          </ul>
+        </section>
+
+        <!-- 08 RETENTION -->
+        <section id="retention" class="policy-section">
+          <h2><span class="num">08</span>Data retention.</h2>
+          <p>We keep your personal information only as long as we need it for the purposes described above:</p>
+          <ul>
+            <li><strong>Account &amp; conversation data</strong> &mdash; kept while your account is active. You may delete individual chats, individual saved facts, or your entire account at any time from inside the app.</li>
+            <li><strong>Photos &amp; uploads</strong> &mdash; kept while saved in your library. Deleted items are permanently removed from active systems within 30 days.</li>
+            <li><strong>Connected&#8209;service tokens</strong> &mdash; held until you disconnect the service, then revoked and deleted.</li>
+            <li><strong>Diagnostics &amp; logs</strong> &mdash; retained for up to 90 days, then deleted or fully anonymized.</li>
+            <li><strong>Billing records</strong> &mdash; retained as required by tax and accounting law (typically up to 7 years).</li>
+            <li><strong>Backups</strong> &mdash; deleted data may persist in encrypted backups for up to 35 days before being fully purged.</li>
+          </ul>
+        </section>
+
+        <!-- 09 SECURITY -->
+        <section id="security" class="policy-section">
+          <h2><span class="num">09</span>Security.</h2>
+          <p>We protect your data with the following safeguards:</p>
+          <ul>
+            <li><strong>Encryption in transit</strong> using TLS 1.2 or higher for every connection between the app and our servers.</li>
+            <li><strong>Encryption at rest</strong> for conversations, photos, saved items, and OAuth tokens.</li>
+            <li><strong>Scoped OAuth</strong> for every connected service &mdash; we never see or store your passwords for Spotify, Google, or other providers.</li>
+            <li><strong>Least&#8209;privilege access</strong> &mdash; only a small number of trained personnel can access production systems, and access is logged.</li>
+            <li><strong>Regular reviews</strong> &mdash; periodic security audits, dependency scanning, and penetration testing.</li>
+          </ul>
+          <p>No method of transmission or storage is 100% secure. If we become aware of a security incident affecting your data, we will notify you and the appropriate regulators in accordance with applicable law.</p>
+        </section>
+
+        <!-- 10 YOUR RIGHTS -->
+        <section id="your-rights" class="policy-section">
+          <h2><span class="num">10</span>Your rights &mdash; <span class="accent">always.</span></h2>
+          <p>Depending on where you live, you have the rights below. Staitment honors these for all users regardless of jurisdiction.</p>
+          <div class="rights">
+            <div class="right-card">
+              <h4><span class="ico">A</span>Access</h4>
+              <p>See exactly what facts the assistant holds about you on the "About You" screen, and request a copy of your account data.</p>
+            </div>
+            <div class="right-card">
+              <h4><span class="ico">E</span>Edit / Correct</h4>
+              <p>Edit any saved fact directly in the app, or contact us to correct inaccurate information.</p>
+            </div>
+            <div class="right-card">
+              <h4><span class="ico">D</span>Delete</h4>
+              <p>Delete individual chats, individual facts, your photo library, or your entire account in one tap.</p>
+            </div>
+            <div class="right-card">
+              <h4><span class="ico">P</span>Portability</h4>
+              <p>Export your conversations and saved data in a machine&#8209;readable format on request.</p>
+            </div>
+            <div class="right-card">
+              <h4><span class="ico">R</span>Restrict / Object</h4>
+              <p>Ask us to limit or stop certain processing of your personal information.</p>
+            </div>
+            <div class="right-card">
+              <h4><span class="ico">W</span>Withdraw consent</h4>
+              <p>Disconnect any service or revoke any permission at any time. This won't affect prior lawful processing.</p>
+            </div>
+            <div class="right-card">
+              <h4><span class="ico">N</span>Non&#8209;discrimination</h4>
+              <p>We will never charge a different price or downgrade your service because you exercised a privacy right.</p>
+            </div>
+            <div class="right-card">
+              <h4><span class="ico">C</span>Complaint</h4>
+              <p>EU/UK users may lodge a complaint with their local data protection authority. We'd prefer you reach out to us first so we can resolve it.</p>
+            </div>
+          </div>
+          <p>To exercise any right, use the in&#8209;app controls or email <a class="inline" href="mailto:privacy@staitmint.io">privacy@staitmint.io</a>. We will respond within 30 days (or the period required by applicable law).</p>
+        </section>
+
+        <!-- 11 CHILDREN -->
+        <section id="children" class="policy-section">
+          <h2><span class="num">11</span>Children.</h2>
+          <p>Staitment is not directed to children under 13 (or the equivalent minimum age in your jurisdiction), and we do not knowingly collect personal information from them. If you believe a child has provided personal information to us, please contact <a class="inline" href="mailto:privacy@staitmint.io">privacy@staitmint.io</a> and we will promptly delete it.</p>
+        </section>
+
+        <!-- 12 INTERNATIONAL -->
+        <section id="international" class="policy-section">
+          <h2><span class="num">12</span>International transfers.</h2>
+          <p>Staitment is operated from the United States. If you use the service from outside the U.S., your information will be transferred to, stored in, and processed in the U.S. and in other countries where our service providers operate. For transfers from the EEA, UK, or Switzerland, we rely on <strong>Standard Contractual Clauses</strong> and additional safeguards required by applicable law.</p>
+        </section>
+
+        <!-- 13 CHANGES -->
+        <section id="changes" class="policy-section">
+          <h2><span class="num">13</span>Changes to this policy.</h2>
+          <p>We may update this Privacy Policy from time to time. If we make material changes, we will notify you in the app and update the "Effective" date at the top of this page. Continued use of Staitment after a change indicates your acceptance of the updated policy. A history of changes is available on request.</p>
+        </section>
+
+        <!-- 14 CONTACT -->
+        <section id="contact" class="policy-section">
+          <h2><span class="num">14</span>Contact us.</h2>
+          <p>Questions, requests, or feedback about privacy at Staitment? We'd love to hear from you.</p>
+          <div class="contact-card">
+            <div>
+              <h4>Staitment, Inc.</h4>
+              <p>Privacy &amp; Data Protection</p>
+            </div>
+            <div>
+              <p class="email">privacy@staitmint.io</p>
+              <p style="font-size:12px;color:var(--muted);font-family:var(--mono);letter-spacing:0.12em;margin-top:4px;">Response within 30 days</p>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="brand">
+        <a href="/" class="logo">staitment<span class="dot">.</span></a>
+        <p>The AI assistant for the woman holding it all together. Style, travel, fitness, and the day-to-day &mdash; finally in one place.</p>
+      </div>
+      <div><h6>Agents</h6><a href="/#style">Style</a><a href="/#travel">Travel</a><a href="/#fitness">Fitness</a><a href="/#lifestyle">Lifestyle</a></div>
+      <div><h6>Integrations</h6><a href="/#integrations">Spotify</a><a href="/#integrations">Google Calendar</a><a href="/#integrations">Knowledge Graph</a></div>
+      <div><h6>Legal</h6><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="mailto:privacy@staitmint.io">Data export</a><a href="mailto:privacy@staitmint.io">Delete account</a></div>
+    </div>
+    <div class="foot-bot"><span>&copy; 2026 Staitment, Inc.</span><span>staitmint.io</span></div>
+  </div>
+</footer>
+
+</body>
+</html>
