@@ -142,6 +142,46 @@
   }
   </script>
 
+  <!-- Schema survival shim. The bundler script does
+       `documentElement.replaceWith(...)` to swap in the unpacked landing
+       page, which wipes our static <head> — including the JSON-LD blocks
+       above. Googlebot, Bingbot, and Rich Results Test all run JS, so by
+       the time their renderer settles, our structured data is gone.
+       This shim captures the JSON-LD content on initial parse (while it
+       still exists in the DOM), then re-injects it on window.load (after
+       the bundler's replaceWith has run). Crawlers see the schemas in
+       the final rendered DOM. -->
+  <script>
+  (function () {
+    var schemas = [];
+    try {
+      var blocks = document.querySelectorAll('script[type="application/ld+json"]');
+      for (var i = 0; i < blocks.length; i++) {
+        var t = blocks[i].textContent || '';
+        if (t.trim()) schemas.push(t);
+      }
+    } catch (_) {}
+    function reinject() {
+      if (!document.head) return;
+      // If schemas already present (no wipe happened, or this fired twice), skip.
+      if (document.head.querySelector('script[type="application/ld+json"][data-shim]')) return;
+      schemas.forEach(function (content) {
+        var s = document.createElement('script');
+        s.type = 'application/ld+json';
+        s.setAttribute('data-shim', '1');
+        s.textContent = content;
+        document.head.appendChild(s);
+      });
+    }
+    // window.load fires after the bundler's documentElement.replaceWith
+    // completes. Belt-and-braces: also try DOMContentLoaded.
+    if (typeof window !== 'undefined') {
+      window.addEventListener('load', reinject);
+      document.addEventListener('DOMContentLoaded', reinject);
+    }
+  })();
+  </script>
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #FAF8F4; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
