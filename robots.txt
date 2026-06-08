@@ -1,3 +1,50 @@
+# Staitmint — landing page crawler policy
+# Last updated 2026-06-08
+
 User-agent: *
 Allow: /
+
+# Explicit allow-list for AI / generative-search crawlers — these are the
+# bots that feed ChatGPT search, Perplexity, Claude search, Google's AI
+# Overviews, and Bing Copilot. Letting them index our static SEO content
+# is the entire point of Phase 3 (GEO) of the optimization plan.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
 Sitemap: https://staitmint.io/sitemap.xml
