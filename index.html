@@ -62,11 +62,24 @@
       document.querySelectorAll('.agent-section').forEach(function (s) { io.observe(s); });
     });
 
-    // lp_email_capture — delegated submit; survives DOM replacement
+    // lp_email_capture — delegated submit; survives DOM replacement.
+    // Also POSTs the address to /api/waitlist (the inline form handler is
+    // cosmetic-only; this is the real sink). Fire-and-forget with keepalive.
     document.addEventListener('submit', function (e) {
       var form = e.target;
-      if (form && form.querySelector && form.querySelector('input[type="email"]')) {
-        lp('lp_email_capture');
+      if (!form || !form.querySelector) return;
+      var input = form.querySelector('input[type="email"]');
+      if (!input) return;
+      lp('lp_email_capture');
+      if (input.value) {
+        try {
+          fetch('/api/waitlist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: input.value }),
+            keepalive: true
+          }).catch(function () {});
+        } catch (_) {}
       }
     }, true);
 
