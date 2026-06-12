@@ -14,6 +14,74 @@
     gtag('config', 'G-JXGMYBEPEJ');
   </script>
 
+  <!-- Staitmint landing events — frozen taxonomy, names are an API contract
+       (see marketing SDK packages/landing). All listeners attach to window/
+       document so they survive the bundler's documentElement.replaceWith. -->
+  <script>
+  (function () {
+    var VARIANT = 'control'; // until the variant system ships
+    var qs = new URLSearchParams(location.search);
+    function lp(name, params) {
+      var p = { variant_id: VARIANT };
+      if (params) for (var k in params) { if (params[k] != null) p[k] = params[k]; }
+      gtag('event', name, p);
+    }
+
+    // lp_view — the denominator, with UTM attribution
+    lp('lp_view', {
+      utm_source: qs.get('utm_source'),
+      utm_medium: qs.get('utm_medium'),
+      utm_campaign: qs.get('utm_campaign'),
+      utm_content: qs.get('utm_content')
+    });
+
+    // lp_scroll_50 — once, when the visitor passes half the page
+    var scrolled = false;
+    window.addEventListener('scroll', function () {
+      if (scrolled) return;
+      var doc = document.documentElement;
+      if ((window.scrollY + window.innerHeight) / doc.scrollHeight >= 0.5) {
+        scrolled = true;
+        lp('lp_scroll_50');
+      }
+    }, { passive: true });
+
+    // lp_pillar_expand — agent section ≥60% visible, once per pillar
+    window.addEventListener('load', function () {
+      if (!('IntersectionObserver' in window)) return;
+      var seen = {};
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var pillar = e.target.id;
+          if (e.intersectionRatio >= 0.6 && pillar && !seen[pillar]) {
+            seen[pillar] = true;
+            lp('lp_pillar_expand', { pillar: pillar });
+          }
+        });
+      }, { threshold: 0.6 });
+      document.querySelectorAll('.agent-section').forEach(function (s) { io.observe(s); });
+    });
+
+    // lp_email_capture — delegated submit; survives DOM replacement
+    document.addEventListener('submit', function (e) {
+      var form = e.target;
+      if (form && form.querySelector && form.querySelector('input[type="email"]')) {
+        lp('lp_email_capture');
+      }
+    }, true);
+
+    // lp_store_badge_click — delegated; arms automatically once App Store
+    // badges exist (rung 3). cpp_token comes from the ?ppid= on the CPP link.
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href*="apps.apple.com"]') : null;
+      if (!a) return;
+      var ppid = null;
+      try { ppid = new URL(a.href).searchParams.get('ppid'); } catch (_) {}
+      lp('lp_store_badge_click', { pillar: a.getAttribute('data-pillar'), cpp_token: ppid });
+    }, true);
+  })();
+  </script>
+
   <!-- Core SEO -->
   <title>Staitmint — AI personal assistant for style, travel, fitness &amp; life</title>
   <meta name="description" content="Staitmint is a free AI personal assistant app for iPhone that combines style advice, travel planning, fitness booking, and daily life management in one chat. Built for women who are done with generic chatbots.">
