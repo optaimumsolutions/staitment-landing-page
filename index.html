@@ -4,6 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JXGMYBEPEJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-JXGMYBEPEJ');
+  </script>
+
   <!-- Core SEO -->
   <title>Staitmint — AI personal assistant for style, travel, fitness &amp; life</title>
   <meta name="description" content="Staitmint is a free AI personal assistant app for iPhone that combines style advice, travel planning, fitness booking, and daily life management in one chat. Built for women who are done with generic chatbots.">
@@ -187,6 +197,18 @@
         m.content = '#FAF8F4';
         m.setAttribute('data-shim', '1');
         document.head.appendChild(m);
+      }
+      // Re-inject the gtag.js loader if the bundler wiped it before it
+      // loaded. window.google_tag_manager only exists once the library
+      // has executed, so this never double-loads; the config pushed to
+      // window.dataLayer on initial parse survives replaceWith and is
+      // processed when the loader runs.
+      if (!window.google_tag_manager &&
+          !document.head.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {
+        var g = document.createElement('script');
+        g.async = true;
+        g.src = 'https://www.googletagmanager.com/gtag/js?id=G-JXGMYBEPEJ';
+        document.head.appendChild(g);
       }
       // Re-inject JSON-LD schemas for SERP discovery.
       if (!document.head.querySelector('script[type="application/ld+json"][data-shim]')) {
