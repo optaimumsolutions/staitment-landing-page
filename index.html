@@ -14,6 +14,16 @@
     gtag('config', 'G-JXGMYBEPEJ');
   </script>
 
+  <!-- TikTok Pixel Code Start -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    ttq.load('D8ONSDJC77UFPM6EOK20');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  <!-- TikTok Pixel Code End -->
+
   <!-- Staitmint landing events — frozen taxonomy, names are an API contract
        (see marketing SDK packages/landing). All listeners attach to window/
        document so they survive the bundler's documentElement.replaceWith. -->
@@ -21,10 +31,15 @@
   (function () {
     var VARIANT = 'control'; // until the variant system ships
     var qs = new URLSearchParams(location.search);
+    // TikTok mirrors the GA4 taxonomy 1:1. lp_email_capture is intentionally
+    // absent here — it fires below with a shared event_id so the browser pixel
+    // and the /api/waitlist server event (CAPI) deduplicate to one conversion.
+    var TT_MAP = { lp_view: 'ViewContent', lp_store_badge_click: 'ClickButton' };
     function lp(name, params) {
       var p = { variant_id: VARIANT };
       if (params) for (var k in params) { if (params[k] != null) p[k] = params[k]; }
       gtag('event', name, p);
+      if (window.ttq && TT_MAP[name]) { try { ttq.track(TT_MAP[name], {}); } catch (_) {} }
     }
 
     // lp_view — the denominator, with UTM attribution
@@ -72,11 +87,20 @@
       if (!input) return;
       lp('lp_email_capture');
       if (input.value) {
+        // Shared dedup key: same event_id on the browser pixel and the server
+        // CAPI event so TikTok counts one CompleteRegistration, not two.
+        var eid = 'reg_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+        if (window.ttq) {
+          try {
+            ttq.identify({ email: input.value }); // TikTok hashes client-side (Advanced Matching)
+            ttq.track('CompleteRegistration', {}, { event_id: eid });
+          } catch (_) {}
+        }
         try {
           fetch('/api/waitlist', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: input.value }),
+            body: JSON.stringify({ email: input.value, event_id: eid }),
             keepalive: true
           }).catch(function () {});
         } catch (_) {}
