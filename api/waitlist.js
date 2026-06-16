@@ -39,6 +39,36 @@ async function tiktokCapi(email, eventId, req) {
   }
 }
 
+// Forward the signup into the Jack agent system (Render) so the Analytics/Conductor
+// agents see paid-traffic conversions + UTM attribution. Never throws; UTM/ttclid are
+// parsed from the same-origin referer (which carries the landing page's query string).
+const JACK_LANDING_WEBHOOK = "https://jack-agents.onrender.com/webhooks/landing";
+async function jackLanding(email, req) {
+  const secret = process.env.LANDING_WEBHOOK_SECRET;
+  if (!secret) return; // not configured — TikTok + blob still work
+  let utm = {};
+  try {
+    const u = new URL(req.headers.referer);
+    utm = {
+      utm_source: u.searchParams.get("utm_source") || undefined,
+      utm_medium: u.searchParams.get("utm_medium") || undefined,
+      utm_campaign: u.searchParams.get("utm_campaign") || undefined,
+      utm_content: u.searchParams.get("utm_content") || undefined,
+      ttclid: u.searchParams.get("ttclid") || undefined,
+      page_url: u.href,
+    };
+  } catch (_) { /* no/invalid referer — send without UTM */ }
+  try {
+    await fetch(JACK_LANDING_WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Landing-Token": secret },
+      body: JSON.stringify({ email, event: "waitlist_signup", ...utm }),
+    });
+  } catch (err) {
+    console.error("waitlist: jack landing webhook failed:", err?.message ?? err);
+  }
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -53,6 +83,8 @@ export default async function handler(req, res) {
   // Server-side conversion — fires regardless of whether the blob sink is
   // configured. Deduped with the browser pixel via the shared event_id.
   await tiktokCapi(email, req.body?.event_id, req);
+  // Feed the same signup into the Jack agent system (paid-traffic lead flow).
+  await jackLanding(email, req);
 
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
     // Sink unconfigured — never lose the signup silently: runtime logs keep a trace.
