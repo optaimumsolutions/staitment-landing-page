@@ -315,6 +315,16 @@
         g.src = 'https://www.googletagmanager.com/gtag/js?id=G-JXGMYBEPEJ';
         document.head.appendChild(g);
       }
+      // Re-inject Plausible the same way — window.plausible only exists
+      // once script.js has executed, so this never double-loads.
+      if (!window.plausible &&
+          !document.head.querySelector('script[src*="plausible.io/js/script.js"]')) {
+        var p = document.createElement('script');
+        p.defer = true;
+        p.src = 'https://plausible.io/js/script.js';
+        p.setAttribute('data-domain', 'staitmint.io');
+        document.head.appendChild(p);
+      }
       // Re-inject JSON-LD schemas for SERP discovery.
       if (!document.head.querySelector('script[type="application/ld+json"][data-shim]')) {
         schemas.forEach(function (content) {
