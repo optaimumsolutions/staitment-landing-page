@@ -315,14 +315,16 @@
         g.src = 'https://www.googletagmanager.com/gtag/js?id=G-JXGMYBEPEJ';
         document.head.appendChild(g);
       }
-      // Re-inject Plausible the same way — window.plausible only exists
-      // once script.js has executed, so this never double-loads.
-      if (!window.plausible &&
-          !document.head.querySelector('script[src*="plausible.io/js/script.js"]')) {
+      // Re-inject Plausible the same way — plausible.l is only set once the
+      // site-specific pa- script has executed, so this never double-loads.
+      if (!(window.plausible && window.plausible.l) &&
+          !document.head.querySelector('script[src*="plausible.io/js/pa-"]')) {
+        window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments); };
+        window.plausible.init = window.plausible.init || function (i) { window.plausible.o = i || {}; };
+        window.plausible.init();
         var p = document.createElement('script');
-        p.defer = true;
-        p.src = 'https://plausible.io/js/script.js';
-        p.setAttribute('data-domain', 'staitmint.io');
+        p.async = true;
+        p.src = 'https://plausible.io/js/pa-GRtA_Aq5cTNLmZRi-YOYl.js';
         document.head.appendChild(p);
       }
       // Re-inject JSON-LD schemas for SERP discovery.
