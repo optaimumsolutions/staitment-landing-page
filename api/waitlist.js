@@ -9,7 +9,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // TikTok Events API (CAPI) — server-side CompleteRegistration. Never throws into
 // the handler. Dedupes against the browser pixel via the shared event_id.
 // Public pixel id may be committed; the access token must be a Vercel env var.
-const TIKTOK_PIXEL_ID = process.env.TIKTOK_PIXEL_ID || "D8ONSDJC77UFPM6EOK20";
+const TIKTOK_PIXEL_ID = process.env.TIKTOK_PIXEL_ID || "D9KC0DJC77U1U8B4HI3G";
 async function tiktokCapi(email, eventId, req) {
   const token = process.env.TIKTOK_ACCESS_TOKEN;
   if (!token) return; // not configured yet — the browser pixel still fires
