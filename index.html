@@ -215,42 +215,50 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Is Staitmint free?",
+        "name": "Is Staitmint another paid subscription?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Free to download. Free to chat with any agent up to a generous monthly limit. A small subscription unlocks unlimited conversations, photo analyses, and saved calendars. Cancel anytime."
+          "text": "Free to start, free to chat every month. The upgrade runs about one Sweetgreen a week — and it replaces the planner app, the styling guesswork, and the cost of being the one who holds it all together."
         }
       },
       {
         "@type": "Question",
-        "name": "How is Staitmint different from ChatGPT?",
+        "name": "Is Staitmint just ChatGPT in a dress?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ChatGPT gives you the same answer it gives everyone. Staitmint knows you — your style, your city, your schedule. Built specifically for outfits, trips, classes, and life. Returns rich answers (real flight options, real color palettes, real class bookings), not walls of text."
+          "text": "She remembers you and she books — flights, classes, calendar. A chat box gives you homework; she hands you confirmations."
         }
       },
       {
         "@type": "Question",
-        "name": "How private is Staitmint?",
+        "name": "Could I do this with reminders and Notion?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Conversations, photos, and saved items are encrypted at rest. We never sell data. We never use your chats to train models. Export or delete everything in one tap."
+          "text": "You could. But a system you maintain is another job. She's the one doing the maintaining."
         }
       },
       {
         "@type": "Question",
-        "name": "Who is Staitmint for?",
+        "name": "What happens to my data?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Women who are busy, ambitious, and juggling a lot. Marketing managers, freelancers, grad students, new moms. If you already use AI casually but want something that knows you and handles the stuff your other apps can't."
+          "text": "Your chats, photos, and saved items are encrypted, never sold, and never used to train models. Export or delete everything in one tap. The long version is on the privacy page — it reads like this answer, not like legalese."
         }
       },
       {
         "@type": "Question",
-        "name": "When does the Staitmint Android app come out?",
+        "name": "What if I forget to cancel?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "After we get the iPhone version right. Sign up and we will text you the day it lands."
+          "text": "Cancel anytime, two taps, from inside the app. We'd rather say it here than have you find out the hard way."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Staitmint on Android?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "iPhone first. Android after we get her right — join the list and she'll text you the day it lands."
         }
       }
     ]
@@ -328,18 +336,18 @@
     .hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
     .kicker{color:var(--berry);margin-bottom:26px;display:flex;align-items:center;gap:14px}
     .kicker::before{content:"";width:34px;height:1px;background:var(--berry)}
-    h1{font-family:var(--display);font-weight:700;font-size:clamp(44px,5.6vw,76px);line-height:1.04;letter-spacing:-.025em}
-    h1 .l{display:block;overflow:hidden}
-    h1 .l span{display:block;transform:translateY(110%);animation:rise 1s var(--ease) forwards}
-    h1 .l:nth-child(1) span{animation-delay:.05s}
-    h1 .l:nth-child(2) span{animation-delay:.15s}
-    h1 .l:nth-child(3) span{animation-delay:.25s}
-    h1 .l:nth-child(4) span{animation-delay:.35s}
-    .reduced h1 .l span{transform:none;animation:none}
+    h1{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(58px,7.6vw,110px);line-height:1;letter-spacing:-.015em}
+    h1 .run{color:var(--berry)}
+    h1 .l,.litany .l{display:block;overflow:hidden}
+    h1 .l span,.litany .l span{display:block;transform:translateY(110%);animation:rise 1s var(--ease) forwards}
+    h1 .l span{animation-delay:.05s}
+    .litany .l span{animation-delay:.25s}
+    .reduced h1 .l span,.reduced .litany .l span{transform:none;animation:none}
     @keyframes rise{to{transform:translateY(0)}}
-    h1 em{font-family:var(--serif);font-weight:500;letter-spacing:0}
-    h1 .w-plans em{color:var(--travel)} h1 .w-styles em{color:var(--style)} h1 .w-books em{color:var(--fitness)} h1 .w-rem em{color:var(--berry)}
-    .hero p.sub{font-size:18px;color:var(--ink-2);max-width:460px;margin:30px 0 38px}
+    .litany{font-family:var(--display);font-weight:600;font-size:clamp(19px,2vw,25px);letter-spacing:-.01em;margin-top:26px;line-height:1.4}
+    .litany em{font-family:var(--serif);font-weight:500;letter-spacing:0}
+    .litany .w-plans{color:var(--travel)} .litany .w-styles{color:var(--style)} .litany .w-books{color:var(--fitness)} .litany .w-rem{color:var(--berry)}
+    .hero p.sub{font-size:18px;color:var(--ink-2);max-width:470px;margin:24px 0 38px}
     .cta-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
     .trust{display:flex;gap:22px;margin-top:34px;color:var(--ink-2);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
     .trust span{display:flex;align-items:center;gap:8px}
@@ -403,8 +411,16 @@
     .sec-head{max-width:760px}
     .sec-kicker{color:var(--berry);margin-bottom:22px;display:flex;align-items:center;gap:14px}
     .sec-kicker::before{content:"";width:34px;height:1px;background:currentColor}
-    h2{font-family:var(--display);font-weight:700;font-size:clamp(34px,4.4vw,58px);line-height:1.06;letter-spacing:-.02em}
-    h2 em{font-family:var(--serif);font-weight:500}
+    h2{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(38px,5vw,66px);line-height:1.05;letter-spacing:-.01em}
+    h2 em{font-family:var(--display);font-style:normal;font-weight:700;letter-spacing:-.02em}
+
+    /* ---------- marquee ---------- */
+    .marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;background:var(--bg)}
+    .marquee .track{display:flex;gap:56px;width:max-content;animation:mq 30s linear infinite;font-family:var(--serif);font-style:italic;font-size:26px;color:var(--ink);white-space:nowrap}
+    .marquee .track span{display:flex;align-items:center;gap:56px}
+    .marquee i{width:7px;height:7px;border-radius:50%;background:var(--berry);font-style:normal;flex:none}
+    @keyframes mq{to{transform:translateX(-50%)}}
+    .reduced .marquee .track{animation:none}
 
     /* ---------- problem ---------- */
     .problem{padding:150px 0 150px;background:linear-gradient(var(--bg) 0%,var(--bg-2) 100%)}
@@ -431,6 +447,8 @@
     .prompt .k{font-family:var(--mono);font-size:11px;font-weight:600;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px}
     .prompt b{font-family:var(--display);font-weight:600;font-size:15.5px;display:block;margin-bottom:3px}
     .prompt p{font-size:13.5px;color:var(--ink-2)}
+    .pillar-cta{display:inline-flex;align-items:center;gap:8px;margin-top:26px;font-family:var(--display);font-weight:600;font-size:16px;color:var(--accent);border-bottom:1px solid currentColor;padding-bottom:3px;transition:gap .3s var(--ease)}
+    .pillar-cta:hover{gap:14px}
     .agent-section .ghost-no{position:absolute;top:6%;right:2%;font-family:var(--serif);font-size:min(30vw,340px);line-height:1;color:rgba(26,24,21,.035);pointer-events:none;user-select:none}
     /* per-agent accents */
     #style   {--accent:var(--style)}
@@ -528,14 +546,14 @@
 
 <nav id="nav" aria-label="Main">
   <div class="bar">
-    <a class="logo" href="#top" aria-label="Staitmint home"><span>staitmint</span><span class="dot"></span></a>
+    <a class="logo" href="#top" aria-label="Staitmint home"><span>Staitmint</span><span class="dot"></span></a>
     <div class="links">
       <a href="#style">Style</a>
       <a href="#travel">Travel</a>
       <a href="#fitness">Fitness</a>
       <a href="#lifestyle">Lifestyle</a>
       <a href="#how">How it works</a>
-      <a class="btn berry" href="#download">Get Staitmint</a>
+      <a class="btn berry" href="#download">Meet her</a>
     </div>
   </div>
 </nav>
@@ -546,15 +564,11 @@
   <div class="wrap grid">
     <div>
       <div class="kicker mono">Your AI bestie · iOS · Free to start</div>
-      <h1>
-        <span class="l w-plans"><span>She <em>plans</em> it.</span></span>
-        <span class="l w-styles"><span><em>Styles</em> it.</span></span>
-        <span class="l w-books"><span><em>Books</em> it.</span></span>
-        <span class="l w-rem"><span><em>Remembers</em> it.</span></span>
-      </h1>
-      <p class="sub" data-reveal>Staitmint is your AI personal assistant for style, travel, fitness, and everything in between. One chat. Four experts. Zero tabs.</p>
+      <h1><span class="l"><span>Your life, <span class="run">run.</span></span></span></h1>
+      <div class="litany"><span class="l"><span>She <em class="w-plans">plans</em> it. <em class="w-styles">Styles</em> it. <em class="w-books">Books</em> it. <em class="w-rem">Remembers</em> it.</span></span></div>
+      <p class="sub" data-reveal>Real flights, real bookings, your actual colors — one chat, four experts, zero tabs. Staitmint is the AI personal assistant for everything in between.</p>
       <div class="cta-row" data-reveal data-delay="120">
-        <a class="btn berry" href="#download">Get Staitmint Free <span aria-hidden="true">→</span></a>
+        <a class="btn berry" href="#download">Get her on your phone</a>
         <a class="btn ghost" href="#how">See how it works</a>
       </div>
       <div class="trust" data-reveal data-delay="240">
@@ -591,6 +605,14 @@
   </div>
 </section>
 
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>handled.<i></i>wheels up<i></i>the 47 tabs<i></i>done early<i></i>she's got you<i></i>life admin, off your plate<i></i>the Sunday reset<i></i>steal my spot<i></i></span>
+    <span>handled.<i></i>wheels up<i></i>the 47 tabs<i></i>done early<i></i>she's got you<i></i>life admin, off your plate<i></i>the Sunday reset<i></i>steal my spot<i></i></span>
+  </div>
+</div>
+
 <!-- ============ PROBLEM ============ -->
 <section class="problem">
   <div class="wrap">
@@ -623,6 +645,7 @@
           <div class="prompt" data-reveal data-delay="90"><span class="k">B</span><div><b>"What's my color season?"</b><p>Selfie in, twelve-season analysis out. Plus the palette and the colors to skip.</p></div></div>
           <div class="prompt" data-reveal data-delay="180"><span class="k">C</span><div><b>"Pack me for Paris in May, four days, smart casual."</b><p>A capsule that mixes and matches, sized to your suitcase.</p></div></div>
         </div>
+        <a class="pillar-cta" href="#download">Find your colors <span aria-hidden="true">→</span></a>
       </div>
       <div class="phone-stage">
         <div class="chip c1" data-parallax="-0.25"><b>True Autumn</b><span class="mono">Color season</span></div>
@@ -663,6 +686,7 @@
           <div class="prompt" data-reveal data-delay="90"><span class="k">B</span><div><b>"Where to eat in Mexico City, walking distance from Roma Norte."</b><p>Hand-picked spots, not the top-of-Google list.</p></div></div>
           <div class="prompt" data-reveal data-delay="180"><span class="k">C</span><div><b>"Quiet hotel in Tokyo, near a metro, under $250."</b><p>Vibe-matched. The ones you'd never find in a sea of TripAdvisor.</p></div></div>
         </div>
+        <a class="pillar-cta" href="#download">Book the trip <span aria-hidden="true">→</span></a>
       </div>
       <div class="phone-stage">
         <div class="chip c1" data-parallax="-0.25"><b>$312</b><span class="mono">JFK → LIS · Nonstop</span></div>
@@ -703,6 +727,7 @@
           <div class="prompt" data-reveal data-delay="90"><span class="k">B</span><div><b>"Beginner run club this week, somewhere chill."</b><p>No 5 AM bro energy. Real groups, real paces, real people.</p></div></div>
           <div class="prompt" data-reveal data-delay="180"><span class="k">C</span><div><b>"45-minute full-body, hotel gym, no equipment."</b><p>A workout that fits. No fluff, no influencer talk.</p></div></div>
         </div>
+        <a class="pillar-cta" href="#download">Steal my spot <span aria-hidden="true">→</span></a>
       </div>
       <div class="phone-stage">
         <div class="chip c1" data-parallax="-0.25"><b>0.6 mi</b><span class="mono">Nearest studio</span></div>
@@ -743,10 +768,11 @@
           <div class="prompt" data-reveal data-delay="90"><span class="k">B</span><div><b>"Birthday gift for my sister — she likes ceramics and slow mornings."</b><p>Three picks, three price points. With the links.</p></div></div>
           <div class="prompt" data-reveal data-delay="180"><span class="k">C</span><div><b>"Remind me to call mom Sunday before noon."</b><p>Set. She'll nudge you at 11. Once. Not five times.</p></div></div>
         </div>
+        <a class="pillar-cta" href="#download">Hand it off <span aria-hidden="true">→</span></a>
       </div>
       <div class="phone-stage">
         <div class="chip c1" data-parallax="-0.25"><b>8:00 PM</b><span class="mono">Table for two · Lilia</span></div>
-        <div class="chip c2" data-parallax="-0.15"><b>Set ✓</b><span class="mono">Call mom · Sun 11 AM</span></div>
+        <div class="chip c2" data-parallax="-0.15"><b>Set</b><span class="mono">Call mom · Sun 11 AM</span></div>
         <div class="phone">
           <div class="screen light">
             <div class="island"></div>
@@ -805,28 +831,28 @@
     </div>
     <div data-reveal>
       <details class="qa" open>
-        <summary>What does Staitmint actually do?<span class="pl">+</span></summary>
-        <div class="a">She's an AI personal assistant — but instead of one general chatbot, you get four expert agents. Style picks your outfits and analyzes your color season. Travel plans your trips with real flights and hotels. Fitness finds classes near you. Lifestyle handles reminders, gift ideas, and the small stuff. All in one chat.</div>
+        <summary>Another subscription, in this economy?<span class="pl">+</span></summary>
+        <div class="a">Free to start, free to chat every month. The upgrade runs about one Sweetgreen a week — and it replaces the planner app, the styling guesswork, and the cost of being the one who holds it all together.</div>
       </details>
       <details class="qa">
-        <summary>Is it free?<span class="pl">+</span></summary>
-        <div class="a">Free to download. Free to chat with any agent up to a generous monthly limit. A small subscription unlocks unlimited conversations, photo analyses, and saved calendars. Cancel anytime.</div>
+        <summary>Is this just ChatGPT in a dress?<span class="pl">+</span></summary>
+        <div class="a">She remembers you and she books — flights, classes, calendar. A chat box gives you homework; she hands you confirmations.</div>
       </details>
       <details class="qa">
-        <summary>How is this different from ChatGPT?<span class="pl">+</span></summary>
-        <div class="a">ChatGPT gives you the same answer it gives everyone. Staitmint knows you — your style, your city, your schedule. Built specifically for outfits, trips, classes, and life. Rich answers — real flight options, real color palettes, real class bookings — not walls of text.</div>
+        <summary>I could do this with reminders and Notion.<span class="pl">+</span></summary>
+        <div class="a">You could. But a system you maintain is another job. She's the one doing the maintaining.</div>
       </details>
       <details class="qa">
-        <summary>How private is private?<span class="pl">+</span></summary>
-        <div class="a">Conversations, photos, and saved items are encrypted at rest. We never sell data. We never use your chats to train models. Export or delete everything in one tap.</div>
+        <summary>What happens to my data?<span class="pl">+</span></summary>
+        <div class="a">Plain answer: your chats, photos, and saved items are encrypted, never sold, and never used to train models. Export or delete everything in one tap. The long version is on the <a href="/privacy.html" style="border-bottom:1px solid currentColor">privacy page</a> — it reads like this answer, not like legalese.</div>
       </details>
       <details class="qa">
-        <summary>Who's it for?<span class="pl">+</span></summary>
-        <div class="a">Women who are busy, ambitious, and juggling a lot. Marketing managers, freelancers, grad students, new moms. If you already use AI casually but want something that knows you and handles the stuff your other apps can't.</div>
+        <summary>I'll forget to cancel.<span class="pl">+</span></summary>
+        <div class="a">Cancel anytime, two taps, from inside the app. We'd rather say it here than have you find out the hard way.</div>
       </details>
       <details class="qa">
-        <summary>When does Android come?<span class="pl">+</span></summary>
-        <div class="a">After we get the iPhone version right. Sign up and we'll text you the day it lands.</div>
+        <summary>Is it on Android?<span class="pl">+</span></summary>
+        <div class="a">iPhone first. Android after we get her right — drop your email below and she'll text you the day it lands.</div>
       </details>
     </div>
   </div>
@@ -841,11 +867,11 @@
     <p class="sub" data-reveal data-delay="100">Download for iPhone. Or drop your email and we'll text you the link.</p>
     <form class="waitlist" data-reveal data-delay="180" novalidate>
       <input type="email" name="email" placeholder="you@email.com" autocomplete="email" required aria-label="Email address">
-      <button class="btn berry" type="submit">Notify me</button>
+      <button class="btn berry" type="submit">Text me the link</button>
     </form>
-    <p class="form-done" role="status">You're on the list. She'll text you soon. ✓</p>
+    <p class="form-done" role="status">You're on the list. She'll text you soon.</p>
     <div class="trust" data-reveal data-delay="260" style="margin-top:44px">
-      <span><i></i>iOS 17+</span><span><i></i>Free to start</span><span><i></i>Private by default</span>
+      <span><i></i>Free to start</span><span><i></i>Cancel anytime, two taps</span><span><i></i>Private by default</span>
     </div>
   </div>
 </section>
@@ -854,7 +880,7 @@
   <div class="wrap">
     <div class="top">
       <div>
-        <a class="logo" href="#top"><span>staitmint</span><span class="dot"></span></a>
+        <a class="logo" href="#top"><span>Staitmint</span><span class="dot"></span></a>
         <p class="blurb">Your AI bestie for style, travel, fitness, and life. Made with love and a lot of coffee.</p>
       </div>
       <div><h4>Product</h4><ul><li><a href="#style">Style</a></li><li><a href="#travel">Travel</a></li><li><a href="#fitness">Fitness</a></li><li><a href="#lifestyle">Lifestyle</a></li></ul></div>
