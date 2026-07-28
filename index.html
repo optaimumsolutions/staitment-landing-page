@@ -355,6 +355,7 @@
 
     /* ---------- phone ---------- */
     .phone-stage{position:relative;display:flex;justify-content:center;perspective:1400px}
+    .hero .phone-stage{flex-direction:column;align-items:center}
     .phone{position:relative;width:min(320px,78vw);aspect-ratio:9/19.3;background:#0E0D0C;border-radius:52px;padding:9px;box-shadow:0 40px 80px -30px rgba(26,24,21,.45),0 0 0 1px rgba(255,255,255,.08) inset;transform-style:preserve-3d}
     .hero .phone{transform:rotateY(-9deg) rotateX(2deg) rotate(2.5deg)}
     .reduced .hero .phone{transform:none}
@@ -405,6 +406,37 @@
     .toast.t1{top:7%;left:-13%}
     .toast.t2{bottom:16%;right:-13%}
     @media(max-width:1060px){.toast{display:none}}
+
+    /* ---------- hero feature carousel ---------- */
+    .fstack{position:relative;flex:1;overflow:hidden}
+    .fpanel{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transform:translateY(20px);transition:opacity .55s var(--ease),transform .55s var(--ease);pointer-events:none}
+    .fpanel.act{opacity:1;transform:none;pointer-events:auto}
+    .fbody{flex:1;padding:14px 13px;display:flex;flex-direction:column;gap:10px;justify-content:flex-end}
+    .fbub{align-self:flex-end;max-width:82%;background:var(--fac,var(--berry));color:#fff;padding:10px 13px;border-radius:18px;border-bottom-right-radius:5px;font-size:13.5px;line-height:1.4;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+    .fcard{background:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 6px 18px -8px rgba(26,24,21,.18);border:1px solid rgba(26,24,21,.05);font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+    .fcard .tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--fac,var(--berry));font-weight:600;display:flex;justify-content:space-between}
+    .fcard .tag .r{color:#B9B3A6}
+    .fcard b{font-family:var(--display);font-weight:700;font-size:18px;color:#1A1815;display:block;margin-top:3px}
+    .fcard .fine{font-size:11.5px;color:#6E675E;margin-top:2px}
+    .fcard .strip{display:flex;height:9px;border-radius:99px;overflow:hidden;margin-top:9px}
+    .fcard .strip i{flex:1}
+    .trow{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid rgba(26,24,21,.06);font-size:12.5px}
+    .trow .n{font-family:var(--mono);font-size:10px;color:#B9B3A6;width:12px}
+    .trow .tt{flex:1;line-height:1.25}
+    .trow .tt small{display:block;font-size:10.5px;color:#8C867A}
+    .trow .play{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--fac,var(--berry));font-weight:600}
+    .flabels{display:flex;gap:20px;justify-content:center;margin-top:24px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase}
+    .flabels span{cursor:pointer;color:var(--ink-2);opacity:.55;padding-bottom:4px;border-bottom:1px solid transparent;transition:opacity .3s,color .3s,border-color .3s}
+    .flabels span.act{opacity:1;color:var(--berry);border-color:var(--berry)}
+    .hsat{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 16px;box-shadow:0 22px 50px -20px rgba(26,24,21,.35);width:200px;z-index:24;opacity:0;transform:translateY(18px) scale(.9);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+    .hsat.on{opacity:1;transform:translateY(0) scale(1) rotate(var(--r,0deg))}
+    .hsat .mono{font-size:9px;color:var(--fac,var(--berry));margin-bottom:4px;display:block}
+    .hsat p{font-size:12.5px;line-height:1.45;color:var(--ink)}
+    .hsat b{font-family:var(--display);font-weight:700;font-size:16px;color:var(--ink)}
+    .hsat.hl{left:-13%;top:14%;--r:-3deg}
+    .hsat.hr{right:-13%;bottom:18%;--r:3deg}
+    .hsat .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3BC46A;margin-right:6px}
+    @media(max-width:1060px){.hsat{display:none}}
 
     /* ---------- section shell ---------- */
     section{position:relative}
@@ -611,7 +643,7 @@
       <div class="kicker mono">Your AI bestie · iOS · Free to start</div>
       <h1><span class="l"><span>Your life, <span class="run">run.</span></span></span></h1>
       <div class="litany"><span class="l"><span>She <em class="w-plans">plans</em> it. <em class="w-styles">Styles</em> it. <em class="w-books">Books</em> it. <em class="w-rem">Remembers</em> it.</span></span></div>
-      <p class="sub" data-reveal>Real flights, real bookings, your actual colors — one chat, four experts, zero tabs. Staitmint is the AI personal assistant for everything in between.</p>
+      <p class="sub" data-reveal>Real flights, real tables, real playlists, your actual colors — one chat, four experts, zero tabs. Staitmint is the AI personal assistant for everything in between.</p>
       <div class="cta-row" data-reveal data-delay="120">
         <a class="btn berry" href="#download">Get her on your phone</a>
         <a class="btn ghost" href="#how">See how it works</a>
@@ -622,29 +654,104 @@
     </div>
 
     <div class="phone-stage" data-tilt>
-      <div class="toast t1" data-parallax="-0.35">
-        <span class="mono">Travel · 2 min ago</span>
-        <p>Three options for Lisbon Fri–Sun. Budget at $312, balanced at $548. Bougie has a pool.</p>
-      </div>
-      <div class="toast t2" data-parallax="-0.2">
-        <span class="mono">Style · Just now</span>
-        <p>That blazer's a 9. Swap the heels for the loafers and it's a 10.</p>
-      </div>
+      <div class="hsat hl" data-f="0" style="--fac:var(--berry)"><span class="mono">Spotify</span><p><span class="dot"></span>Account connected — playlists save straight to your library.</p></div>
+      <div class="hsat hr" data-f="0" style="--fac:var(--berry)"><span class="mono">Now playing</span><b>Gasoline</b><p>Nic D · Upbeat Vibes</p></div>
+      <div class="hsat hl" data-f="1" style="--fac:var(--life)"><span class="mono">Tonight</span><p>Three spots within a mile had an 8 PM table.</p></div>
+      <div class="hsat hr" data-f="1" style="--fac:var(--life)"><span class="mono">Reservation</span><b>Held · 8:00 PM</b><p>Lilia · table for two</p></div>
+      <div class="hsat hl" data-f="2" style="--fac:var(--travel)"><span class="mono">Hotel · Top pick</span><b>★ 4.7</b><p>Memmo Alfama · rooftop pool</p></div>
+      <div class="hsat hr" data-f="2" style="--fac:var(--travel)"><span class="mono">Ready</span><p>Booking link pre-loaded — two taps to confirm.</p></div>
+      <div class="hsat hl" data-f="3" style="--fac:var(--travel)"><span class="mono">Best fare</span><b>$121</b><p>MIA → LGA · found while you slept</p></div>
+      <div class="hsat hr" data-f="3" style="--fac:var(--travel)"><span class="mono">Three tiers</span><p>Budget, balanced, and bougie — side by side.</p></div>
+      <div class="hsat hl" data-f="4" style="--fac:var(--style)"><span class="mono">From a selfie</span><b>60 seconds</b><p>Real color science, not a quiz.</p></div>
+      <div class="hsat hr" data-f="4" style="--fac:var(--style)"><span class="mono">Saved</span><p>Your palette lives in the wardrobe — shopping filters on.</p></div>
       <div class="phone" id="hero-phone">
-        <div class="screen">
+        <div class="screen light">
           <div class="island"></div>
-          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 9.2a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8zM8 5.6c-1.7 0-3.2.7-4.3 1.8l1.2 1.2A4.4 4.4 0 018 7.4c1.2 0 2.3.5 3.1 1.2l1.2-1.2A6 6 0 008 5.6zM8 2C5.3 2 2.9 3.1 1.1 4.9l1.2 1.2A8 8 0 018 3.8c2.2 0 4.2.9 5.7 2.3l1.2-1.2A9.7 9.7 0 008 2z" transform="translate(0 -2)"/></svg><svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" fill="none" opacity=".4"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/><path d="M23 4v4c1-.3 1.6-1 1.6-2S24 4.3 23 4z" fill="currentColor" opacity=".4"/></svg></span></div>
-          <div class="appbar"><div class="av">S.</div><div class="t"><b>Staitmint</b><small>Travel · Online</small></div></div>
-          <div class="chat" data-chat>
-            <div class="msg user" data-at="0">Weekend in Lisbon, Fri–Sun. Under $400 round trip.</div>
-            <div class="msg ai typing" data-at="1" data-typing><i></i><i></i><i></i></div>
-            <div class="msg ai" data-at="2">Got you. Pulling three tiers — budget, balanced, and bougie.</div>
-            <div class="mcard" data-at="3"><span class="tag">Budget</span><div class="big">$312</div><div class="fine">JFK → LIS · Fri 7:40 AM · 1 stop · TAP</div></div>
-            <div class="mcard" data-at="4"><span class="tag">Balanced</span><div class="big">$548</div><div class="fine">JFK → LIS · Fri 9:15 PM · nonstop · United</div></div>
+          <div class="statusbar"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" fill="none" opacity=".4"/><rect x="2" y="2" width="16" height="8" rx="2" fill="currentColor"/><path d="M23 4v4c1-.3 1.6-1 1.6-2S24 4.3 23 4z" fill="currentColor" opacity=".4"/></svg></span></div>
+          <div class="fstack">
+            <div class="fpanel" style="--fac:var(--berry)">
+              <div class="appbar"><div class="av" style="background:var(--berry)">S.</div><div class="t"><b>Lifestyle agent</b><small>Playlists · Spotify</small></div></div>
+              <div class="fbody">
+                <div class="fbub">Make me a gym playlist — upbeat, no skips.</div>
+                <div class="fcard">
+                  <div class="tag"><span>Your tracks · Spotify</span><span class="r">9 tracks</span></div>
+                  <b>Upbeat Vibes</b>
+                  <div class="fine">Tap any song to play</div>
+                  <div class="trow" style="margin-top:8px"><span class="n">1</span><span class="tt">Gasoline<small>Nic D</small></span><span class="play">Play</span></div>
+                  <div class="trow"><span class="n">2</span><span class="tt">Smooth<small>Connor Price</small></span><span class="play">Play</span></div>
+                  <div class="trow"><span class="n">3</span><span class="tt">Upbeat Pop<small>SZAudio</small></span><span class="play">Play</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="fpanel" style="--fac:var(--life)">
+              <div class="appbar"><div class="av" style="background:var(--life)">S.</div><div class="t"><b>Lifestyle agent</b><small>Reservations · Tonight</small></div></div>
+              <div class="fbody">
+                <div class="fbub">Book dinner for two near me tonight, around 8.</div>
+                <div class="fcard">
+                  <div class="tag"><span>Reservation · Held</span><span class="r">0.4 mi</span></div>
+                  <b>Lilia · 8:00 PM</b>
+                  <div class="fine">Table for two — confirmation on your calendar</div>
+                </div>
+                <div class="fcard">
+                  <div class="tag"><span>Also open</span></div>
+                  <div class="fine" style="margin-top:6px">Misi · 8:15 PM &nbsp;·&nbsp; Rule of Thirds · 8:30 PM</div>
+                </div>
+              </div>
+            </div>
+            <div class="fpanel" style="--fac:var(--travel)">
+              <div class="appbar"><div class="av" style="background:var(--travel)">S.</div><div class="t"><b>Travel agent</b><small>Hotels · Vibe-matched</small></div></div>
+              <div class="fbody">
+                <div class="fbub">Quiet hotel in Lisbon, near Alfama.</div>
+                <div class="fcard">
+                  <div class="tag"><span>Hotel · Top pick</span><span class="r">2 nights</span></div>
+                  <b>Memmo Alfama</b>
+                  <div class="fine">★ 4.7 · rooftop pool over the rooftops · booking ready</div>
+                </div>
+                <div class="fcard">
+                  <div class="tag"><span>Runner-up</span></div>
+                  <div class="fine" style="margin-top:6px">Santiago de Alfama · ★ 4.6 · steps from the tram</div>
+                </div>
+              </div>
+            </div>
+            <div class="fpanel" style="--fac:var(--travel)">
+              <div class="appbar"><div class="av" style="background:var(--travel)">S.</div><div class="t"><b>Travel agent</b><small>Flights · Three tiers</small></div></div>
+              <div class="fbody">
+                <div class="fbub">Weekend in Lisbon, Fri–Sun. Under $400 round trip.</div>
+                <div class="fcard">
+                  <div class="tag"><span>Budget</span><span class="r">1 stop · TAP</span></div>
+                  <b>$312</b>
+                  <div class="fine">JFK → LIS · Fri 7:40 AM</div>
+                </div>
+                <div class="fcard">
+                  <div class="tag"><span>Balanced</span><span class="r">Nonstop · United</span></div>
+                  <b>$548</b>
+                  <div class="fine">JFK → LIS · Fri 9:15 PM</div>
+                </div>
+              </div>
+            </div>
+            <div class="fpanel" style="--fac:var(--style)">
+              <div class="appbar"><div class="av" style="background:var(--style)">S.</div><div class="t"><b>Style agent</b><small>Color · From a selfie</small></div></div>
+              <div class="fbody">
+                <div class="fbub">What's my color season?</div>
+                <div class="fcard">
+                  <div class="tag"><span>Palette match</span><span class="r">Warm</span></div>
+                  <b>True Spring</b>
+                  <div class="fine">Golden and fresh — peachy corals, warm reds</div>
+                  <div class="strip"><i style="background:#F9A26C"></i><i style="background:#F0625D"></i><i style="background:#F08A93"></i><i style="background:#F5766B"></i><i style="background:#E8503C"></i><i style="background:#FBC39B"></i></div>
+                </div>
+                <div class="fcard">
+                  <div class="tag"><span>Saved</span></div>
+                  <div class="fine" style="margin-top:6px">33 shades in your wardrobe — shopping filters on</div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="inputbar">Ask Staitmint anything… <span class="up">↑</span></div>
           <div class="homebar"></div>
         </div>
+      </div>
+      <div class="flabels" aria-label="Feature showcase">
+        <span>Playlists</span><span>Tables</span><span>Hotels</span><span>Flights</span><span>Colors</span>
       </div>
     </div>
   </div>
@@ -653,8 +760,8 @@
 <!-- ============ MARQUEE ============ -->
 <div class="marquee" aria-hidden="true">
   <div class="track">
-    <span>handled.<i></i>wheels up<i></i>the 47 tabs<i></i>done early<i></i>she's got you<i></i>life admin, off your plate<i></i>the Sunday reset<i></i>steal my spot<i></i></span>
-    <span>handled.<i></i>wheels up<i></i>the 47 tabs<i></i>done early<i></i>she's got you<i></i>life admin, off your plate<i></i>the Sunday reset<i></i>steal my spot<i></i></span>
+    <span>your actual colors<i></i>flights in three tiers<i></i>the table's held<i></i>hotels that match your vibe<i></i>playlists that get you<i></i>she remembers<i></i>one chat, zero tabs<i></i>booked before you land<i></i></span>
+    <span>your actual colors<i></i>flights in three tiers<i></i>the table's held<i></i>hotels that match your vibe<i></i>playlists that get you<i></i>she remembers<i></i>one chat, zero tabs<i></i>booked before you land<i></i></span>
   </div>
 </div>
 
@@ -825,10 +932,10 @@
       <div>
         <div class="agent-no">№ 04 · Lifestyle agent</div>
         <h2>The glue that holds <em>it all together.</em></h2>
-        <p class="agent-body">Restaurant reservations, reminders, the small stuff that holds a week together. She knows where you are — so "near me" actually means near you, and the table's booked before it's gone. She remembers so you don't have to.</p>
+        <p class="agent-body">Restaurant reservations, custom playlists synced to your Spotify, reminders — the small stuff that holds a week together. She knows where you are — so "near me" actually means near you, and the table's booked before it's gone. She remembers so you don't have to.</p>
         <div class="prompts">
           <div class="prompt" data-reveal><span class="k">A</span><div><b>"Book dinner for two near me tonight, around 8."</b><p>Three spots within a mile. Table held the moment you say yes.</p></div></div>
-          <div class="prompt" data-reveal data-delay="90"><span class="k">B</span><div><b>"Birthday gift for my sister — she likes ceramics and slow mornings."</b><p>Three picks, three price points. With the links.</p></div></div>
+          <div class="prompt" data-reveal data-delay="90"><span class="k">B</span><div><b>"Make me a playlist for the drive up — upbeat, no skips."</b><p>Nine tracks, saved to your Spotify. Tap to play.</p></div></div>
           <div class="prompt" data-reveal data-delay="180"><span class="k">C</span><div><b>"Remind me to call mom Sunday before noon."</b><p>Set. She'll nudge you at 11. Once. Not five times.</p></div></div>
         </div>
         <a class="pillar-cta" href="#download">Hand it off <span aria-hidden="true">→</span></a>
@@ -1089,6 +1196,30 @@
     window.addEventListener('scroll', pb, {passive:true}); pb();
   } else {
     requestAnimationFrame(frame);
+  }
+
+  // Hero feature carousel
+  var fpanels = [].slice.call(document.querySelectorAll('.fpanel'));
+  var flabels = [].slice.call(document.querySelectorAll('.flabels span'));
+  var hsats = [].slice.call(document.querySelectorAll('.hsat'));
+  var fi = 0, ftimer = null;
+  function setF(i) {
+    fi = i;
+    fpanels.forEach(function (p, j) { p.classList.toggle('act', j === i); });
+    flabels.forEach(function (l, j) { l.classList.toggle('act', j === i); });
+    hsats.forEach(function (s) { s.classList.toggle('on', +s.getAttribute('data-f') === i); });
+  }
+  function armF() { if (!reduced) ftimer = setInterval(function () { setF((fi + 1) % fpanels.length); }, 3400); }
+  if (fpanels.length) {
+    setF(0); armF();
+    var heroStage = document.querySelector('.hero .phone-stage');
+    if (heroStage && !reduced) {
+      heroStage.addEventListener('mouseenter', function () { clearInterval(ftimer); });
+      heroStage.addEventListener('mouseleave', function () { clearInterval(ftimer); armF(); });
+    }
+    flabels.forEach(function (l, j) {
+      l.addEventListener('click', function () { clearInterval(ftimer); setF(j); armF(); });
+    });
   }
 
   // Waitlist form success state (the real POST + analytics live in the head
