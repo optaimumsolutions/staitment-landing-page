@@ -472,6 +472,51 @@
     .chip.c2{bottom:13%;right:-3%}
     @media(max-width:1060px){.chip{display:none}}
 
+    /* ---------- screen-pack satellites (UI lifted out of the app) ---------- */
+    .sat{position:absolute;background:#fff;border-radius:18px;box-shadow:0 30px 70px -26px rgba(26,24,21,.4);border:1px solid rgba(26,24,21,.06);z-index:22;padding:16px 18px;width:230px;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+    .sat .tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;display:flex;justify-content:space-between;margin-bottom:8px}
+    .sat .tag .r{color:#B9B3A6}
+    .sat b{font-family:var(--display);font-weight:700;font-size:17px;color:#1A1815;letter-spacing:-.01em}
+    .sat .fine{font-size:11.5px;color:#6E675E;margin-top:3px}
+    .sat .strip{display:flex;height:10px;border-radius:99px;overflow:hidden;margin-top:10px}
+    .sat .strip i{flex:1}
+    .sat .row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid rgba(26,24,21,.06)}
+    .sat .row:first-of-type{border-top:0}
+    .sat .row .barr{width:3px;height:26px;border-radius:99px;flex:none}
+    .sat .row .tm{font-family:var(--mono);font-size:10.5px;color:#1A1815}
+    .sat .row .tt{font-family:var(--display);font-weight:600;font-size:12.5px;line-height:1.25}
+    .sat .fl-times{display:flex;align-items:baseline;gap:8px;font-family:var(--display);font-weight:700;font-size:17px;margin-top:2px}
+    .sat .fl-times small{font-family:var(--mono);font-size:9px;color:#B9B3A6;letter-spacing:.08em}
+    .sat .fl-times .dash{flex:1;border-top:1.5px solid rgba(26,24,21,.12);transform:translateY(-4px)}
+    .sat .kgtrack{height:4px;border-radius:99px;background:#EFECE4;margin:10px 0 4px;overflow:hidden}
+    .sat .kgfill{display:block;height:100%;width:0;background:var(--fitness);border-radius:99px;transition:width 1.4s var(--ease) .3s}
+    .sat.in .kgfill{width:60%}
+    .reduced .sat .kgfill{width:60%;transition:none}
+    .sat .chiprow{display:flex;gap:6px;margin-top:9px}
+    .sat .chiprow span{font-family:var(--mono);font-size:9.5px;background:#F3F0E9;border-radius:7px;padding:5px 8px;color:#5E594E}
+    .sat.s-tl{top:8%;left:-6%}
+    .sat.s-br{bottom:9%;right:-7%}
+    [data-reveal].pop{transform:translateY(26px) scale(.85)}
+    [data-reveal].pop.in{transform:none}
+    /* editorial photo cards */
+    .photo-card{position:absolute;z-index:2;width:210px;background:#fff;padding:8px 8px 12px;border-radius:16px;box-shadow:0 24px 60px -24px rgba(26,24,21,.35)}
+    .photo-card img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px}
+    .photo-card .cap{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);margin-top:9px;text-align:center}
+    .photo-card.p-l{left:-12%;top:38%}
+    .agent-grid.flip .photo-card.p-l{left:-15%;top:34%}
+    .agent-grid.flip .sat.s-tl{left:auto;right:-4%;top:9%}
+    .phone{z-index:5}
+    .agent-section .phone{animation:bob 7s ease-in-out infinite}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+    .reduced .agent-section .phone{animation:none}
+    @media(max-width:1060px){.sat{display:none}.photo-card{display:none}}
+    /* proof portrait */
+    .proof .cols{display:grid;grid-template-columns:1.35fr .65fr;gap:60px;align-items:center}
+    .proof .photo-card.static{position:relative;left:auto;right:auto;top:auto;width:min(300px,80%);margin:0 auto;transform:rotate(3deg)}
+    .proof .photo-card.static .cap{color:#E7A9C0}
+    .proof .photo-card.static{background:#221F1B;box-shadow:0 40px 90px -30px rgba(0,0,0,.6)}
+    @media(max-width:960px){.proof .cols{grid-template-columns:1fr}.proof .photo-card.static{display:block}}
+
     /* ---------- how ---------- */
     .how{padding:160px 0}
     .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:70px}
@@ -648,7 +693,13 @@
         <a class="pillar-cta" href="#download">Find your colors <span aria-hidden="true">→</span></a>
       </div>
       <div class="phone-stage">
-        <div class="chip c1" data-parallax="-0.25"><b>True Spring</b><span class="mono">Palette match · Warm</span></div>
+        <div class="photo-card p-l" data-parallax="-0.08" data-rot="-5"><img src="/assets/editorial/wardrobe.webp" alt="Editorial photograph of a curated capsule wardrobe" loading="lazy"><div class="cap">The wardrobe, made sense of</div></div>
+        <div class="sat s-tl pop" data-parallax="-0.4" data-rot="-2" data-reveal>
+          <div class="tag"><span>Palette match</span><span class="r">Warm</span></div>
+          <b>True Spring</b>
+          <div class="fine">Golden and fresh — your actual colors.</div>
+          <div class="strip"><i style="background:#F9A26C"></i><i style="background:#F0625D"></i><i style="background:#F08A93"></i><i style="background:#F5766B"></i><i style="background:#E8503C"></i><i style="background:#FBC39B"></i></div>
+        </div>
         <div class="chip c2" data-parallax="-0.15"><b>33 shades</b><span class="mono">Saved to wardrobe</span></div>
         <div class="phone">
           <div class="screen light">
@@ -689,7 +740,12 @@
         <a class="pillar-cta" href="#download">Book the trip <span aria-hidden="true">→</span></a>
       </div>
       <div class="phone-stage">
-        <div class="chip c1" data-parallax="-0.25"><b>$121</b><span class="mono">MIA → LGA · Best fare</span></div>
+        <div class="photo-card p-l" data-parallax="-0.08" data-rot="-4"><img src="/assets/editorial/lisbon.webp" alt="Golden hour over Lisbon rooftops" loading="lazy"><div class="cap">Lisbon, 6:40 PM</div></div>
+        <div class="sat s-tl pop" data-parallax="-0.4" data-rot="-2" data-reveal style="border:1.5px solid var(--travel)">
+          <div class="tag"><span>Best · Frontier F9 4405</span><span class="r">$121</span></div>
+          <div class="fl-times">5:26 PM <small>MIA</small><span class="dash"></span>11:14 PM</div>
+          <div class="fine">LGA · 5h 48m · 1 stop · booking link ready</div>
+        </div>
         <div class="chip c2" data-parallax="-0.15"><b>2h 59m</b><span class="mono">Nonstop · American</span></div>
         <div class="phone">
           <div class="screen light">
@@ -730,7 +786,14 @@
         <a class="pillar-cta" href="#download">Steal my spot <span aria-hidden="true">→</span></a>
       </div>
       <div class="phone-stage">
-        <div class="chip c1" data-parallax="-0.25"><b>She remembers</b><span class="mono">HIIT · every week</span></div>
+        <div class="photo-card p-l" data-parallax="-0.08" data-rot="-5"><img src="/assets/editorial/pilates.webp" alt="Reformer pilates studio in morning light" loading="lazy"><div class="cap">Saturday, 8:30 AM</div></div>
+        <div class="sat s-tl pop" data-parallax="-0.4" data-rot="-2" data-reveal>
+          <div class="tag"><span>Fitness</span><span class="r">Behavior</span></div>
+          <b>Attends HIIT classes regularly</b>
+          <div class="kgtrack"><span class="kgfill"></span></div>
+          <div class="fine" style="text-align:right;font-family:var(--mono);font-size:9.5px">60%</div>
+          <div class="chiprow"><span>hiit</span><span>fitness</span><span>classes</span></div>
+        </div>
         <div class="chip c2" data-parallax="-0.15"><b>Yours</b><span class="mono">Edit or delete anytime</span></div>
         <div class="phone">
           <div class="screen light">
@@ -771,8 +834,13 @@
         <a class="pillar-cta" href="#download">Hand it off <span aria-hidden="true">→</span></a>
       </div>
       <div class="phone-stage">
-        <div class="chip c1" data-parallax="-0.25"><b>09:30</b><span class="mono">Mercedes service · set</span></div>
-        <div class="chip c2" data-parallax="-0.15"><b>21:00</b><span class="mono">Flight MIA → LIS</span></div>
+        <div class="photo-card p-l" data-parallax="-0.08" data-rot="-4"><img src="/assets/editorial/dinner.webp" alt="Intimate dinner table at golden hour" loading="lazy"><div class="cap">Table for two, 8 PM</div></div>
+        <div class="sat s-tl pop" data-parallax="-0.4" data-rot="-2" data-reveal>
+          <div class="tag"><span>18 · 06 · Thu</span><span class="r">Today</span></div>
+          <div class="row"><span class="barr" style="background:var(--life)"></span><span class="tm">09:30</span><span class="tt">Mercedes service appt</span></div>
+          <div class="row"><span class="barr" style="background:var(--fitness)"></span><span class="tm">18:00</span><span class="tt">Vinyasa flow — Modo</span></div>
+          <div class="row"><span class="barr" style="background:var(--travel)"></span><span class="tm">21:00</span><span class="tt">Flight MIA → LIS</span></div>
+        </div>
         <div class="phone">
           <div class="screen light">
             <div class="island"></div>
@@ -812,8 +880,13 @@
 <section class="proof">
   <div class="ghost-s" aria-hidden="true">S.</div>
   <div class="wrap">
-    <blockquote class="quote" data-reveal>"It's like having a friend who's <em>a stylist, a travel agent, and a personal trainer</em> — all in one chat, all the time."</blockquote>
-    <div class="attr" data-reveal data-delay="120">— Early beta tester · Brooklyn</div>
+    <div class="cols">
+      <div>
+        <blockquote class="quote" data-reveal>"It's like having a friend who's <em>a stylist, a travel agent, and a personal trainer</em> — all in one chat, all the time."</blockquote>
+        <div class="attr" data-reveal data-delay="120">— Early beta tester · Brooklyn</div>
+      </div>
+      <div class="photo-card static" data-reveal data-delay="180"><img src="/assets/editorial/her.webp" alt="Woman in a cream blazer glancing at her phone in morning light" loading="lazy"><div class="cap">She's got you</div></div>
+    </div>
     <div class="stats">
       <div class="stat" data-reveal><b data-count="4">0</b><span>Expert agents, one chat</span></div>
       <div class="stat" data-reveal data-delay="120"><b><span data-count="30">0</span><span class="unit">s</span></b><span>From selfie to color season</span></div>
@@ -913,6 +986,10 @@
           var d = e.target.getAttribute('data-delay');
           if (d) e.target.style.transitionDelay = d + 'ms';
           e.target.classList.add('in');
+          if (e.target.hasAttribute('data-parallax')) {
+            // hand the transform over to the parallax engine after the entrance
+            setTimeout(function (el) { el.style.transitionProperty = 'opacity'; }.bind(null, e.target), 1000 + (d ? +d : 0));
+          }
           io.unobserve(e.target);
         }
       });
@@ -972,9 +1049,11 @@
     if (!reduced) {
       var vh = window.innerHeight;
       parallaxEls.forEach(function (el) {
+        if (el.hasAttribute('data-reveal') && !el.classList.contains('in')) return;
         var r = el.getBoundingClientRect();
         var mid = r.top + r.height / 2 - vh / 2;
-        el.style.transform = 'translateY(' + (mid * parseFloat(el.getAttribute('data-parallax'))).toFixed(1) + 'px)';
+        var rot = el.getAttribute('data-rot');
+        el.style.transform = 'translateY(' + (mid * parseFloat(el.getAttribute('data-parallax'))).toFixed(1) + 'px)' + (rot ? ' rotate(' + rot + 'deg)' : '');
       });
       if (heroPhone) {
         var p = Math.min(window.scrollY / (vh * 0.9), 1);
