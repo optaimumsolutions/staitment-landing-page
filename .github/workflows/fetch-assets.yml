@@ -1,0 +1,45 @@
+name: Fetch remote assets
+
+# Downloads files listed in assets/fetch-manifest.json (url -> repo path)
+# and commits them to the branch the workflow runs on. Used to bring
+# generated media (e.g. Higgsfield renders) into the repo from a sandbox
+# that cannot reach the media CDN directly.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - assets/fetch-manifest.json
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download manifest entries
+        run: |
+          set -euo pipefail
+          test -f assets/fetch-manifest.json
+          count=$(jq length assets/fetch-manifest.json)
+          for i in $(seq 0 $((count - 1))); do
+            url=$(jq -r ".[$i].url" assets/fetch-manifest.json)
+            path=$(jq -r ".[$i].path" assets/fetch-manifest.json)
+            case "$path" in
+              assets/*) ;;
+              *) echo "refusing path outside assets/: $path"; exit 1 ;;
+            esac
+            mkdir -p "$(dirname "$path")"
+            curl -fsSL --retry 3 -o "$path" "$url"
+            echo "fetched $path ($(stat -c%s "$path") bytes)"
+          done
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/
+          git diff --cached --quiet && echo "nothing new" && exit 0
+          git commit -m "Fetch generated media assets (automated)"
+          git push
