@@ -330,6 +330,7 @@
     .btn.ghost:hover{border-color:var(--ink);box-shadow:none}
     nav .btn{padding:11px 22px;font-size:14px}
     @media(max-width:900px){nav .links a:not(.btn){display:none}}
+    @media(max-width:960px){nav.scrolled{background:rgba(250,248,244,.96);backdrop-filter:none;-webkit-backdrop-filter:none}}
 
     /* ---------- hero ---------- */
     .hero{position:relative;display:flex;align-items:center;padding:128px 0 64px;overflow:hidden}
@@ -363,7 +364,7 @@
     .phone{position:relative;width:min(320px,78vw);aspect-ratio:9/19.3;background:#0E0D0C;border-radius:52px;padding:9px;box-shadow:0 40px 80px -30px rgba(26,24,21,.45),0 0 0 1px rgba(255,255,255,.08) inset;transform-style:preserve-3d}
     .hero .phone{transform:rotateY(-9deg) rotateX(2deg) rotate(2.5deg)}
     .reduced .hero .phone{transform:none}
-    .screen{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:#141210;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif}
+    .screen{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:#141210;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;contain:layout paint}
     .screen.light{background:#FBF9F6}
     .shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:5}
     .island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:34%;height:24px;background:#000;border-radius:999px;z-index:9}
@@ -639,18 +640,35 @@
     footer .base{display:flex;justify-content:space-between;margin-top:60px;padding-top:26px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-2)}
 
     /* ---------- responsive ---------- */
+    html,body{overflow-x:clip}
     @media(max-width:960px){
       .hero .grid,.problem .grid,.agent-grid,.agent-grid.flip{grid-template-columns:1fr}
       .agent-grid.flip .phone-stage{order:0}
       .phone-stage{margin-top:50px}
       .agent-section{min-height:auto}
       .agent-sticky{position:static;min-height:auto;padding:90px 0}
-      .steps{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr;margin-top:44px}
       .faq .cols{grid-template-columns:1fr;gap:40px}
       footer .top{grid-template-columns:1fr 1fr}
       .stats{grid-template-columns:1fr;gap:40px}
       .hero{padding-top:120px}
       .waitlist{flex-direction:column}
+      .problem{padding:96px 0}
+      .how,.faq{padding:96px 0}
+      .proof{padding:96px 0}
+      .final{padding:110px 0 90px}
+      .trust{flex-wrap:wrap;row-gap:10px}
+      .trust span{white-space:nowrap}
+    }
+    @media(max-width:700px){
+      .kicker,.sec-kicker{font-size:10px;letter-spacing:.12em}
+      .kicker::before,.sec-kicker::before{display:none}
+      .flabels{flex-wrap:wrap;gap:12px 16px;padding:0 12px}
+      .step{padding:30px 22px}
+      .step b{padding-right:52px}
+      .agent-body{font-size:16px}
+      .hero p.sub{font-size:16.5px}
+      h2 br{display:none}
     }
   </style>
 </head>
@@ -1149,8 +1167,9 @@
           if (d) e.target.style.transitionDelay = d + 'ms';
           e.target.classList.add('in');
           if (e.target.hasAttribute('data-parallax')) {
+            markGeoDirty();
             // hand the transform over to the parallax engine after the entrance
-            setTimeout(function (el) { el.style.transitionProperty = 'opacity'; }.bind(null, e.target), 1000 + (d ? +d : 0));
+            setTimeout(function (el) { el.style.transitionProperty = 'opacity'; markGeoDirty(); }.bind(null, e.target), 1000 + (d ? +d : 0));
           }
           io.unobserve(e.target);
         }
@@ -1203,45 +1222,61 @@
     });
   });
 
-  var lastY = -1, lastVH = -1, lastMax = -1;
+  // Geometry cache: all positions are measured in one batch (on load, resize, reveal,
+  // or content growth), so the per-frame path never reads layout at all.
+  var mobile = window.matchMedia('(max-width:960px)');
+  var geo = { max: 1, vh: 1, items: [], scrubs: [] };
+  var geoDirty = true;
+  function markGeoDirty() { geoDirty = true; }
+  function measure() {
+    var y = window.scrollY;
+    geo.vh = window.innerHeight;
+    geo.max = document.documentElement.scrollHeight - geo.vh;
+    geo.items = [];
+    if (!mobile.matches) parallaxEls.forEach(function (el) {
+      if (el.hasAttribute('data-reveal') && !el.classList.contains('in')) return; // re-measured when it reveals
+      var r = el.getBoundingClientRect();
+      // subtract the offset we last applied so the measurement is transform-free
+      geo.items.push({ el: el, f: parseFloat(el.getAttribute('data-parallax')), rot: el.getAttribute('data-rot'),
+                       docMid: r.top + y - (el._py || 0) + r.height / 2 });
+    });
+    geo.scrubs = chats.filter(function (c) { return !c.hero; }).map(function (c) {
+      var r = c.section.getBoundingClientRect();
+      return { c: c, top: r.top + y, h: r.height };
+    });
+  }
+  window.addEventListener('resize', markGeoDirty);
+  window.addEventListener('load', markGeoDirty);
+  if ('ResizeObserver' in window) new ResizeObserver(markGeoDirty).observe(document.body);
+  mobile.addEventListener ? mobile.addEventListener('change', markGeoDirty) : mobile.addListener(markGeoDirty);
+
+  var lastY = -1;
   function frame() {
-    var y = window.scrollY, vh = window.innerHeight;
-    var max = document.documentElement.scrollHeight - vh;
-    // everything below is a pure function of scroll position — skip idle frames
-    if (y === lastY && vh === lastVH && max === lastMax) { requestAnimationFrame(frame); return; }
-    lastY = y; lastVH = vh; lastMax = max;
-    bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+    if (geoDirty) { geoDirty = false; measure(); lastY = -1; }
+    var y = window.scrollY;
+    if (y === lastY) { requestAnimationFrame(frame); return; } // idle frames cost nothing
+    lastY = y;
+    bar.style.transform = 'scaleX(' + Math.min(geo.max > 0 ? y / geo.max : 0, 1) + ')';
 
     if (!reduced) {
-      // read pass — measure everything before touching styles, so layout runs once
-      var moves = [];
-      parallaxEls.forEach(function (el) {
-        if (el.hasAttribute('data-reveal') && !el.classList.contains('in')) return;
-        var r = el.getBoundingClientRect();
-        // subtract the offset we applied last frame: the parallax must not feed on itself
-        var mid = r.top - (el._py || 0) + r.height / 2 - vh / 2;
-        moves.push([el, mid * parseFloat(el.getAttribute('data-parallax'))]);
-      });
-      var scrubs = chats.filter(function (c) { return !c.hero; }).map(function (c) {
-        var r = c.section.getBoundingClientRect();
-        var total = r.height - vh;
-        var prog = total > 60
-          ? Math.min(Math.max(-r.top / total, 0), 1)              // sticky scrub
-          : Math.min(Math.max((vh - r.top) / (vh * 0.9), 0), 1);  // plain in-view progress
-        return [c, prog];
-      });
-      // write pass
-      moves.forEach(function (mv) {
-        var el = mv[0], py = mv[1], rot = el.getAttribute('data-rot');
-        el._py = py;
-        el.style.transform = 'translateY(' + py.toFixed(1) + 'px)' + (rot ? ' rotate(' + rot + 'deg)' : '');
-      });
-      if (heroPhone) {
-        var p = Math.min(y / (vh * 0.9), 1);
-        heroPhone.style.transform = 'rotateY(' + (-9 + 9 * p) + 'deg) rotateX(' + (2 - 2 * p) + 'deg) rotate(' + (2.5 - 2.5 * p) + 'deg) translateY(' + (p * 30) + 'px)';
+      var vh = geo.vh;
+      if (!mobile.matches) {
+        geo.items.forEach(function (it) {
+          var py = (it.docMid - y - vh / 2) * it.f;
+          it.el._py = py;
+          it.el.style.transform = 'translateY(' + py.toFixed(1) + 'px)' + (it.rot ? ' rotate(' + it.rot + 'deg)' : '');
+        });
+        if (heroPhone) {
+          var p = Math.min(y / (vh * 0.9), 1);
+          heroPhone.style.transform = 'rotateY(' + (-9 + 9 * p) + 'deg) rotateX(' + (2 - 2 * p) + 'deg) rotate(' + (2.5 - 2.5 * p) + 'deg) translateY(' + (p * 30) + 'px)';
+        }
       }
-      scrubs.forEach(function (s) {
-        var c = s[0], prog = s[1], steps = c.msgs.length;
+      geo.scrubs.forEach(function (s) {
+        var c = s.c, total = s.h - vh, top = s.top - y;
+        var prog = total > 60
+          ? Math.min(Math.max(-top / total, 0), 1)              // sticky scrub
+          : Math.min(Math.max((vh - top) / (vh * 0.9), 0), 1);  // plain in-view progress
+        var steps = c.msgs.length;
         c.msgs.forEach(function (m, i) {
           var at = 0.12 + (i / steps) * 0.75;
           var on = prog >= at;
