@@ -367,6 +367,10 @@
     .screen{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:#141210;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;contain:layout paint}
     .screen.light{background:#FBF9F6}
     .shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:5}
+    /* never surface the browser's play glyph — a blocked video falls back to its still */
+    video.shot::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
+    video.shot::-webkit-media-controls{display:none!important}
+    video.shot.noplay{display:none}
     .island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:34%;height:24px;background:#000;border-radius:999px;z-index:9}
     .statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font-size:13px;font-weight:600;color:#fff;z-index:8}
     .light .statusbar{color:#1A1815}
@@ -1160,7 +1164,7 @@
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduced) {
     document.documentElement.classList.add('reduced'); document.body.classList.add('reduced');
-    document.querySelectorAll('video.shot').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
+    document.querySelectorAll('video.shot').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); v.classList.add('noplay'); });
   }
 
   // Nav shrink
@@ -1317,7 +1321,7 @@
     var vio = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         var v = e.target;
-        if (e.isIntersecting) { if (v.paused) { var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); } }
+        if (e.isIntersecting) { if (v.paused) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () { v.classList.add('noplay'); }); } }
         else if (!v.paused) v.pause();
       });
     }, {rootMargin: '25% 0px'});
