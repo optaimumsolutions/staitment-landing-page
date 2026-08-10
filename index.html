@@ -304,7 +304,8 @@
     .serif{font-family:var(--serif);font-style:italic}
 
     /* ---------- scroll progress ---------- */
-    #progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--berry);z-index:200}
+    #progress{position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:0 0;background:var(--berry);z-index:200}
+    [data-parallax],#hero-phone{will-change:transform}
 
     /* ---------- reveal engine ---------- */
     [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -1202,32 +1203,45 @@
     });
   });
 
+  var lastY = -1, lastVH = -1, lastMax = -1;
   function frame() {
-    var doc = document.documentElement;
-    var max = doc.scrollHeight - window.innerHeight;
-    bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+    var y = window.scrollY, vh = window.innerHeight;
+    var max = document.documentElement.scrollHeight - vh;
+    // everything below is a pure function of scroll position — skip idle frames
+    if (y === lastY && vh === lastVH && max === lastMax) { requestAnimationFrame(frame); return; }
+    lastY = y; lastVH = vh; lastMax = max;
+    bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
 
     if (!reduced) {
-      var vh = window.innerHeight;
+      // read pass — measure everything before touching styles, so layout runs once
+      var moves = [];
       parallaxEls.forEach(function (el) {
         if (el.hasAttribute('data-reveal') && !el.classList.contains('in')) return;
         var r = el.getBoundingClientRect();
-        var mid = r.top + r.height / 2 - vh / 2;
-        var rot = el.getAttribute('data-rot');
-        el.style.transform = 'translateY(' + (mid * parseFloat(el.getAttribute('data-parallax'))).toFixed(1) + 'px)' + (rot ? ' rotate(' + rot + 'deg)' : '');
+        // subtract the offset we applied last frame: the parallax must not feed on itself
+        var mid = r.top - (el._py || 0) + r.height / 2 - vh / 2;
+        moves.push([el, mid * parseFloat(el.getAttribute('data-parallax'))]);
       });
-      if (heroPhone) {
-        var p = Math.min(window.scrollY / (vh * 0.9), 1);
-        heroPhone.style.transform = 'rotateY(' + (-9 + 9 * p) + 'deg) rotateX(' + (2 - 2 * p) + 'deg) rotate(' + (2.5 - 2.5 * p) + 'deg) translateY(' + (p * 30) + 'px)';
-      }
-      chats.forEach(function (c) {
-        if (c.hero) return;
+      var scrubs = chats.filter(function (c) { return !c.hero; }).map(function (c) {
         var r = c.section.getBoundingClientRect();
         var total = r.height - vh;
         var prog = total > 60
           ? Math.min(Math.max(-r.top / total, 0), 1)              // sticky scrub
           : Math.min(Math.max((vh - r.top) / (vh * 0.9), 0), 1);  // plain in-view progress
-        var steps = c.msgs.length;
+        return [c, prog];
+      });
+      // write pass
+      moves.forEach(function (mv) {
+        var el = mv[0], py = mv[1], rot = el.getAttribute('data-rot');
+        el._py = py;
+        el.style.transform = 'translateY(' + py.toFixed(1) + 'px)' + (rot ? ' rotate(' + rot + 'deg)' : '');
+      });
+      if (heroPhone) {
+        var p = Math.min(y / (vh * 0.9), 1);
+        heroPhone.style.transform = 'rotateY(' + (-9 + 9 * p) + 'deg) rotateX(' + (2 - 2 * p) + 'deg) rotate(' + (2.5 - 2.5 * p) + 'deg) translateY(' + (p * 30) + 'px)';
+      }
+      scrubs.forEach(function (s) {
+        var c = s[0], prog = s[1], steps = c.msgs.length;
         c.msgs.forEach(function (m, i) {
           var at = 0.12 + (i / steps) * 0.75;
           var on = prog >= at;
@@ -1246,10 +1260,22 @@
   }
   if (reduced) {
     document.querySelectorAll('[data-at]').forEach(function (m) { if (!m.hasAttribute('data-typing')) m.classList.add('show'); });
-    function pb(){ var doc = document.documentElement, max = doc.scrollHeight - window.innerHeight; bar.style.width = (max>0?(window.scrollY/max)*100:0)+'%'; }
+    function pb(){ var doc = document.documentElement, max = doc.scrollHeight - window.innerHeight; bar.style.transform = 'scaleX(' + (max>0?window.scrollY/max:0) + ')'; }
     window.addEventListener('scroll', pb, {passive:true}); pb();
   } else {
     requestAnimationFrame(frame);
+  }
+
+  // Screen videos only decode while near the viewport
+  if (!reduced && 'IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { if (v.paused) { var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); } }
+        else if (!v.paused) v.pause();
+      });
+    }, {rootMargin: '25% 0px'});
+    document.querySelectorAll('video.shot').forEach(function (v) { vio.observe(v); });
   }
 
   // Hero feature carousel
