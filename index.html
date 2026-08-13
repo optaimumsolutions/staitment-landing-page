@@ -26,11 +26,16 @@
 
   <!-- Staitmint landing events — frozen taxonomy, names are an API contract
        (see marketing SDK packages/landing). All listeners attach to window/
-       document so they survive the bundler's documentElement.replaceWith. -->
+       document so they survive the bundler's documentElement.replaceWith.
+       GA4 + Plausible dual-write during the tracking-merge parallel run
+       (PRD Phase 3); GA4 drops only after 7 days of side-by-side counts. -->
   <script>
   (function () {
     var VARIANT = 'control'; // until the variant system ships
     var qs = new URLSearchParams(location.search);
+    // Queue stub so lp_view (fired before the Plausible script tag below in
+    // the head) still lands — identical to the base snippet's stub, idempotent.
+    window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments); };
     // TikTok mirrors the GA4 taxonomy 1:1. lp_email_capture is intentionally
     // absent here — it fires below with a shared event_id so the browser pixel
     // and the /api/waitlist server event (CAPI) deduplicate to one conversion.
@@ -39,6 +44,7 @@
       var p = { variant_id: VARIANT };
       if (params) for (var k in params) { if (params[k] != null) p[k] = params[k]; }
       gtag('event', name, p);
+      try { plausible(name, { props: p }); } catch (_) {}
       if (window.ttq && TT_MAP[name]) { try { ttq.track(TT_MAP[name], {}); } catch (_) {} }
     }
 
