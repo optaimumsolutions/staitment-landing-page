@@ -9,12 +9,17 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 // TikTok Events API (CAPI) — server-side CompleteRegistration. Never throws into
 // the handler. Dedupes against the browser pixel via the shared event_id.
 // Public pixel id may be committed; the access token must be a Vercel env var.
-const TIKTOK_PIXEL_ID = process.env.TIKTOK_PIXEL_ID || "D9KC0DJC77U1U8B4HI3G";
+const TIKTOK_PIXEL_ID = process.env.TIKTOK_PIXEL_ID || "DA46V3BC77UBCVGKTBLG";
 async function tiktokCapi(email, eventId, req) {
   const token = process.env.TIKTOK_ACCESS_TOKEN;
   if (!token) return; // not configured yet — the browser pixel still fires
   try {
     const ip = (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || undefined;
+    // Click/cookie match keys: ttclid rides the ad's landing URL (carried here in
+    // the same-origin referer), _ttp is the pixel's first-party cookie.
+    let ttclid;
+    try { ttclid = new URL(req.headers.referer).searchParams.get("ttclid") || undefined; } catch (_) {}
+    const ttp = ((req.headers.cookie || "").match(/(?:^|;\s*)_ttp=([^;]+)/) || [])[1];
     await fetch("https://business-api.tiktok.com/open_api/v1.3/event/track/", {
       method: "POST",
       headers: { "Access-Token": token, "Content-Type": "application/json" },
@@ -29,6 +34,8 @@ async function tiktokCapi(email, eventId, req) {
             email: crypto.createHash("sha256").update(email).digest("hex"),
             ip,
             user_agent: req.headers["user-agent"] || undefined,
+            ttclid,
+            ttp,
           },
           page: { url: req.headers.referer || undefined },
         }],
